@@ -9,6 +9,6 @@
 	<div class="panel-body">
 		<a data-url="/media/certificates/10e5b86b-fd5b-490a-9090-6e71270ed40f.jpg" data-title="Jee certificate" href="#" class="thumbnail certificate-link">
 			<img alt="Jee certificate" src="/media/certificates/10e5b86b-fd5b-490a-9090-6e71270ed40f-sm.jpg" class="img-responsive"> <span>Jee certificate</span>
-		</a> 
+		</a>
 	</div>
 </div>
