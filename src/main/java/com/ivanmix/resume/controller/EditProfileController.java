@@ -1,8 +1,12 @@
 package com.ivanmix.resume.controller;
 
+import com.ivanmix.resume.repository.storage.SkillCategoryRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -11,6 +15,8 @@ public class EditProfileController {
 
 	protected final Logger LOGGER = LoggerFactory.getLogger(getClass());
 
+	@Autowired
+	private SkillCategoryRepository skillCategoryRepository;
 
 	@RequestMapping(value="/edit", method=RequestMethod.GET)
 	public String getEditProfile(){
@@ -29,8 +35,10 @@ public class EditProfileController {
 	}
 
 	@RequestMapping(value="/edit/skills", method=RequestMethod.GET)
-	public String getEditSkills(){
+	public String getEditSkills(Model model){
 		LOGGER.debug("skills");
+		model.addAttribute("skillCategories", skillCategoryRepository.findAll(new Sort("id")));
+
 		return "edit/skills";
 	}
 	@RequestMapping(value="/edit/skills", method=RequestMethod.POST)
