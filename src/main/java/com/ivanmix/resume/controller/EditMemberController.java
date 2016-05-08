@@ -1,22 +1,29 @@
 package com.ivanmix.resume.controller;
 
+import com.ivanmix.resume.repository.storage.MemberRepository;
 import com.ivanmix.resume.repository.storage.SkillCategoryRepository;
+import com.ivanmix.resume.form.SkillForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-public class EditProfileController {
+public class EditMemberController {
 
 	protected final Logger LOGGER = LoggerFactory.getLogger(getClass());
 
 	@Autowired
 	private SkillCategoryRepository skillCategoryRepository;
+
+	@Autowired
+	private MemberRepository memberRepository;
 
 	@RequestMapping(value="/edit", method=RequestMethod.GET)
 	public String getEditProfile(){
@@ -33,18 +40,38 @@ public class EditProfileController {
 		LOGGER.debug("save contacts");
 		return "redirect:/";
 	}
-
+/*
 	@RequestMapping(value="/edit/skills", method=RequestMethod.GET)
 	public String getEditSkills(Model model){
 		LOGGER.debug("skills");
 		model.addAttribute("skillCategories", skillCategoryRepository.findAll(new Sort("id")));
-
 		return "edit/skills";
 	}
+
 	@RequestMapping(value="/edit/skills", method=RequestMethod.POST)
 	public String saveEditSkills(){
 		LOGGER.debug("save skills");
 		return "redirect:/";
+	}*/
+
+	@RequestMapping(value = "/edit/skills", method = RequestMethod.GET)
+	public String getEditTechSkills(Model model) {
+		model.addAttribute("skillForm", new SkillForm(memberRepository.findById(1L).getSkills()));
+		return gotoSkillsJSP(model);
+	}
+
+	@RequestMapping(value = "/edit/skills", method = RequestMethod.POST)
+	public String saveEditTechSkills(@ModelAttribute("skillForm") SkillForm form, BindingResult bindingResult, Model model) {
+		if (bindingResult.hasErrors()) {
+			return gotoSkillsJSP(model);
+		}
+				//TODO Update skills
+		return "redirect:/mike-ross";
+	}
+
+	private String gotoSkillsJSP(Model model){
+		model.addAttribute("skillCategories", skillCategoryRepository.findAll(new Sort("id")));
+		return "edit/skills";
 	}
 
 	@RequestMapping(value="/edit/practics", method=RequestMethod.GET)

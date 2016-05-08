@@ -31,6 +31,9 @@
     <!--    <mvc:resources mapping="/assets/**" location="classpath:/META-INF/resources/webjars/"/>-->
     <mvc:resources mapping="/static/**" location="/static/"/>
     <mvc:resources mapping="/media/**" location="/media/"/>
-    <mvc:resources mapping="/favicon.ico" location="/favicon.ico"/>
+    <mvc:resources mapping="/favicon.ico" location="/static/img/favicon.ico"/>
+
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
 
 </beans>

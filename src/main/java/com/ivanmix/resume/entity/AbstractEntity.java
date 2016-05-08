@@ -5,11 +5,7 @@ import com.ivanmix.resume.model.AbstractModel;
 
 import java.io.Serializable;
 
-/**
- *
- * @author devstudy
- * @see http://devstudy.net
- */
+
 public abstract class AbstractEntity<T> extends AbstractModel implements Serializable {
     private static final long serialVersionUID = 8982713310863621560L;
 

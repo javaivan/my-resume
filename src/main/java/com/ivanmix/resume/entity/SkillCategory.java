@@ -5,11 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-/**
- *
- * @author devstudy
- * @see http://devstudy.net
- */
 @Entity
 @Table(name="skill_category")
 public class SkillCategory extends AbstractEntity<Long>{
