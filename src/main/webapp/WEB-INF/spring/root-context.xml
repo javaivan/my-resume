@@ -31,9 +31,24 @@
     <!--    <mvc:resources mapping="/assets/**" location="classpath:/META-INF/resources/webjars/"/>-->
     <mvc:resources mapping="/static/**" location="/static/"/>
     <mvc:resources mapping="/media/**" location="/media/"/>
-    <mvc:resources mapping="/favicon.ico" location="/static/img/favicon.ico"/>
+ <!--   <mvc:resources mapping="/favicon.ico" location="/static/img/favicon.ico"/>-->
 
     <bean id="multipartResolver"
           class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
 
+    <bean name="validator"
+          class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+        <property name="validationMessageSource" ref="resourceBundleLocator"/>
+        <property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>
+    </bean>
+
+    <bean name="resourceBundleLocator" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basenames">
+            <list>
+                <value>i18n.messages</value>
+            </list>
+        </property>
+        <property name="defaultEncoding" value="UTF-8" />
+    </bean>
+    <mvc:annotation-driven validator="validator" />
 </beans>

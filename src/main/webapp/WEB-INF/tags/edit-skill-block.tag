@@ -19,6 +19,12 @@
         <button type="button" class="close" onclick="$('#ui-item-${index }').remove();">
             <span aria-hidden="true">&times;</span>
         </button>
-        <textarea name="items[${index }].description" class="form-control pull-right" required="required" rows="2">${skill.description }</textarea>
+        <textarea name="items[${index}].description" class="form-control pull-right" required="required" rows="2">${skill.description }</textarea>
+        <span span:if="${fields.hasErrors('description')}" span:errors="*{description}">description Error</span>
+    </div>
+</div>
+<div class="row skill-delim" >
+    <div class="col-xs-offset-5 col-sm-offset-4 col-md-offset-2 col-xs-7 col-sm-8 col-md-10" style="padding-left:0px;">
+        <form:errors path="items[${index}].description" cssClass="alert alert-danger" element="div" />
     </div>
 </div>

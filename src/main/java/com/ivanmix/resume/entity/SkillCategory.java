@@ -1,5 +1,7 @@
 package com.ivanmix.resume.entity;
 
+import com.ivanmix.resume.annotation.constraints.EnglishLanguage;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -15,6 +17,7 @@ public class SkillCategory extends AbstractEntity<Long>{
     private Long id;
 
     @Column(nullable=false, length=250)
+    @EnglishLanguage
     private String name;
 
     public Long getId() {

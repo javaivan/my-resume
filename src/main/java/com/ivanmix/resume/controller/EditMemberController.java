@@ -5,6 +5,9 @@ import com.ivanmix.resume.repository.storage.SkillCategoryRepository;
 import com.ivanmix.resume.form.SkillForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
@@ -13,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
 public class EditMemberController {
@@ -55,18 +59,21 @@ public class EditMemberController {
 	}*/
 
 	@RequestMapping(value = "/edit/skills", method = RequestMethod.GET)
-	public String getEditTechSkills(Model model) {
+	public String getEditSkills(Model model) {
 		model.addAttribute("skillForm", new SkillForm(memberRepository.findById(1L).getSkills()));
 		return gotoSkillsJSP(model);
 	}
 
 	@RequestMapping(value = "/edit/skills", method = RequestMethod.POST)
-	public String saveEditTechSkills(@ModelAttribute("skillForm") SkillForm form, BindingResult bindingResult, Model model) {
+	public String saveEditSkills(@Valid @ModelAttribute("skillForm") SkillForm form, BindingResult bindingResult, Model model) {
 		if (bindingResult.hasErrors()) {
+			LOGGER.debug("hasErrors");
 			return gotoSkillsJSP(model);
+		} else {
+			LOGGER.debug("NotErrors");
+			return "redirect:/edit/skills";
 		}
-				//TODO Update skills
-		return "redirect:/mike-ross";
+		//TODO Update skills
 	}
 
 	private String gotoSkillsJSP(Model model){

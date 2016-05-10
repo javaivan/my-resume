@@ -1,6 +1,8 @@
 package com.ivanmix.resume.entity;
 
 
+import com.ivanmix.resume.annotation.constraints.EnglishLanguage;
+
 import java.io.Serializable;
 
 import javax.persistence.Column;
@@ -13,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="skill")
@@ -26,9 +29,13 @@ public class Skill extends AbstractEntity<Long> implements Serializable, MemberE
     private Long id;
 
     @Column(nullable=false, length=50)
+    @EnglishLanguage
+    @Size(min=1)
     private String name;
 
     @Column(nullable=false, length=2147483647)
+    @EnglishLanguage
+    @Size(min=10)
     private String description;
 
     //bi-directional many-to-one association to Profile
@@ -51,7 +58,7 @@ public class Skill extends AbstractEntity<Long> implements Serializable, MemberE
         return this.name;
     }
 
-    public void setCategory(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -59,7 +66,7 @@ public class Skill extends AbstractEntity<Long> implements Serializable, MemberE
         return this.description;
     }
 
-    public void setValue(String description) {
+    public void setDescription(String description) {
         this.description = description;
     }
 
