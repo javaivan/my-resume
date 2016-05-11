@@ -21,6 +21,7 @@
       <property name="url" value="jdbc:postgresql://localhost/my-resume"/>
       <property name="username" value="my-resume"/>
       <property name="password" value="my-resume"/>
+
   </bean>
 
     <!-- Create default configuration for Hibernate -->
@@ -40,6 +41,7 @@
                 <prop key="hibernate.ejb.use_class_enhancer">true</prop>
                 <prop key="hibernate.hbm2ddl.auto">validate</prop>
                 <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.temp.use_jdbc_metadata_defaults">false</prop>
             </props>
         </property>
         <!-- Set base package of your entities -->

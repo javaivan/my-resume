@@ -2,7 +2,7 @@ package com.ivanmix.resume.controller;
 
 import com.ivanmix.resume.service.EditMemberService;
 import com.ivanmix.resume.util.SecurityUtil;
-
+import com.ivanmix.resume.model.CurrentMember;
 import com.ivanmix.resume.form.SkillForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +11,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -58,7 +59,7 @@ public class EditMemberController {
 
 	@RequestMapping(value = "/edit/skills", method = RequestMethod.GET)
 	public String getEditSkills(Model model) {
-		model.addAttribute("skillForm", new SkillForm(editMemberService.listSkills(SecurityUtil.getCurrentIdProfile())));
+		model.addAttribute("skillForm", new SkillForm(editMemberService.listSkills(SecurityUtil.getCurrentIdMember())));
 		return gotoSkillsJSP(model);
 	}
 
@@ -67,13 +68,19 @@ public class EditMemberController {
 		if (bindingResult.hasErrors()) {
 			return gotoSkillsJSP(model);
 		}
-		editMemberService.updateSkills(SecurityUtil.getCurrentIdProfile(), form.getItems());
+		editMemberService.updateSkills(SecurityUtil.getCurrentIdMember(), form.getItems());
 		return "redirect:/mike-ross";
 	}
 
 	private String gotoSkillsJSP(Model model){
 		model.addAttribute("skillCategories", editMemberService.listSkillCategories());
 		return "edit/skills";
+	}
+
+
+	@RequestMapping(value = "/my-profile")
+	public String getMyProfile(@AuthenticationPrincipal CurrentMember currentMember) {
+		return "redirect:/" + currentMember.getUsername();
 	}
 
 

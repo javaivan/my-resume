@@ -5,6 +5,9 @@ import com.ivanmix.resume.repository.storage.MemberRepository;
 import com.ivanmix.resume.repository.storage.SkillCategoryRepository;
 import com.ivanmix.resume.form.SkillForm;
 import com.ivanmix.resume.service.FindMemberService;
+import com.ivanmix.resume.model.CurrentMember;
+import com.ivanmix.resume.util.SecurityUtil;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +19,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class PublicDataController {
@@ -44,5 +49,24 @@ public class PublicDataController {
 	public String getError(){
 		LOGGER.debug("getError");
 		return "error";
+	}
+
+	@RequestMapping(value = "/sign-in")
+	public String signIn() {
+		CurrentMember currentMember = SecurityUtil.getCurrentMember();
+		if(currentMember != null) {
+				return "redirect:/" + currentMember.getUsername();
+			}
+		else{
+				return "sign-in";
+			}
+	}
+
+	@RequestMapping(value = "/sign-in-failed", method = RequestMethod.POST)
+	public String signInFailed(HttpSession session) {
+		if (session.getAttribute("SPRING_SECURITY_LAST_EXCEPTION") == null) {
+				return "redirect:/sign-in";
+			}
+		return "sign-in";
 	}
 }
