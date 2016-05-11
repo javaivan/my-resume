@@ -4,6 +4,7 @@ import com.ivanmix.resume.entity.Member;
 import com.ivanmix.resume.repository.storage.MemberRepository;
 import com.ivanmix.resume.repository.storage.SkillCategoryRepository;
 import com.ivanmix.resume.form.SkillForm;
+import com.ivanmix.resume.service.FindMemberService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,21 +23,16 @@ public class PublicDataController {
 	protected final Logger LOGGER = LoggerFactory.getLogger(getClass());
 
 	@Autowired
-	private MemberRepository memberRepository;
+	private SkillCategoryRepository skillCategoryRepository;
 
 	@Autowired
-	private SkillCategoryRepository skillCategoryRepository;
+	private FindMemberService findMemberService;
+
 
 	@RequestMapping(value="/{uid}", method=RequestMethod.GET)
 	public String getProfile(@PathVariable("uid") Long uid, Model model){
-		System.out.println(memberRepository.findAll(new Sort("id")));
-		model.addAttribute("members", memberRepository.findAll(new Sort("id")));
-		model.addAttribute("skillCategories", skillCategoryRepository.findAll(new Sort("id")));
 
-		model.addAttribute("uid", uid);
-
-
-		Member member = memberRepository.findById(uid);
+		Member member = findMemberService.findById(uid);
 		if(member == null) {
 			return "profile_not_found";
 		}

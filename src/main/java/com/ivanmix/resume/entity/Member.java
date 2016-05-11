@@ -87,6 +87,7 @@ public class Member extends AbstractEntity<Long> implements Serializable {
 
     public void setSkills(List<Skill> skills) {
         this.skills = skills;
+        updateListSetMember(this.skills);
     }
 
     public String getEmail() {
@@ -117,5 +118,14 @@ public class Member extends AbstractEntity<Long> implements Serializable {
     public String getFullName() {
         return firstName + " " + lastName;
     }
+
+    private void updateListSetMember(List<? extends MemberEntity> list) {
+        if(list != null) {
+            for(MemberEntity entity : list) {
+                entity.setMember(this);
+            }
+        }
+    }
+
 
 }

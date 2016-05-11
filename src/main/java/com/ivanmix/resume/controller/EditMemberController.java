@@ -1,7 +1,8 @@
 package com.ivanmix.resume.controller;
 
-import com.ivanmix.resume.repository.storage.MemberRepository;
-import com.ivanmix.resume.repository.storage.SkillCategoryRepository;
+import com.ivanmix.resume.service.EditMemberService;
+import com.ivanmix.resume.util.SecurityUtil;
+
 import com.ivanmix.resume.form.SkillForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,10 +25,7 @@ public class EditMemberController {
 	protected final Logger LOGGER = LoggerFactory.getLogger(getClass());
 
 	@Autowired
-	private SkillCategoryRepository skillCategoryRepository;
-
-	@Autowired
-	private MemberRepository memberRepository;
+	private EditMemberService editMemberService;
 
 	@RequestMapping(value="/edit", method=RequestMethod.GET)
 	public String getEditProfile(){
@@ -60,26 +58,24 @@ public class EditMemberController {
 
 	@RequestMapping(value = "/edit/skills", method = RequestMethod.GET)
 	public String getEditSkills(Model model) {
-		model.addAttribute("skillForm", new SkillForm(memberRepository.findById(1L).getSkills()));
+		model.addAttribute("skillForm", new SkillForm(editMemberService.listSkills(SecurityUtil.getCurrentIdProfile())));
 		return gotoSkillsJSP(model);
 	}
 
 	@RequestMapping(value = "/edit/skills", method = RequestMethod.POST)
 	public String saveEditSkills(@Valid @ModelAttribute("skillForm") SkillForm form, BindingResult bindingResult, Model model) {
 		if (bindingResult.hasErrors()) {
-			LOGGER.debug("hasErrors");
 			return gotoSkillsJSP(model);
-		} else {
-			LOGGER.debug("NotErrors");
-			return "redirect:/edit/skills";
 		}
-		//TODO Update skills
+		editMemberService.updateSkills(SecurityUtil.getCurrentIdProfile(), form.getItems());
+		return "redirect:/mike-ross";
 	}
 
 	private String gotoSkillsJSP(Model model){
-		model.addAttribute("skillCategories", skillCategoryRepository.findAll(new Sort("id")));
+		model.addAttribute("skillCategories", editMemberService.listSkillCategories());
 		return "edit/skills";
 	}
+
 
 	@RequestMapping(value="/edit/practics", method=RequestMethod.GET)
 	public String getEditPractics(){

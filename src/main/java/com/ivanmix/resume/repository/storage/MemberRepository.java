@@ -11,8 +11,9 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import com.ivanmix.resume.entity.Member;
 import org.springframework.data.repository.RepositoryDefinition;
 
-@RepositoryDefinition(domainClass=Member.class, idClass=Long.class)
-public interface MemberRepository {
+//@RepositoryDefinition(domainClass=Member.class, idClass=Long.class)
+//public interface MemberRepository {
+public interface MemberRepository extends PagingAndSortingRepository<Member, Long> {
 
     List<Member> findAll(Sort sort);
 

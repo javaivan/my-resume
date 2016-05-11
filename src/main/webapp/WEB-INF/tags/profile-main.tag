@@ -8,19 +8,6 @@
 	<h1 class="text-center">
 		<a style="color: black;" href="/edit">${member.email}</a>
 	</h1>
-	<h2>${uid}</h2>
-	<select name="members" class="form-control">
-		<c:forEach var="m" items="${members}">
-			<option value="${m.id}">${m.id}</option>
-		</c:forEach>
-	</select>
-
-	<select name="category" class="form-control">
-		<c:forEach var="category" items="${skillCategories }">
-			<option value="${category.id }">${category.name }</option>
-		</c:forEach>
-	</select>
-
 	<h6 class="text-center">
 		<strong>Odessa, Ukraine</strong>
 	</h6>
