@@ -22,10 +22,10 @@
             </c:if>
             <div class="help-block">Вы можете использовать Ваши UID или Email или Phone в качестве логина</div>
             <div class="form-group">
-                <label for="uid">Логин</label> <input id="uid" name="uid" class="form-control" placeholder="UID или Email или Phone" required autofocus>
+                <label for="email">Логин</label> <input id="email" value="osvenh8@gmail.com" name="email" class="form-control" placeholder="UID или Email или Phone" required autofocus>
             </div>
             <div class="form-group">
-                <label for="password">Пароль</label> <input id="password" type="password" name="password" class="form-control" placeholder="Password" required>
+                <label for="password">Пароль</label> <input value="password" id="password" type="password" name="password" class="form-control" placeholder="Password" required>
             </div>
             <div class="form-group">
                 <label><input type="checkbox" name="remember-me" value="true"> Запомнить меня</label>

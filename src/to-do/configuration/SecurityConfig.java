@@ -9,14 +9,12 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
 import com.ivanmix.resume.Constants;
-
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -35,9 +33,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
-        PasswordEncoder encoder = new BCryptPasswordEncoder();
-        return encoder;
+    public PasswordEncoder passwordEncoder() {
+        return NoOpPasswordEncoder.getInstance();
     }
 
     @Override
@@ -47,13 +44,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers("/my-profile", "/edit", "/edit/**", "/remove").hasAuthority(Constants.USER)
+/*        http.authorizeRequests()
+                .antMatchers("/my-profile", "/edit", "/edit*//**", "/remove").hasAuthority(Constants.USER)
                 .anyRequest().permitAll();
         http.formLogin()
                 .loginPage("/sign-in")
                 .loginProcessingUrl("/sign-in-handler")
-                .usernameParameter("email")
+                .usernameParameter("uid")
                 .passwordParameter("password")
                 .defaultSuccessUrl("/my-profile")
                 .failureUrl("/sign-in-failed");
@@ -66,6 +63,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .rememberMeParameter("remember-me")
                 .key("resume-online")
                 .tokenRepository(persistentTokenRepository());
-        http.csrf().disable();
+        http.csrf().disable();*/
     }
 }

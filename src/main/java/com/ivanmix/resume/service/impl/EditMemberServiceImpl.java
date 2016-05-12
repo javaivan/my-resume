@@ -29,7 +29,8 @@ import com.ivanmix.resume.service.EditMemberService;
 import com.ivanmix.resume.util.DataUtil;
 
 @Service
-public class EditMemberServiceImpl implements EditMemberService, UserDetailsService{
+@SuppressWarnings("unchecked")
+public class EditMemberServiceImpl implements EditMemberService{
     private static final Logger LOGGER = LoggerFactory.getLogger(EditMemberServiceImpl.class);
 
     @Autowired
@@ -82,27 +83,5 @@ public class EditMemberServiceImpl implements EditMemberService, UserDetailsServ
         }
     }
 
-
-
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Member member = findProfile(username);
-        if (member != null) {
-            return new CurrentMember(member);
-        } else {
-            LOGGER.error("Profile not found by " + username);
-            throw new UsernameNotFoundException("Profile not found by " + username);
-        }
-    }
-
-    private Member findProfile(String anyUnigueId) {
-        Member member = memberRepository.findByEmail(anyUnigueId);
-
-        if (member == null) {
-            member = memberRepository.findById(Long.parseLong(anyUnigueId));
-        }
-
-        return member;
-    }
 
 }

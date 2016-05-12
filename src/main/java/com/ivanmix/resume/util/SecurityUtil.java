@@ -31,8 +31,10 @@ public final class SecurityUtil {
 
     public static void authentificate(Member member) {
         CurrentMember currentMember = new CurrentMember(member);
+        /*Authentication authentication = new UsernamePasswordAuthenticationToken(
+                currentMember, currentMember.getPassword(), currentMember.getAuthorities());*/
         Authentication authentication = new UsernamePasswordAuthenticationToken(
-                currentMember, currentMember.getPassword(), currentMember.getAuthorities());
+                currentMember, null, currentMember.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 

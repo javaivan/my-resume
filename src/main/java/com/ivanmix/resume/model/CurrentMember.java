@@ -17,7 +17,7 @@ public class CurrentMember extends User {
     private final String fullName;
 
     public CurrentMember(Member member) {
-        super(UUID.randomUUID().toString(), member.getPassword(), true, true, true, true, Collections.singleton(new SimpleGrantedAuthority(Constants.USER)));
+        super(member.getEmail(), member.getPassword(), true, true, true, true, Collections.singleton(new SimpleGrantedAuthority(Constants.USER)));
         this.id = member.getId();
         this.fullName = member.getFullName();
     }

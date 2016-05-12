@@ -8,31 +8,27 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class AbstractFilter implements Filter {
-
-	protected final Logger LOGGER = LoggerFactory.getLogger(getClass());
-
-
-	@Override
+@WebFilter("/*")
+public class AbstractFilter implements Filter {
+	private static final Logger LOGGER = LoggerFactory.getLogger(AbstractFilter.class);
 	public void init(FilterConfig filterConfig) throws ServletException {
+
 	}
 
-	@Override
-	public final void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest req = (HttpServletRequest) request;
-		HttpServletResponse resp = (HttpServletResponse) response;
-		doFilter(req, resp, chain);
+		LOGGER.debug("Before URL processing: {}", req.getRequestURI());
+		chain.doFilter(req, response);
+		LOGGER.debug("After URL processing: {}", req.getRequestURI());
 	}
 
-	public abstract void doFilter(HttpServletRequest req, HttpServletResponse resp, FilterChain chain) throws IOException, ServletException;
-	
-	@Override
 	public void destroy() {
+
 	}
 }

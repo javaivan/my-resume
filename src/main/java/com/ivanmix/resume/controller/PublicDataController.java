@@ -56,13 +56,12 @@ public class PublicDataController {
 		CurrentMember currentMember = SecurityUtil.getCurrentMember();
 		if(currentMember != null) {
 				return "redirect:/" + currentMember.getUsername();
-			}
-		else{
+		}else{
 				return "sign-in";
-			}
+		}
 	}
 
-	@RequestMapping(value = "/sign-in-failed", method = RequestMethod.POST)
+	@RequestMapping(value = "/sign-in-failed", method = RequestMethod.GET)
 	public String signInFailed(HttpSession session) {
 		if (session.getAttribute("SPRING_SECURITY_LAST_EXCEPTION") == null) {
 				return "redirect:/sign-in";
