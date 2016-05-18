@@ -12,7 +12,6 @@ import com.ivanmix.resume.annotation.constraints.PasswordStrength;
 
 @FieldMatch(first = "password", second = "confirmPassword", message = "The password fields must match")
 public class SignUpForm implements Serializable {
-    private static final long serialVersionUID = 185151345117447819L;
 
     @NotNull
     @Size(max=50)

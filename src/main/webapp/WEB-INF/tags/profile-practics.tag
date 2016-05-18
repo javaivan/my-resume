@@ -3,36 +3,54 @@
 <div class="panel panel-primary">
     <div class="panel-heading">
         <h3 class="panel-title">
-            <i class="fa fa-briefcase"></i> Practic Experience <a class="edit-block" href="/edit/practics">Edit</a>
+            <i class="fa fa-code"></i> Technical Skills <a class="edit-block" href="/edit/skills">Edit</a>
         </h3>
     </div>
     <div class="panel-body">
-        <ul class="timeline">
-            <li>
-                <div class="timeline-badge danger">
-                    <i class="fa fa-briefcase"></i>
-                </div>
-                <div class="timeline-panel">
-                    <div class="timeline-heading">
-                        <h4 class="timeline-title">Java Advanced Course at DevStudy.net</h4>
-                        <p>
-                            <small class="dates"><i class="fa fa-calendar"></i> Mar 2016 - <strong class="label label-danger">Current</strong> </small>
-                        </p>
-                    </div>
-                    <div class="timeline-body">
-                        <p>
-                            <strong>Responsibilities included:</strong> Developing the web application 'online-resume' using bootstrap HTML template, downloaded from
-                            intenet. Populating database by test data and uploading web project to AWS EC2 instance
-                        </p>
-                        <p>
-                            <strong>Demo: </strong><a href="http://LINK_TO_DEMO_SITE">http://LINK_TO_DEMO_SITE</a>
-                        </p>
-                        <p>
-                            <strong>Source code: </strong><a href="https://github.com/TODO">https://github.com/TODO</a>
-                        </p>
-                    </div>
-                </div>
-            </li>
-        </ul>
+        <table class="table table-striped table-bordered">
+            <tbody>
+            <tr>
+                <th style="width: 140px;">Category</th>
+                <th>Frameworks and technologies</th>
+            </tr>
+            <tr>
+                <td>Languages</td>
+                <td>Java, SQL, PLSQL</td>
+            </tr>
+            <tr>
+                <td>DBMS</td>
+                <td>Postgresql, Mysql</td>
+            </tr>
+            <tr>
+                <td>Web</td>
+                <td>HTML, CSS, JS, Bootstrap, JQuery, Foundation</td>
+            </tr>
+            <tr>
+                <td>Java</td>
+                <td>Spring MVC, Logback, JSP, JSTL, Spring Data JPA, Apache Commons, Spring Security, Hibernate JPA, Facebook Social API, Servlets, JDBC, Google+
+                    Social API, Threads, IO, JAXB, GSON</td>
+            </tr>
+            <tr>
+                <td>IDE</td>
+                <td>Eclipse for JEE Developer</td>
+            </tr>
+            <tr>
+                <td>CVS</td>
+                <td>Git, Github</td>
+            </tr>
+            <tr>
+                <td>Web Servers</td>
+                <td>Tomcat, Nginx</td>
+            </tr>
+            <tr>
+                <td>Build system</td>
+                <td>Maven</td>
+            </tr>
+            <tr>
+                <td>Cloud</td>
+                <td>AWS,OpenShift</td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>

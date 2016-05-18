@@ -36,7 +36,7 @@ public class EnglishLanguageConstraintValidator implements ConstraintValidator<E
     private static final String SPETCH_SYMBOLS = "~#$%^&*-+=_\\|/@`!'\";:><,.?{}";
     private static final String PUNCTUATIONS = ".,?!-:()'\"[]{}; \t\n";
     private static final String NUMBERS = "0123456789";
-    private static final String LETTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    private static final String LETTERS = "a213123bcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
     private String getValidationTemplate(){
         StringBuilder template = new StringBuilder(LETTERS);

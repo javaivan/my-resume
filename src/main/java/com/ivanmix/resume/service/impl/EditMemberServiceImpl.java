@@ -2,6 +2,7 @@ package com.ivanmix.resume.service.impl;
 
 import java.util.List;
 
+import com.ivanmix.resume.entity.*;
 import com.ivanmix.resume.service.EditMemberService;
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
@@ -18,9 +19,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import com.ivanmix.resume.model.CurrentMember;
-import com.ivanmix.resume.entity.Member;
-import com.ivanmix.resume.entity.Skill;
-import com.ivanmix.resume.entity.SkillCategory;
 import com.ivanmix.resume.exception.CantCompleteClientRequestException;
 import com.ivanmix.resume.form.SignUpForm;
 import com.ivanmix.resume.repository.storage.MemberRepository;
@@ -79,6 +77,48 @@ public class EditMemberServiceImpl implements EditMemberService{
             return;
         } else {
             member.setSkills(updatedData);
+            memberRepository.save(member);
+        }
+    }
+
+    @Override
+    public String addInfo(long idMember) {
+        return memberRepository.findById(idMember).getMemberAddInfo().getDescription();
+    }
+
+    @Override
+    public void updateAddInfo(long idMember, String addInfo) {
+        Member member = memberRepository.findOne(idMember);
+        member.getMemberAddInfo().setDescription(addInfo);
+        memberRepository.save(member);
+    }
+
+    @Override
+    public MemberContact memberContact(long idMember) {
+        return memberRepository.findById(idMember).getMemberContact();
+    }
+
+    @Override
+    public void updateMemberContactSocial(long idMember, MemberContactSocial memberContactSocial) {
+        Member member = memberRepository.findById(idMember);
+        member.getMemberContact().setMemberContactSocial(memberContactSocial);
+        memberRepository.save(member);
+    }
+
+    @Override
+    public List<Certificate> listCertificates(long idMember) {
+        return memberRepository.findOne(idMember).getCertificates();
+    }
+
+    @Override
+    @Transactional
+    public void updateCertificates(long idMember, List<Certificate> certificates) {
+        Member member = memberRepository.findOne(idMember);
+        if (CollectionUtils.isEqualCollection(certificates, member.getSkills())) {
+            LOGGER.debug("Member certificates: nothing to update");
+            return;
+        } else {
+            member.setCertificates(certificates);
             memberRepository.save(member);
         }
     }

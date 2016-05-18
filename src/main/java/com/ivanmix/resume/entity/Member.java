@@ -5,18 +5,7 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
 import org.joda.time.LocalDate;
 import org.joda.time.Years;
@@ -52,6 +41,15 @@ public class Member extends AbstractEntity<Long> implements Serializable {
 
     @OneToMany(mappedBy = "member", cascade={CascadeType.MERGE, CascadeType.PERSIST})
     private List<Skill> skills;
+
+    @OneToMany(mappedBy = "member", cascade={CascadeType.MERGE, CascadeType.PERSIST})
+    private List<Certificate> certificates;
+
+    @OneToOne(mappedBy = "member", cascade={CascadeType.MERGE, CascadeType.PERSIST})
+    private MemberAddInfo memberAddInfo;
+
+    @OneToOne(mappedBy = "member", cascade={CascadeType.MERGE, CascadeType.PERSIST})
+    private MemberContact memberContact;
 
     public Member() {
     }
@@ -90,6 +88,21 @@ public class Member extends AbstractEntity<Long> implements Serializable {
         updateListSetMember(this.skills);
     }
 
+    public List<Certificate> getCertificates() {    return certificates;}
+
+    public void setCertificates(List<Certificate> certificates) {
+        this.certificates = certificates;
+        updateListSetMember(this.certificates);
+    }
+
+    public MemberAddInfo getMemberAddInfo() {
+        return memberAddInfo;
+    }
+
+    public void setMemberAddInfo(MemberAddInfo memberAddInfo) {
+        this.memberAddInfo = memberAddInfo;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -114,6 +127,15 @@ public class Member extends AbstractEntity<Long> implements Serializable {
         this.created = created;
     }
 
+
+    public MemberContact getMemberContact() {
+        return memberContact;
+    }
+
+    public void setMemberContact(MemberContact memberContact) {
+        this.memberContact = memberContact;
+    }
+
     @Transient
     public String getFullName() {
         return firstName + " " + lastName;
@@ -126,6 +148,7 @@ public class Member extends AbstractEntity<Long> implements Serializable {
             }
         }
     }
+
 
 
 }

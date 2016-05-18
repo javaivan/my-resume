@@ -10,7 +10,6 @@ import javax.validation.Valid;
 
 
 public class SkillForm implements Serializable {
-	private static final long serialVersionUID = 4135568197764740034L;
 
 	@Valid
 	private List<Skill> items = new ArrayList<>();

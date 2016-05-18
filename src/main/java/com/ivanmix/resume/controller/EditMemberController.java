@@ -1,5 +1,8 @@
 package com.ivanmix.resume.controller;
 
+import com.ivanmix.resume.form.AddInfoForm;
+import com.ivanmix.resume.form.CertificateForm;
+import com.ivanmix.resume.form.ContactSocialForm;
 import com.ivanmix.resume.service.EditMemberService;
 import com.ivanmix.resume.util.SecurityUtil;
 import com.ivanmix.resume.model.CurrentMember;
@@ -69,7 +72,7 @@ public class EditMemberController {
 			return gotoSkillsJSP(model);
 		}
 		editMemberService.updateSkills(SecurityUtil.getCurrentIdMember(), form.getItems());
-		return "redirect:/mike-ross";
+		return "redirect:/";
 	}
 
 	private String gotoSkillsJSP(Model model){
@@ -96,13 +99,19 @@ public class EditMemberController {
 	}
 
 	@RequestMapping(value="/edit/certificates", method=RequestMethod.GET)
-	public String getEditCertificates(){
+	public String getEditCertificates(Model model){
 		LOGGER.debug("certificates");
+		model.addAttribute("certificateForm", new CertificateForm(editMemberService.listCertificates(SecurityUtil.getCurrentIdMember())));
 		return "edit/certificates";
 	}
 	@RequestMapping(value="/edit/certificates", method=RequestMethod.POST)
-	public String saveEditCertificates(){
+	public String saveEditCertificates(@Valid @ModelAttribute("certificateForm") CertificateForm form, BindingResult bindingResult, Model model){
 		LOGGER.debug("save certificates");
+		if(bindingResult.hasErrors()){
+			model.addAttribute("certificateForm", new CertificateForm(editMemberService.listCertificates(SecurityUtil.getCurrentIdMember())));
+			return "edit/certificates";
+		}
+		editMemberService.updateCertificates(SecurityUtil.getCurrentIdMember(), form.getCertificates());
 		return "redirect:/";
 	}
 
@@ -172,6 +181,49 @@ public class EditMemberController {
 		return "redirect:/";
 	}
 
+	@RequestMapping(value="/edit/add-info", method=RequestMethod.GET)
+	public String getEditAddInfo(Model model) {
+		LOGGER.debug("add-info");
 
+		model.addAttribute("description", editMemberService.addInfo(SecurityUtil.getCurrentIdMember()));
+		return "edit/add-info";
+	}
+
+
+	@RequestMapping(value = "/edit/add-info", method = RequestMethod.POST)
+	public String saveEditAddInfo(@Valid @ModelAttribute("addInfoForm") AddInfoForm form, BindingResult bindingResult, Model model) {
+		LOGGER.debug("saveEditAddInfo");
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("description", editMemberService.addInfo(SecurityUtil.getCurrentIdMember()));
+			return "edit/add-info";
+		}
+		editMemberService.updateAddInfo(SecurityUtil.getCurrentIdMember(), form.getDescription());
+		return "redirect:/";
+	}
+
+
+	@RequestMapping(value="/edit/contact-social", method=RequestMethod.GET)
+	public String getEditContactSocial(Model model) {
+		LOGGER.debug("contact-contact");
+
+		model.addAttribute("contactSocial", editMemberService.memberContact(SecurityUtil.getCurrentIdMember()).getMemberContactSocial());
+		return "edit/contact-social";
+	}
+
+
+
+	@RequestMapping(value = "/edit/contact-social", method = RequestMethod.POST)
+	public String saveEditContactSocial(@Valid @ModelAttribute("contactSocialForm") ContactSocialForm form, BindingResult bindingResult, Model model) {
+		LOGGER.debug("saveEditContactSocial: " + form);
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("contactSocial", editMemberService.memberContact(SecurityUtil.getCurrentIdMember()).getMemberContactSocial());
+			return "edit/contact-social";
+		}
+		editMemberService.updateMemberContactSocial(SecurityUtil.getCurrentIdMember(), form.getMemberContactSocial());
+		return "redirect:/";
+	}
+
+
+	/*MemberContactSocial*/
 
 }

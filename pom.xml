@@ -34,12 +34,12 @@
 				</plugin>
 			</plugins>
 		</pluginManagement>
-		<plugins>
+	<!--	<plugins>
 			<plugin>
 				<artifactId>maven-antrun-plugin</artifactId>
 				<version>1.8</version>
 				<executions>
-					<!-- clean -->
+					&lt;!&ndash; clean &ndash;&gt;
 					<execution>
 						<id>clean-lib</id>
 						<phase>clean</phase>
@@ -52,7 +52,7 @@
 							<goal>run</goal>
 						</goals>
 					</execution>
-					<!-- build -->
+					&lt;!&ndash; build &ndash;&gt;
 					<execution>
 						<id>copy-lib</id>
 						<phase>package</phase>
@@ -71,7 +71,7 @@
 					</execution>
 				</executions>
 			</plugin>
-		</plugins>
+		</plugins>-->
 	</build>
 
 	<dependencies>

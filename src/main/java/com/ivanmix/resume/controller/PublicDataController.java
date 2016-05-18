@@ -68,4 +68,14 @@ public class PublicDataController {
 			}
 		return "sign-in";
 	}
+
+	@RequestMapping(value = "/registration")
+	public String registration() {
+		CurrentMember currentMember = SecurityUtil.getCurrentMember();
+		if(currentMember != null) {
+			return "redirect:/" + currentMember.getUsername();
+		}else{
+			return "registration";
+		}
+	}
 }

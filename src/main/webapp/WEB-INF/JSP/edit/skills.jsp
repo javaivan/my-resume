@@ -3,12 +3,6 @@
 <%@ taglib prefix="form"   	uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="resume" 	tagdir="/WEB-INF/tags"%>
 
-<select name="category" class="form-control">
-    <c:forEach var="category" items="${skillCategories }">
-        <option value="${category.id }">${category.name }</option>
-    </c:forEach>
-</select>
-
 <div class="panel panel-default">
     <div class="panel-body">
         <h4 class="data-header">Технические навыки во фреймворках и технологиях</h4>
