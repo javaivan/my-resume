@@ -10,6 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -53,7 +55,11 @@ public class EditMemberServiceImpl implements EditMemberService{
         member.setFirstName(DataUtil.capitalizeName(signUpForm.getFirstName()));
         member.setLastName(DataUtil.capitalizeName(signUpForm.getLastName()));
         member.setEmail(DataUtil.capitalizeName(signUpForm.getEmail()));
-        member.setPassword(signUpForm.getPassword());
+
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(signUpForm.getPassword());
+
+        member.setPassword(encodedPassword);
         memberRepository.save(member);
         return member;
     }

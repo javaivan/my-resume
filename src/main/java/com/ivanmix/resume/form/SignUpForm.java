@@ -6,31 +6,35 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.ivanmix.resume.annotation.constraints.EnglishLanguage;
-import com.ivanmix.resume.annotation.constraints.FieldMatch;
+//import com.ivanmix.resume.annotation.constraints.FieldMatch;
 import com.ivanmix.resume.annotation.constraints.PasswordStrength;
 
 
-@FieldMatch(first = "password", second = "confirmPassword", message = "The password fields must match")
+//@FieldMatch(first = "password", second = "confirmPassword", message = "The password fields must match")
 public class SignUpForm implements Serializable {
+
+    public SignUpForm() {
+        super();
+    }
 
     @NotNull
     @Size(max=50)
-    @EnglishLanguage(withNumbers=false, withSpechSymbols=false)
+    //@EnglishLanguage(withNumbers=false, withSpechSymbols=false)
     private String firstName;
 
     @NotNull
     @Size(max=50)
-    @EnglishLanguage(withNumbers=false, withSpechSymbols=false)
+   // @EnglishLanguage(withNumbers=false, withSpechSymbols=false)
     private String lastName;
 
     @NotNull
     @Size(max=50)
     private String email;
 
-    @PasswordStrength
+    //@PasswordStrength
     private String password;
 
-    private String confirmPassword;
+    //private String confirmPassword;
 
     public String getFirstName() {
         return firstName;
@@ -64,11 +68,23 @@ public class SignUpForm implements Serializable {
         this.password = password;
     }
 
+/*
     public String getConfirmPassword() {
         return confirmPassword;
     }
 
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
+    }
+*/
+
+    @Override
+    public String toString() {
+        return "SignUpForm{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 }
