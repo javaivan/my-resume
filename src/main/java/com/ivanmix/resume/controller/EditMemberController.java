@@ -1,12 +1,9 @@
 package com.ivanmix.resume.controller;
 
-import com.ivanmix.resume.form.AddInfoForm;
-import com.ivanmix.resume.form.CertificateForm;
-import com.ivanmix.resume.form.ContactSocialForm;
+import com.ivanmix.resume.form.*;
 import com.ivanmix.resume.service.EditMemberService;
 import com.ivanmix.resume.util.SecurityUtil;
 import com.ivanmix.resume.model.CurrentMember;
-import com.ivanmix.resume.form.SkillForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -116,35 +113,54 @@ public class EditMemberController {
 	}
 
 	@RequestMapping(value="/edit/courses", method=RequestMethod.GET)
-	public String getEditCourses(){
+	public String getEditCourses(Model model){
 		LOGGER.debug("courses");
+		model.addAttribute("courseForm", new CourseForm(editMemberService.listCourses(SecurityUtil.getCurrentIdMember())));
 		return "edit/courses";
 	}
 	@RequestMapping(value="/edit/courses", method=RequestMethod.POST)
-	public String saveEditCourses(){
+	public String saveEditCourses(@Valid @ModelAttribute("courseForm") CourseForm form, BindingResult bindingResult, Model model) {
 		LOGGER.debug("save courses");
+		if (bindingResult.hasErrors()) {
+			return "edit/courses";
+		}
+		editMemberService.updateCourses(SecurityUtil.getCurrentIdMember(),form.getCourses());
 		return "redirect:/";
 	}
 
-	@RequestMapping(value="/edit/education", method=RequestMethod.GET)
-	public String getEditEducation(){
-		LOGGER.debug("education");
-		return "edit/education";
+
+
+	@RequestMapping(value="/edit/university", method=RequestMethod.GET)
+	public String getEditEducation(Model model){
+		LOGGER.debug("university");
+		model.addAttribute("universityForm", new UniversityForm(editMemberService.listUniversities(SecurityUtil.getCurrentIdMember())));
+		return "edit/university";
 	}
-	@RequestMapping(value="/edit/education", method=RequestMethod.POST)
-	public String saveEditEducation(){
-		LOGGER.debug("save education");
+
+	@RequestMapping(value="/edit/university", method=RequestMethod.POST)
+	public String saveEditEducation(@Valid @ModelAttribute("universityForm") UniversityForm form, BindingResult bindingResult, Model model) {
+		LOGGER.debug("save University");
+		if (bindingResult.hasErrors()) {
+			return "edit/university";
+		}
+		editMemberService.updateUniversities(SecurityUtil.getCurrentIdMember(),form.getUniversities());
 		return "redirect:/";
 	}
 
 	@RequestMapping(value="/edit/languages", method=RequestMethod.GET)
-	public String getEditLanguages(){
+	public String getEditLanguages(Model model){
 		LOGGER.debug("languages");
+		model.addAttribute("languageForm", new LanguageForm(editMemberService.listLanguages(SecurityUtil.getCurrentIdMember())));
 		return "edit/languages";
 	}
+
 	@RequestMapping(value="/edit/languages", method=RequestMethod.POST)
-	public String saveEditLanguages(){
+	public String saveEditLanguages(@Valid @ModelAttribute("languageForm") LanguageForm form, BindingResult bindingResult, Model model) {
 		LOGGER.debug("save languages");
+		if (bindingResult.hasErrors()) {
+			return "edit/university";
+		}
+		editMemberService.updateLanguages(SecurityUtil.getCurrentIdMember(),form.getLanguages());
 		return "redirect:/";
 	}
 

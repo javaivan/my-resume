@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 
 @WebFilter("/*")
 public class AbstractFilter implements Filter {
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(AbstractFilter.class);
 	public void init(FilterConfig filterConfig) throws ServletException {
 

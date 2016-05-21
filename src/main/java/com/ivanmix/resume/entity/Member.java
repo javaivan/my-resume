@@ -51,6 +51,15 @@ public class Member extends AbstractEntity<Long> implements Serializable {
     @OneToOne(mappedBy = "member", cascade={CascadeType.MERGE, CascadeType.PERSIST})
     private MemberContact memberContact;
 
+    @OneToMany(mappedBy = "member", cascade={CascadeType.MERGE, CascadeType.PERSIST})
+    private List<Course> courses;
+
+    @OneToMany(mappedBy = "member", cascade={CascadeType.MERGE, CascadeType.PERSIST})
+    private List<University> universities;
+
+    @OneToMany(mappedBy = "member", cascade={CascadeType.MERGE, CascadeType.PERSIST})
+    private List<Language> languages;
+
     public Member() {
     }
 
@@ -95,6 +104,9 @@ public class Member extends AbstractEntity<Long> implements Serializable {
         updateListSetMember(this.certificates);
     }
 
+
+
+
     public MemberAddInfo getMemberAddInfo() {
         return memberAddInfo;
     }
@@ -134,6 +146,43 @@ public class Member extends AbstractEntity<Long> implements Serializable {
 
     public void setMemberContact(MemberContact memberContact) {
         this.memberContact = memberContact;
+    }
+
+    public List<Course> getCourses() {
+        return courses;
+
+    }
+
+    public void setCourses(List<Course> courses) {
+        this.courses = courses;
+        updateListSetMember(this.courses);
+    }
+
+    public List<Language> getLanguages() {
+        return languages;
+    }
+
+    public void setLanguages(List<Language> languages) {
+        this.languages = languages;
+        updateListSetMember(this.languages);
+    }
+
+/*
+    public List<University> getEducations() {
+        return educations;
+    }
+
+    public void setEducations(List<Education> educations) {
+        this.educations = educations;
+    }*/
+
+    public List<University> getUniversities() {
+        return universities;
+    }
+
+    public void setUniversities(List<University> universities) {
+        this.universities = universities;
+        updateListSetMember(this.universities);
     }
 
     @Transient

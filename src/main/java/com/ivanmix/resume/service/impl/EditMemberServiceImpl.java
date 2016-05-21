@@ -129,5 +129,76 @@ public class EditMemberServiceImpl implements EditMemberService{
         }
     }
 
+    @Override
+    public List<Course> listCourses(long idMember) {
+        return memberRepository.findOne(idMember).getCourses();
+    }
+
+    @Override
+    public void updateCourses(long idMember, List<Course> courses) {
+        Member member = memberRepository.findOne(idMember);
+        if(CollectionUtils.isEqualCollection(courses, member.getSkills())){
+            LOGGER.debug("Member courses: nothing to update");
+            return;
+        } else {
+            member.setCourses(courses);
+            memberRepository.save(member);
+        }
+    }
+
+    @Override
+    public List<University> listUniversities(long idMember) {
+        return memberRepository.findById(idMember).getUniversities();
+    }
+
+    @Override
+    public void updateUniversities(long idMember, List<University> universities) {
+        Member member = memberRepository.findOne(idMember);
+        if(CollectionUtils.isEqualCollection(universities,member.getUniversities())){
+            LOGGER.debug("Member Universities: nothing to update");
+            return;
+        } else {
+            member.setUniversities(universities);
+            memberRepository.save(member);
+        }
+    }
+
+    @Override
+    public List<Language> listLanguages(long idMember) {
+        return memberRepository.findById(idMember).getLanguages();
+    }
+
+    @Override
+    public void updateLanguages(long idMember, List<Language> languages) {
+        Member member = memberRepository.findOne(idMember);
+        if(CollectionUtils.isEqualCollection(languages,member.getUniversities())){
+            LOGGER.debug("Member languages: nothing to update");
+            return;
+        } else {
+            member.setLanguages(languages);
+            memberRepository.save(member);
+        }
+    }
+
+
+
+/*
+    @Override
+    public List<Education> listEducations(long idMember) {
+        return memberRepository.findById(idMember).getEducations();
+    }
+
+    @Override
+    public void updateEducations(long idMember, List<Education> educations) {
+        Member member = memberRepository.findOne(idMember);
+        if(CollectionUtils.isEqualCollection(educations, member.getEducations())){
+            LOGGER.debug("Member ducation: nothing to update");
+            return;
+        } else {
+            member.setEducations(educations);
+            memberRepository.save(member);
+        }
+    }
+*/
 
 }

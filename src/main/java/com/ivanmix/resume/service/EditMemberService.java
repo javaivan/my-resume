@@ -27,4 +27,17 @@ public interface EditMemberService {
 
     void updateCertificates(long idMember, List<Certificate> certificates);
 
+    List<Course> listCourses(long idMember);
+
+    void updateCourses(long idMember, List<Course> courses);
+
+
+    List<University> listUniversities(long idMember);
+
+    void updateUniversities(long idMember, List<University> universities);
+
+    List<Language> listLanguages(long idMember);
+
+    void updateLanguages(long idMember, List<Language> languages);
+
 }
