@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.Cascade;
 import org.joda.time.LocalDate;
 import org.joda.time.Years;
 

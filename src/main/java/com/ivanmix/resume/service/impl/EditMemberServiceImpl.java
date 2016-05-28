@@ -1,5 +1,8 @@
 package com.ivanmix.resume.service.impl;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import com.ivanmix.resume.entity.*;
@@ -78,14 +81,92 @@ public class EditMemberServiceImpl implements EditMemberService{
     @Transactional
     public void updateSkills(long idMember, List<Skill> updatedData) {
         Member member = memberRepository.findOne(idMember);
+
+        System.out.println("1" + updatedData);
+        updatedData.removeAll(Collections.singleton(new Skill()));
+        System.out.println("2" + updatedData);
+        Iterator<Skill> it = updatedData.iterator();
+        while (it.hasNext()) {
+            Skill skill = it.next();
+
+            if(skill.equals(null)){
+                it.remove();
+            }
+        }
+
+        System.out.println("3" + updatedData);
+
+
         if (CollectionUtils.isEqualCollection(updatedData, member.getSkills())) {
             LOGGER.debug("Member skills: nothing to update");
             return;
         } else {
             member.setSkills(updatedData);
+           /* member.getSkills().clear();*/
             memberRepository.save(member);
         }
     }
+
+    @Override
+    @Transactional
+    public void deleteSkill(long idMember, Long idSkill){
+
+
+/*
+        Member member = memberRepository.findOne(idMember);
+
+
+
+
+        System.out.println("1 skills :" + member.getSkills());
+
+
+        List<Skill> skills = member.getSkills();
+        Skill skill = null;
+        for (Skill s: skills){
+            if(skill.getId().equals(idSkill)){
+                skill = s;
+                break;
+            }
+        }
+        member.setSkills();
+        memberRepository.save(member);
+
+/*
+        System.out.println("1 skills :" + skills);
+        Iterator<Skill> it = skills.iterator();
+        while (it.hasNext()) {
+            Skill skill = it.next();
+
+            if(skill.getId().equals(idSkill)){
+                it.remove();
+            }
+        }
+*//*
+        System.out.println("2 skills :" + member.getSkills());
+
+        member.setSkills(skills);
+        memberRepository.save(member);*/
+
+
+
+
+        //System.out.println("3 skills :" + memberRepository.findOne(idMember).getSkills());
+
+
+
+/*
+
+
+
+        memberRepository.findOne(idMember)
+
+        void delete(Long id);
+
+        boolean exists(Long id);
+*/
+    }
+
 
     @Override
     public String addInfo(long idMember) {
@@ -120,7 +201,7 @@ public class EditMemberServiceImpl implements EditMemberService{
     @Transactional
     public void updateCertificates(long idMember, List<Certificate> certificates) {
         Member member = memberRepository.findOne(idMember);
-        if (CollectionUtils.isEqualCollection(certificates, member.getSkills())) {
+        if (CollectionUtils.isEqualCollection(certificates, member.getCertificates())) {
             LOGGER.debug("Member certificates: nothing to update");
             return;
         } else {
@@ -137,7 +218,7 @@ public class EditMemberServiceImpl implements EditMemberService{
     @Override
     public void updateCourses(long idMember, List<Course> courses) {
         Member member = memberRepository.findOne(idMember);
-        if(CollectionUtils.isEqualCollection(courses, member.getSkills())){
+        if(CollectionUtils.isEqualCollection(courses, member.getCourses())){
             LOGGER.debug("Member courses: nothing to update");
             return;
         } else {

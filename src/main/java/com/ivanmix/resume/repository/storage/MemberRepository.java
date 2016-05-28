@@ -20,6 +20,10 @@ public interface MemberRepository extends PagingAndSortingRepository<Member, Lon
     Member findById(Long id);
 
     Member findByEmail(String email);
+/*
+    void delete(Long id);
+
+    boolean exists(Long id);
     /*
     Member findByEmail(String email);
 /*

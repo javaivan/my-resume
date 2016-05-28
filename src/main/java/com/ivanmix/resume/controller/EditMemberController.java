@@ -57,26 +57,6 @@ public class EditMemberController {
 		return "redirect:/";
 	}*/
 
-	@RequestMapping(value = "/edit/skills", method = RequestMethod.GET)
-	public String getEditSkills(Model model) {
-		model.addAttribute("skillForm", new SkillForm(editMemberService.listSkills(SecurityUtil.getCurrentIdMember())));
-		return gotoSkillsJSP(model);
-	}
-
-	@RequestMapping(value = "/edit/skills", method = RequestMethod.POST)
-	public String saveEditSkills(@Valid @ModelAttribute("skillForm") SkillForm form, BindingResult bindingResult, Model model) {
-		if (bindingResult.hasErrors()) {
-			return gotoSkillsJSP(model);
-		}
-		editMemberService.updateSkills(SecurityUtil.getCurrentIdMember(), form.getItems());
-		return "redirect:/";
-	}
-
-	private String gotoSkillsJSP(Model model){
-		model.addAttribute("skillCategories", editMemberService.listSkillCategories());
-		return "edit/skills";
-	}
-
 
 	@RequestMapping(value = "/my-profile")
 	public String getMyProfile(@AuthenticationPrincipal CurrentMember currentMember) {

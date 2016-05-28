@@ -38,7 +38,7 @@ public class Skill extends AbstractEntity<Long> implements Serializable, MemberE
     @Size(min=10)
     private String description;
 
-    //bi-directional many-to-one association to Profile
+
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="member_id", nullable=false)
     private Member member;

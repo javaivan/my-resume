@@ -15,6 +15,9 @@ public interface EditMemberService {
 
     void updateSkills(long idMember, List<Skill> skills);
 
+    void deleteSkill(long idMember, Long idSkill);
+
+
     String addInfo(long idMember);
 
     void updateAddInfo(long idMember, String  addInfo);
