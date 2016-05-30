@@ -40,19 +40,23 @@ public class Skill {
         return "redirect:/";
     }
 
-    @RequestMapping(value = "/edit/skills_delete/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/edit/skills/delete/{id}", method = RequestMethod.GET)
     @ResponseBody
     public String deleteSkills(@PathVariable("id") Long id,HttpServletResponse response) {
         LOGGER.debug("deleteSkills" + id);
+        editMemberService.deleteSkill(id,SecurityUtil.getCurrentIdMember());
         response.setContentType("text/plain");
         response.setCharacterEncoding("UTF-8");
-        editMemberService.deleteSkill(SecurityUtil.getCurrentIdMember(), id);
+
+
         return "successfully";
-        /*{
-            return "successfully";
-        } else {
-            return "fails";
-        }*/
+    }
+
+    @RequestMapping(value = "/fragment/edit/skills/{id}", method = RequestMethod.GET)
+    public String getAddSkill(@PathVariable("id") Long id,Model model) {
+        model.addAttribute("id", id);
+        model.addAttribute("skillCategories", editMemberService.listSkillCategories());
+        return "fragment/edit/skill";
     }
 
 

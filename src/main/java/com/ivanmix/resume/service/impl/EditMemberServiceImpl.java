@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.ivanmix.resume.entity.*;
+import com.ivanmix.resume.repository.storage.SkillRepository;
 import com.ivanmix.resume.service.EditMemberService;
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
@@ -38,6 +39,10 @@ public class EditMemberServiceImpl implements EditMemberService{
 
     @Autowired
     private MemberRepository memberRepository;
+
+
+    @Autowired
+    private SkillRepository skillRepository;
 
     @Autowired
     private SkillCategoryRepository skillCategoryRepository;
@@ -80,91 +85,27 @@ public class EditMemberServiceImpl implements EditMemberService{
     @Override
     @Transactional
     public void updateSkills(long idMember, List<Skill> updatedData) {
+
+
+
         Member member = memberRepository.findOne(idMember);
-
-        System.out.println("1" + updatedData);
         updatedData.removeAll(Collections.singleton(new Skill()));
-        System.out.println("2" + updatedData);
-        Iterator<Skill> it = updatedData.iterator();
-        while (it.hasNext()) {
-            Skill skill = it.next();
-
-            if(skill.equals(null)){
-                it.remove();
-            }
-        }
-
-        System.out.println("3" + updatedData);
-
 
         if (CollectionUtils.isEqualCollection(updatedData, member.getSkills())) {
             LOGGER.debug("Member skills: nothing to update");
             return;
         } else {
+            member.getSkills().clear();
             member.setSkills(updatedData);
-           /* member.getSkills().clear();*/
             memberRepository.save(member);
         }
     }
 
     @Override
     @Transactional
-    public void deleteSkill(long idMember, Long idSkill){
+    public void deleteSkill(Long idSkill,long idMember){
 
-
-/*
-        Member member = memberRepository.findOne(idMember);
-
-
-
-
-        System.out.println("1 skills :" + member.getSkills());
-
-
-        List<Skill> skills = member.getSkills();
-        Skill skill = null;
-        for (Skill s: skills){
-            if(skill.getId().equals(idSkill)){
-                skill = s;
-                break;
-            }
-        }
-        member.setSkills();
-        memberRepository.save(member);
-
-/*
-        System.out.println("1 skills :" + skills);
-        Iterator<Skill> it = skills.iterator();
-        while (it.hasNext()) {
-            Skill skill = it.next();
-
-            if(skill.getId().equals(idSkill)){
-                it.remove();
-            }
-        }
-*//*
-        System.out.println("2 skills :" + member.getSkills());
-
-        member.setSkills(skills);
-        memberRepository.save(member);*/
-
-
-
-
-        //System.out.println("3 skills :" + memberRepository.findOne(idMember).getSkills());
-
-
-
-/*
-
-
-
-        memberRepository.findOne(idMember)
-
-        void delete(Long id);
-
-        boolean exists(Long id);
-*/
+        skillRepository.deleteByIdAndMemberId(idSkill, idMember);
     }
 
 

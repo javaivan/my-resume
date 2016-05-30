@@ -39,12 +39,6 @@ var resume = {
 
 
 function detiteEntity(id) {
-    //alert($("form[detiteEntityName]").attr('action'));
-    //alert($("form[detiteEntityName]").attr('detiteEntityName'));
-    //alert(id);
-
-    /*.panel-body*/
-
     var body = "";
 
     body += '<div class="box_detite_entity">';
@@ -56,49 +50,50 @@ function detiteEntity(id) {
     $(".panel-body").append(body);
     return false;
 }
+function addNewEntity() {
+    var length = $("#ui-block-container .ui-item").length;
+    var url = '/fragment'+$("form[detiteEntityName]").attr('action')+'/'+length;
+    $.ajax({
+        url: url,
+        type: 'GET',
+        success: function(result) {
+            $("form[detiteEntityName] #ui-block-container").append(result);
+        },
+        error : function(error) {
+            alert(error);
+            console.log('error: ', error);
+        }
+    });
+    return false;
+}
+
 $(document).ready(function() {
     $('body').on('click', '.box_detite_entity .btn_yes', function (){
-
-        var  url = $("form[detiteEntityName]").attr('action')+'_delete/'+this.id;
+        var     id = this.id;
+        var     url = $("form[detiteEntityName]").attr('action')+'/delete/'+id;
 
         var  detiteEntityName = $("form[detiteEntityName]").attr('detiteEntityName');
-        alert(url);
         $.ajax({
             url: url,
             type: 'GET',
             //data: {id: this.id, name: detiteEntityName},
             success: function(result) {
+                $('.panel-body .box_detite_entity').remove();
+                $('.panel-body .box_detite_bg').remove();
+                $('#ui-item-'+id).remove();
                 alert(result);
-                console.log('result: ', result);
             },
             error : function(error) {
+                $('.panel-body .box_detite_entity').remove();
+                $('.panel-body .box_detite_bg').remove();
+                alert(fails);
                 console.log('error: ', error);
-                alert(error);
             }
         });
-
-        //alert(url + " btn_yes " + this.id);
     });
-
-
-/*
-    $('body').on('click', '.box_detite_entity .box_detite_entity .close', function (){
-        $('.panel-body .box_detite_entity').remove();
-        $('.panel-body .box_detite_bg').remove();
-    });
-    $('body').on('click', '.box_detite_entity .box_detite_entity .btn_not', function (){
-        $('.panel-body .box_detite_entity').remove();
-        $('.panel-body .box_detite_bg').remove();
-    });
-    $('body').on('click', '.box_detite_entity .box_detite_bg', function (){
-*/
     $('body').on('click', '.box_detite_entity .close,.box_detite_entity .btn_not,.box_detite_bg', function (){
         $('.panel-body .box_detite_entity').remove();
         $('.panel-body .box_detite_bg').remove();
     });
-
-/*
-*     $('body').on('click', '.box_detite_entity .box_detite_entity .close,.box_detite_entity .box_detite_entity .btn_not,.box_detite_entity .box_detite_bg', function (){
-* */
 
 });
