@@ -2,8 +2,10 @@ package com.ivanmix.resume.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ivanmix.resume.annotation.constraints.EnglishLanguage;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -24,9 +26,13 @@ public class Course implements Serializable, MemberEntity{
     private Member member;
 
     @Column(length = 255)
+    @EnglishLanguage
+    @Size(min=5)
     private String name;
 
     @Column(length = 255)
+    @EnglishLanguage
+    @Size(min=5)
     private String school;
 
     public Long getId() {

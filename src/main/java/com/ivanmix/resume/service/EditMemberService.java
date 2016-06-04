@@ -15,7 +15,7 @@ public interface EditMemberService {
 
     void updateSkills(long idMember, List<Skill> skills);
 
-    void deleteSkill(Long idSkill, long idMember);
+    void deleteSkill(long idSkill, long idMember);
 
 
     String addInfo(long idMember);
@@ -34,13 +34,29 @@ public interface EditMemberService {
 
     void updateCourses(long idMember, List<Course> courses);
 
+    void deleteCourse(long id, long idMember);
+
+
 
     List<University> listUniversities(long idMember);
 
     void updateUniversities(long idMember, List<University> universities);
 
+    void deleteUniversity(long idUniversity, long idMember);
+
+
     List<Language> listLanguages(long idMember);
 
     void updateLanguages(long idMember, List<Language> languages);
+
+    void deleteLanguage(long idLanguage, long idMember);
+
+
+    List<Practic> listPractics(long idMember);
+
+    void updatePractics(long idMember, List<Practic> practics);
+
+    void deletePractics(long idPractic, long idMember);
+
 
 }

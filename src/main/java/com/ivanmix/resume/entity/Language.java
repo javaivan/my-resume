@@ -1,5 +1,8 @@
 package com.ivanmix.resume.entity;
 
+import com.ivanmix.resume.model.LanguageLevel;
+import com.ivanmix.resume.model.LanguageType;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -11,8 +14,8 @@ import java.io.Serializable;
 public class Language extends AbstractEntity<Long> implements Serializable, MemberEntity{
 
     @Id
-    @SequenceGenerator(name="LANGUEAGE_ID_GENERATOR", sequenceName="LANGUEAGE_SEQ", allocationSize=1)
-    @GeneratedValue(strategy= GenerationType.SEQUENCE, generator="LANGUEAGE_ID_GENERATOR")
+    @SequenceGenerator(name="LANGUAGE_ID_GENERATOR", sequenceName="LANGUAGE_SEQ", allocationSize=1)
+    @GeneratedValue(strategy= GenerationType.SEQUENCE, generator="LANGUAGE_ID_GENERATOR")
     @Column(unique=true, nullable=false)
     private Long id;
 
@@ -20,15 +23,16 @@ public class Language extends AbstractEntity<Long> implements Serializable, Memb
     @JoinColumn(name="member_id", nullable=false)
     private Member member;
 
-    @Column(length = 255)
-    private String type;
+    @Column
+    @Convert(converter = LanguageType.PersistJPAConverter.class)
+    private LanguageType type;
 
     @Column(length = 255)
     private String name;
 
-    @Column(length = 255)
-    private String level;
-
+    @Column(nullable=false)
+    @Convert(converter = LanguageLevel.PersistJPAConverter.class)
+    private LanguageLevel level;
 
     @Override
     public Long getId() {
@@ -48,11 +52,11 @@ public class Language extends AbstractEntity<Long> implements Serializable, Memb
         this.member = member;
     }
 
-    public String getType() {
+    public LanguageType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(LanguageType type) {
         this.type = type;
     }
 
@@ -64,12 +68,23 @@ public class Language extends AbstractEntity<Long> implements Serializable, Memb
         this.name = name;
     }
 
-    public String getLevel() {
+    public LanguageLevel getLevel() {
         return level;
     }
 
-    public void setLevel(String level) {
+    public void setLevel(LanguageLevel level) {
         this.level = level;
+    }
+
+    @Override
+    public String toString() {
+        return "Language{" +
+                "id=" + id +
+                ", member=" + member +
+                ", type=" + type +
+                ", name='" + name + '\'' +
+                ", level=" + level +
+                '}';
     }
 
     @Override
@@ -82,9 +97,9 @@ public class Language extends AbstractEntity<Long> implements Serializable, Memb
 
         if (id != null ? !id.equals(language.id) : language.id != null) return false;
         if (member != null ? !member.equals(language.member) : language.member != null) return false;
-        if (type != null ? !type.equals(language.type) : language.type != null) return false;
+        if (type != language.type) return false;
         if (name != null ? !name.equals(language.name) : language.name != null) return false;
-        return level != null ? level.equals(language.level) : language.level == null;
+        return level == language.level;
 
     }
 

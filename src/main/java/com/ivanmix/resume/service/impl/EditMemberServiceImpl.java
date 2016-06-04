@@ -6,7 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.ivanmix.resume.entity.*;
-import com.ivanmix.resume.repository.storage.SkillRepository;
+import com.ivanmix.resume.repository.storage.*;
 import com.ivanmix.resume.service.EditMemberService;
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
@@ -27,8 +27,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import com.ivanmix.resume.model.CurrentMember;
 import com.ivanmix.resume.exception.CantCompleteClientRequestException;
 import com.ivanmix.resume.form.SignUpForm;
-import com.ivanmix.resume.repository.storage.MemberRepository;
-import com.ivanmix.resume.repository.storage.SkillCategoryRepository;
 import com.ivanmix.resume.service.EditMemberService;
 import com.ivanmix.resume.util.DataUtil;
 
@@ -40,12 +38,24 @@ public class EditMemberServiceImpl implements EditMemberService{
     @Autowired
     private MemberRepository memberRepository;
 
+    @Autowired
+    private CourseRepository courseRepository;
 
     @Autowired
     private SkillRepository skillRepository;
 
     @Autowired
     private SkillCategoryRepository skillCategoryRepository;
+
+    @Autowired
+    private UniversityRepository universityRepository;
+
+    @Autowired
+    private PracticRepository practicRepository;
+
+    @Autowired
+    private LanguageRepository languageRepository;
+
 /*
     @Value("${generate.uid.suffix.length}")
     private int generateUidSuffixLength;
@@ -85,9 +95,6 @@ public class EditMemberServiceImpl implements EditMemberService{
     @Override
     @Transactional
     public void updateSkills(long idMember, List<Skill> updatedData) {
-
-
-
         Member member = memberRepository.findOne(idMember);
         updatedData.removeAll(Collections.singleton(new Skill()));
 
@@ -103,7 +110,7 @@ public class EditMemberServiceImpl implements EditMemberService{
 
     @Override
     @Transactional
-    public void deleteSkill(Long idSkill,long idMember){
+    public void deleteSkill(long idSkill,long idMember){
 
         skillRepository.deleteByIdAndMemberId(idSkill, idMember);
     }
@@ -159,14 +166,22 @@ public class EditMemberServiceImpl implements EditMemberService{
     @Override
     public void updateCourses(long idMember, List<Course> courses) {
         Member member = memberRepository.findOne(idMember);
+        courses.removeAll(Collections.singleton(new Course()));
         if(CollectionUtils.isEqualCollection(courses, member.getCourses())){
             LOGGER.debug("Member courses: nothing to update");
             return;
         } else {
+            member.getCourses().clear();
             member.setCourses(courses);
             memberRepository.save(member);
         }
     }
+
+    @Transactional
+    public void deleteCourse(long id, long idMember){
+        courseRepository.deleteByIdAndMemberId(id,idMember);
+    }
+
 
     @Override
     public List<University> listUniversities(long idMember) {
@@ -176,6 +191,7 @@ public class EditMemberServiceImpl implements EditMemberService{
     @Override
     public void updateUniversities(long idMember, List<University> universities) {
         Member member = memberRepository.findOne(idMember);
+        universities.removeAll(Collections.singleton(new University()));
         if(CollectionUtils.isEqualCollection(universities,member.getUniversities())){
             LOGGER.debug("Member Universities: nothing to update");
             return;
@@ -185,12 +201,20 @@ public class EditMemberServiceImpl implements EditMemberService{
         }
     }
 
+
+    @Transactional
+    public void deleteUniversity(long id, long idMember){
+        universityRepository.deleteByIdAndMemberId(id,idMember);
+    }
+
+
     @Override
     public List<Language> listLanguages(long idMember) {
         return memberRepository.findById(idMember).getLanguages();
     }
 
     @Override
+    @Transactional
     public void updateLanguages(long idMember, List<Language> languages) {
         Member member = memberRepository.findOne(idMember);
         if(CollectionUtils.isEqualCollection(languages,member.getUniversities())){
@@ -203,8 +227,44 @@ public class EditMemberServiceImpl implements EditMemberService{
     }
 
 
+    @Transactional
+    public void deleteLanguage(long id, long idMember){
+        languageRepository.deleteByIdAndMemberId(id,idMember);
+    }
+
+
+    @Override
+    public List<Practic> listPractics(long idMember) {
+        return memberRepository.findById(idMember).getPractics();
+    }
+
+
+
+    @Override
+    @Transactional
+    public void updatePractics(long idMember, List<Practic> practics) {
+        Member member = memberRepository.findOne(idMember);
+        practics.removeAll(Collections.singleton(new Practic()));
+        if(CollectionUtils.isEqualCollection(practics, member.getPractics())){
+            LOGGER.debug("Member practic: nothing to update");
+            return;
+        } else {
+            //member.getPractics().clear();
+            member.setPractics(practics);
+            memberRepository.save(member);
+        }
+    }
+
+    @Transactional
+    public void deletePractics(long id, long idMember){
+        practicRepository.deleteByIdAndMemberId(id,idMember);
+    }
+
+
 
 /*
+
+deletePractics
     @Override
     public List<Education> listEducations(long idMember) {
         return memberRepository.findById(idMember).getEducations();

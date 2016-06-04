@@ -61,6 +61,11 @@ public class Member extends AbstractEntity<Long> implements Serializable {
     @OneToMany(mappedBy = "member", cascade={CascadeType.MERGE, CascadeType.PERSIST})
     private List<Language> languages;
 
+    @OneToMany(mappedBy = "member", cascade={CascadeType.MERGE, CascadeType.PERSIST})
+  /*  @OrderBy("finishDate DESC")*/
+    private List<Practic> practics;
+
+
     public Member() {
     }
 
@@ -166,6 +171,16 @@ public class Member extends AbstractEntity<Long> implements Serializable {
     public void setLanguages(List<Language> languages) {
         this.languages = languages;
         updateListSetMember(this.languages);
+    }
+
+
+    public List<Practic> getPractics() {
+        return this.practics;
+    }
+
+    public void setPractics(List<Practic> practics) {
+        this.practics = practics;
+        updateListSetMember(this.practics);
     }
 
 /*

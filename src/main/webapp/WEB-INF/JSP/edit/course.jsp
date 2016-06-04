@@ -5,12 +5,16 @@
 
 <div class="panel panel-default">
     <div class="panel-body">
-        <h4 class="data-header">Уровни владения иностранным языкими</h4>
+        <h4 class="data-header">Курсы повышения квалифицации</h4>
         <hr />
-        <form:form action="/edit/languages" method="post" commandName="languageForm" detiteEntityName="language">
+        <div class="row" style="margin-bottom: 20px;">
+            <div class="col-xs-5 col-sm-4 col-md-2 text-center"><strong>Название Курса*</strong></div>
+            <div class="col-xs-7 col-sm-8 col-md-10 text-center"><strong>Название школы / плащадки*</strong></div>
+        </div>
+        <form:form action="/edit/courses" method="post" commandName="courseForm" detiteEntityName="course">
             <div id="ui-block-container">
-                <c:forEach var="language" items="${languageForm.items}" varStatus="status">
-                    <resume:edit-language-block index="${status.index}" language="${language}" />
+                <c:forEach var="сourse" items="${courseForm.courses}" varStatus="status">
+                    <resume:edit-course-block index="${status.index}" сourse="${сourse}" />
                 </c:forEach>
             </div>
             <div class="row">

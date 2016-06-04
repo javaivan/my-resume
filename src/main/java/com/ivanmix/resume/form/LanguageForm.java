@@ -12,22 +12,22 @@ import java.util.List;
 public class LanguageForm implements Serializable {
 
 	@Valid
-	private List<Language> languages = new ArrayList<>();
+	private List<Language> items = new ArrayList<>();
 
     public LanguageForm() {
 		super();
 	}
 
-    public LanguageForm(List<Language> languages) {
+    public LanguageForm(List<Language> items) {
 		super();
-		this.languages = languages;
+		this.items = items;
 	}
 
-	public List<Language> getLanguages() {
-		return languages;
+	public List<Language> getItems() {
+		return items;
 	}
 
-	public void setLanguages(List<Language> languages) {
-		this.languages = languages;
+	public void setItems(List<Language> items) {
+		this.items = items;
 	}
 }
