@@ -12,22 +12,22 @@ import java.util.List;
 public class CertificateForm implements Serializable {
 
 	@Valid
-	private List<Certificate> certificates = new ArrayList<>();
+	private List<Certificate> items = new ArrayList<>();
 
     public CertificateForm() {
 		super();
 	}
 
-    public CertificateForm(List<Certificate> certificates) {
+    public CertificateForm(List<Certificate> items) {
 		super();
-		this.certificates = certificates;
+		this.items = items;
 	}
 
-	public List<Certificate> getCertificates() {
-		return certificates;
+	public List<Certificate> getItems() {
+		return items;
 	}
 
-	public void setCertificates(List<Certificate> certificates) {
-		this.certificates = certificates;
+	public void setItems(List<Certificate> items) {
+		this.items = items;
 	}
 }

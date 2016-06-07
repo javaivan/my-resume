@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 @Controller
-public class Practic {
+public class PracticController {
     protected final Logger LOGGER = LoggerFactory.getLogger(getClass());
 
     @Autowired

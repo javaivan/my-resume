@@ -43,19 +43,9 @@ public class EditMemberController {
 		LOGGER.debug("save contacts");
 		return "redirect:/";
 	}
-/*
-	@RequestMapping(value="/edit/skills", method=RequestMethod.GET)
-	public String getEditSkills(Model model){
-		LOGGER.debug("skills");
-		model.addAttribute("skillCategories", skillCategoryRepository.findAll(new Sort("id")));
-		return "edit/skills";
-	}
 
-	@RequestMapping(value="/edit/skills", method=RequestMethod.POST)
-	public String saveEditSkills(){
-		LOGGER.debug("save skills");
-		return "redirect:/";
-	}*/
+
+
 
 
 	@RequestMapping(value = "/my-profile")
@@ -64,44 +54,7 @@ public class EditMemberController {
 	}
 
 
-	@RequestMapping(value="/edit/certificates", method=RequestMethod.GET)
-	public String getEditCertificates(Model model){
-		LOGGER.debug("certificates");
-		model.addAttribute("certificateForm", new CertificateForm(editMemberService.listCertificates(SecurityUtil.getCurrentIdMember())));
-		return "edit/certificates";
-	}
-	@RequestMapping(value="/edit/certificates", method=RequestMethod.POST)
-	public String saveEditCertificates(@Valid @ModelAttribute("certificateForm") CertificateForm form, BindingResult bindingResult, Model model){
-		LOGGER.debug("save certificates");
-		if(bindingResult.hasErrors()){
-			model.addAttribute("certificateForm", new CertificateForm(editMemberService.listCertificates(SecurityUtil.getCurrentIdMember())));
-			return "edit/certificates";
-		}
-		editMemberService.updateCertificates(SecurityUtil.getCurrentIdMember(), form.getCertificates());
-		return "redirect:/";
-	}
 
-
-/*
-
-
-	@RequestMapping(value="/edit/languages", method=RequestMethod.GET)
-	public String getEditLanguages(Model model){
-		LOGGER.debug("languages");
-		model.addAttribute("languageForm", new LanguageForm(editMemberService.listLanguages(SecurityUtil.getCurrentIdMember())));
-		return "edit/languages";
-	}
-
-	@RequestMapping(value="/edit/languages", method=RequestMethod.POST)
-	public String saveEditLanguages(@Valid @ModelAttribute("languageForm") LanguageForm form, BindingResult bindingResult, Model model) {
-		LOGGER.debug("save languages");
-		if (bindingResult.hasErrors()) {
-			return "edit/university";
-		}
-		editMemberService.updateLanguages(SecurityUtil.getCurrentIdMember(),form.getItems());
-		return "redirect:/";
-	}
-*/
 	@RequestMapping(value="/edit/hobbies", method=RequestMethod.GET)
 	public String getEditHobbies(){
 		LOGGER.debug("hobbies");

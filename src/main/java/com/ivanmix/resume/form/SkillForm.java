@@ -27,7 +27,7 @@ public class SkillForm implements Serializable {
 		return items;
 	}
 
-    public void setItems(List<Skill> items) {
+	public void setItems(List<Skill> items) {
 		this.items = items;
 	}
 }

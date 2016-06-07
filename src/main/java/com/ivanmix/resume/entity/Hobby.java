@@ -8,30 +8,27 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 @Entity
-@Table(name="certificate")
-public class Certificate extends AbstractEntity<Long> implements Serializable, MemberEntity {
+@Table(name="hobby")
+public class Hobby extends AbstractEntity<Long> implements Serializable, MemberEntity {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @SequenceGenerator(name="CERTIFICATE_ID_GENERATOR", sequenceName="CERTIFICATE_SEQ", allocationSize=1)
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="CERTIFICATE_ID_GENERATOR")
+    @SequenceGenerator(name="HOBBY_ID_GENERATOR", sequenceName="HOBBY_SEQ", allocationSize=1)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="HOBBY_ID_GENERATOR")
     @Column(unique=true, nullable=false)
     private Long id;
 
-    @Column(nullable=false, length=250)
+    @Column(nullable=false, length=255)
+    @EnglishLanguage
     @Size(min=1)
     private String name;
 
-    @Column(nullable=false, length=250)
-    @Size(min=1)
-    private String images;
 
-    //bi-directional many-to-one association to Profile
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="member_id", nullable=false)
     private Member member;
 
-    public Certificate() {
+    public Hobby() {
     }
 
     public Long getId() {
@@ -50,15 +47,6 @@ public class Certificate extends AbstractEntity<Long> implements Serializable, M
         this.name = name;
     }
 
-
-    public String getImages() {
-        return images;
-    }
-
-    public void setImages(String images) {
-        this.images = images;
-    }
-
     public Member getMember() {
         return this.member;
     }
@@ -74,7 +62,6 @@ public class Certificate extends AbstractEntity<Long> implements Serializable, M
         int result = super.hashCode();
         result = prime * result + ((name == null) ? 0 : name.hashCode());
         result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + ((images == null) ? 0 : images.hashCode());
         return result;
     }
 
@@ -84,9 +71,9 @@ public class Certificate extends AbstractEntity<Long> implements Serializable, M
             return true;
         if (!super.equals(obj))
             return false;
-        if (!(obj instanceof Certificate))
+        if (!(obj instanceof Hobby))
             return false;
-        Certificate other = (Certificate) obj;
+        Hobby other = (Hobby) obj;
         if (name == null) {
             if (other.name != null)
                 return false;
@@ -97,21 +84,7 @@ public class Certificate extends AbstractEntity<Long> implements Serializable, M
                 return false;
         } else if (!id.equals(other.id))
             return false;
-        if (images == null) {
-            if (other.images != null)
-                return false;
-        } else if (!images.equals(other.images))
-            return false;
         return true;
     }
 
-    @Override
-    public String toString() {
-        return "Certificate: {" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", images='" + images + '\'' +
-                ", member=" + member +
-                '}';
-    }
 }

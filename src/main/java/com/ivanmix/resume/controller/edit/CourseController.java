@@ -16,7 +16,7 @@ import javax.validation.Valid;
 
 
 @Controller
-public class Course {
+public class CourseController {
 
     protected final Logger LOGGER = LoggerFactory.getLogger(getClass());
 

@@ -56,6 +56,9 @@ public class EditMemberServiceImpl implements EditMemberService{
     @Autowired
     private LanguageRepository languageRepository;
 
+    @Autowired
+    private CertificateRepository certificateRepository;
+
 /*
     @Value("${generate.uid.suffix.length}")
     private int generateUidSuffixLength;
@@ -117,6 +120,26 @@ public class EditMemberServiceImpl implements EditMemberService{
 
 
     @Override
+    @Transactional
+    public void updateHobbies(long idMember, List<Hobby> hobbies) {
+        Member member = memberRepository.findOne(idMember);
+        hobbies.removeAll(Collections.singleton(new Hobby()));
+
+        if (CollectionUtils.isEqualCollection(hobbies, member.getHobbies())) {
+            LOGGER.debug("Member skills: nothing to update");
+            return;
+        } else {
+            member.getHobbies().clear();
+            member.setHobbies(hobbies);
+            memberRepository.save(member);
+        }
+    }
+
+
+
+
+
+    @Override
     public String addInfo(long idMember) {
         return memberRepository.findById(idMember).getMemberAddInfo().getDescription();
     }
@@ -147,16 +170,21 @@ public class EditMemberServiceImpl implements EditMemberService{
 
     @Override
     @Transactional
-    public void updateCertificates(long idMember, List<Certificate> certificates) {
+    public void addCertificate(long idMember, Certificate certificate) {
+        /*????*/
         Member member = memberRepository.findOne(idMember);
-        if (CollectionUtils.isEqualCollection(certificates, member.getCertificates())) {
-            LOGGER.debug("Member certificates: nothing to update");
-            return;
-        } else {
-            member.setCertificates(certificates);
-            memberRepository.save(member);
-        }
+        List<Certificate> certificates = member.getCertificates();
+        certificates.add(certificate);
+        member.setCertificates(certificates);
+        memberRepository.save(member);
     }
+
+    @Override
+    @Transactional
+    public void deleteCertificate(long id, long idMember){
+        certificateRepository.deleteByIdAndMemberId(id,idMember);
+    }
+
 
     @Override
     public List<Course> listCourses(long idMember) {
@@ -177,6 +205,7 @@ public class EditMemberServiceImpl implements EditMemberService{
         }
     }
 
+    @Override
     @Transactional
     public void deleteCourse(long id, long idMember){
         courseRepository.deleteByIdAndMemberId(id,idMember);

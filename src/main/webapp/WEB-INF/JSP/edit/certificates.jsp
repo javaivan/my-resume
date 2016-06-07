@@ -3,34 +3,31 @@
 <%@ taglib prefix="form"   	uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="resume" 	tagdir="/WEB-INF/tags"%>
 
-certificates profile
 <div class="panel panel-default">
     <div class="panel-body">
-        <h4 class="data-header">Технические навыки во фреймворках и технологиях</h4>
+        <h4 class="data-header">Сертификаты</h4>
         <hr />
-        <div class="row" style="margin-bottom: 20px;">
-            <div class="col-xs-5 col-sm-4 col-md-2 text-center"><strong>Категория</strong></div>
-            <div class="col-xs-7 col-sm-8 col-md-10 text-center"><strong>Фреймворк и технология</strong></div>
-        </div>
-        <form:form action="/edit/certificates" method="post" commandName="certificateForm">
+        <form:form action="/edit/certificates" method="post" commandName="certificateForm" detiteEntityName="certificate">
             <div id="ui-block-container">
-                <c:forEach var="certificates" items="${certificateForm.certificates}" varStatus="status">
+                <c:forEach var="certificate" items="${certificateForm.items}" varStatus="status">
                     <resume:edit-certificat-block
                             index="${status.index}"
-                            certificat="${certificates}" />
+                            certificate="${certificate}" />
                 </c:forEach>
             </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    <a href="javascript:void(0);">+ Добавить Сертификат</a>
-                </div>
-            </div>
-            <hr />
-            <div class="row">
-                <div class="col-xs-12 text-center">
-                    <input type="submit" class="btn btn-primary" value="Сохранить">
-                </div>
-            </div>
         </form:form>
+        <br>
+        <hr>
+        <div th:if="${message}">
+            <h2 th:text="${message}"/>
+
+        <form:form action="/edit/certificates" method="post" commandName="uploadFileForm" enctype="multipart/form-data">
+            <input type="text" name="name" value="${uploadFileForm.name}" />
+            <form:errors path="name" cssClass="alert alert-danger" element="div" />
+            <input type="file" name="images" value="${uploadFileForm.images}" />
+            <form:errors path="images" cssClass="alert alert-danger" element="div" />
+            <input type="submit" class="btn btn-primary" value="Сохранить">
+        </form:form>
+
     </div>
 </div>

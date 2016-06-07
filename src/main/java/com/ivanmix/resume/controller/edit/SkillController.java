@@ -17,7 +17,7 @@ import javax.validation.Valid;
 
 
 @Controller
-public class Skill {
+public class SkillController {
     protected final Logger LOGGER = LoggerFactory.getLogger(getClass());
 
     @Autowired

@@ -18,6 +18,9 @@ public interface EditMemberService {
     void deleteSkill(long idSkill, long idMember);
 
 
+    void updateHobbies(long idMember, List<Hobby> hobbies);
+
+
     String addInfo(long idMember);
 
     void updateAddInfo(long idMember, String  addInfo);
@@ -26,9 +29,14 @@ public interface EditMemberService {
 
     void updateMemberContactSocial(long idMember, MemberContactSocial memberContactSocial);
 
+
     List<Certificate> listCertificates(long idMember);
 
-    void updateCertificates(long idMember, List<Certificate> certificates);
+    void addCertificate(long idMember, Certificate certificate);
+
+    void deleteCertificate(long id, long idMember);
+
+
 
     List<Course> listCourses(long idMember);
 

@@ -44,6 +44,9 @@ public class Member extends AbstractEntity<Long> implements Serializable {
     private List<Skill> skills;
 
     @OneToMany(mappedBy = "member", cascade={CascadeType.MERGE, CascadeType.PERSIST})
+    private List<Hobby> hobbies;
+
+    @OneToMany(mappedBy = "member", cascade={CascadeType.MERGE, CascadeType.PERSIST})
     private List<Certificate> certificates;
 
     @OneToOne(mappedBy = "member", cascade={CascadeType.MERGE, CascadeType.PERSIST})
@@ -100,6 +103,15 @@ public class Member extends AbstractEntity<Long> implements Serializable {
 
     public void setSkills(List<Skill> skills) {
         this.skills = skills;
+        updateListSetMember(this.skills);
+    }
+
+    public List<Hobby> getHobbies() {
+        return hobbies;
+    }
+
+    public void setHobbies(List<Hobby> hobbies) {
+        this.hobbies = hobbies;
         updateListSetMember(this.skills);
     }
 

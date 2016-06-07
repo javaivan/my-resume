@@ -6,13 +6,18 @@
 <%@ attribute name="index" required="true" type="java.lang.Object"%>
 <%@ attribute name="language" required="false" type="com.ivanmix.resume.entity.Language"%>
 
+
 <div id="ui-item-${language.id}" class="row ui-item language-item">
 
 
     <div class="col-xs-5 col-sm-4 col-md-2 form-group">
         <input type="hidden" name="items[${index }].id" value="${language.id }" />
-        <strong>Тип</strong>
-        <input type="text" name="items[${index}].type" value="${language.type }" />
+        <strong>Тип</strong><br>
+        <select name="items[${index}].type">
+            <c:forEach var="type" items="${languageType }">
+                <option value="${type}" ${language.type==type ? ' selected="selected"': ''}>${type}</option>
+            </c:forEach>
+        </select>
         <form:errors path="items[${index}].type" cssClass="alert alert-danger" element="div" />
     </div>
     <div class="col-xs-5 col-sm-4 col-md-2 form-group">
@@ -24,8 +29,12 @@
         <button type="button" class="close" onclick="detiteEntity(${language.id });">
             <span aria-hidden="true">&times;</span>
         </button>
-        <strong>Уровень</strong>
-        <input type="text" name="items[${index}].level" value="${language.level }" />
+        <strong>Уровень</strong><br>
+        <select name="items[${index}].level">
+            <c:forEach var="level" items="${languageLevel }">
+                <option value="${level}" ${language.level==level ? ' selected="selected"': ''}>${level}</option>
+            </c:forEach>
+        </select>
         <form:errors path="items[${index}].level" cssClass="alert alert-danger" element="div" />
     </div>
     <div class="row skill-delim" >

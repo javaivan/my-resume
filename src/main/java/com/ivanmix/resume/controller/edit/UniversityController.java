@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 @Controller
-public class University {
+public class UniversityController {
     protected final Logger LOGGER = LoggerFactory.getLogger(getClass());
 
     @Autowired
