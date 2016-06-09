@@ -17,7 +17,7 @@
 			<resume:profile-practics />
 			<resume:profile-certificates/>
 			<resume:profile-cources/>
-			<resume:profile-education />
+			<resume:profile-university />
 		</div>
 		<div class="col-xs-12 visible-xs-block">
 			<resume:profile-languages />

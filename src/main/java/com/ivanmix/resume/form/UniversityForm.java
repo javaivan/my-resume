@@ -1,7 +1,5 @@
 package com.ivanmix.resume.form;
 
-import com.ivanmix.resume.entity.Course;
-import com.ivanmix.resume.entity.Education;
 import com.ivanmix.resume.entity.University;
 
 import javax.validation.Valid;

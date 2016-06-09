@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import com.ivanmix.resume.configuration.SecurityConfig;
 import com.ivanmix.resume.entity.*;
 import com.ivanmix.resume.repository.storage.*;
 import com.ivanmix.resume.service.EditMemberService;
@@ -13,6 +14,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -45,6 +48,9 @@ public class EditMemberServiceImpl implements EditMemberService{
     private SkillRepository skillRepository;
 
     @Autowired
+    private HobbyItemRepository hobbyItemRepository;
+
+    @Autowired
     private SkillCategoryRepository skillCategoryRepository;
 
     @Autowired
@@ -58,6 +64,13 @@ public class EditMemberServiceImpl implements EditMemberService{
 
     @Autowired
     private CertificateRepository certificateRepository;
+
+    @Autowired
+    private HobbiesRepository hobbiesRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
 
 /*
     @Value("${generate.uid.suffix.length}")
@@ -77,12 +90,38 @@ public class EditMemberServiceImpl implements EditMemberService{
         member.setLastName(DataUtil.capitalizeName(signUpForm.getLastName()));
         member.setEmail(DataUtil.capitalizeName(signUpForm.getEmail()));
 
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        /*PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();*/
         String encodedPassword = passwordEncoder.encode(signUpForm.getPassword());
 
         member.setPassword(encodedPassword);
         memberRepository.save(member);
         return member;
+    }
+
+    @Override
+    @Transactional
+    public void changePassword(long idMember, String password){
+        Member member = memberRepository.findOne(idMember);
+        String encodedPassword = passwordEncoder.encode(password);
+        if (member.getPassword().equals(encodedPassword)) {
+            LOGGER.debug("Member password: nothing to update");
+            return;
+        } else {
+            member.setPassword(encodedPassword);
+            memberRepository.save(member);
+        }
+    }
+
+
+    @Override
+    @Transactional
+    public void addMemberPhoto(long idMember, String photo){
+        Member member = memberRepository.findOne(idMember);
+        //String memberPhoto = member.getMemberContact().getPhoto();
+        member.getMemberContact().setPhoto(photo);
+        memberRepository.save(member);
+        /*
+        updatedData.removeAll(Collections.singleton(new Skill()));*/
     }
 
     @Override
@@ -120,16 +159,28 @@ public class EditMemberServiceImpl implements EditMemberService{
 
 
     @Override
+    public List<HobbyItem> listHobbyItem(){
+        return hobbyItemRepository.findAll(new Sort("name"));
+    }
+
+    @Override
+    public List<Hobby> listHobby(long idMember){
+        return memberRepository.findById(idMember).getHobbies();
+    }
+
+    @Override
     @Transactional
     public void updateHobbies(long idMember, List<Hobby> hobbies) {
+        hobbiesRepository.deleteByMemberId(idMember);
         Member member = memberRepository.findOne(idMember);
         hobbies.removeAll(Collections.singleton(new Hobby()));
-
         if (CollectionUtils.isEqualCollection(hobbies, member.getHobbies())) {
             LOGGER.debug("Member skills: nothing to update");
             return;
         } else {
-            member.getHobbies().clear();
+            /*member.getHobbies().removeAll(member.getHobbies());
+            memberRepository.save(member);
+            member.getHobbies().clear();*/
             member.setHobbies(hobbies);
             memberRepository.save(member);
         }
@@ -157,6 +208,24 @@ public class EditMemberServiceImpl implements EditMemberService{
     }
 
     @Override
+    @Transactional
+    public void updateMemberContact(long idMember, MemberContact memberContact) {
+        Member member = memberRepository.findById(idMember);
+
+        MemberContact mc = member.getMemberContact();
+
+        mc.setCountry(memberContact.getCountry());
+        mc.setCity(memberContact.getCity());
+        mc.setPhone(memberContact.getPhone());
+        mc.setObjective(memberContact.getObjective());
+        mc.setQualification(memberContact.getQualification());
+
+        member.setMemberContact(mc);
+        memberRepository.save(member);
+    }
+
+    @Override
+    @Transactional
     public void updateMemberContactSocial(long idMember, MemberContactSocial memberContactSocial) {
         Member member = memberRepository.findById(idMember);
         member.getMemberContact().setMemberContactSocial(memberContactSocial);
@@ -290,26 +359,5 @@ public class EditMemberServiceImpl implements EditMemberService{
     }
 
 
-
-/*
-
-deletePractics
-    @Override
-    public List<Education> listEducations(long idMember) {
-        return memberRepository.findById(idMember).getEducations();
-    }
-
-    @Override
-    public void updateEducations(long idMember, List<Education> educations) {
-        Member member = memberRepository.findOne(idMember);
-        if(CollectionUtils.isEqualCollection(educations, member.getEducations())){
-            LOGGER.debug("Member ducation: nothing to update");
-            return;
-        } else {
-            member.setEducations(educations);
-            memberRepository.save(member);
-        }
-    }
-*/
 
 }

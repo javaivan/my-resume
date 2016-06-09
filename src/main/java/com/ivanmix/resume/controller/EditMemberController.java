@@ -1,5 +1,6 @@
 package com.ivanmix.resume.controller;
 
+import com.fasterxml.jackson.databind.Module;
 import com.ivanmix.resume.form.*;
 import com.ivanmix.resume.service.EditMemberService;
 import com.ivanmix.resume.util.SecurityUtil;
@@ -29,9 +30,35 @@ public class EditMemberController {
 	private EditMemberService editMemberService;
 
 	@RequestMapping(value="/edit", method=RequestMethod.GET)
-	public String getEditProfile(){
+	public String getEditProfile(Model model){
+		LOGGER.debug("edit Profile");
+		model.addAttribute("contactForm", editMemberService.memberContact(SecurityUtil.getCurrentIdMember()));
 		return "edit";
 	}
+
+	@RequestMapping(value = "/edit", method = RequestMethod.POST)
+	public String saveEditProfile(@Valid @ModelAttribute("contactForm") ContactForm form, BindingResult bindingResult, Model model) {
+		LOGGER.debug("saveEditProfile: " + form);
+		if (bindingResult.hasErrors()) {
+			return "edit";
+		}
+		editMemberService.updateMemberContact(SecurityUtil.getCurrentIdMember(), form.getItems());
+		return "redirect:/";
+	}
+
+
+	@RequestMapping(value="/edit/photo", method=RequestMethod.POST)
+	public String savePhoto(@Valid @ModelAttribute("uploadFileForm") UploadPhotoForm form, BindingResult bindingResult, Model model){
+		LOGGER.debug("save Photo");
+		if(bindingResult.hasErrors()){
+			System.out.println("hasErrors");
+			return "edit";
+		}
+		editMemberService.addMemberPhoto(SecurityUtil.getCurrentIdMember(),form.getImages());
+		System.out.println(form.getImages());
+		return "redirect:/";
+	}
+
 
 	@RequestMapping(value="/edit/contacts", method=RequestMethod.GET)
 	public String getEditContacts(){
@@ -50,45 +77,50 @@ public class EditMemberController {
 
 	@RequestMapping(value = "/my-profile")
 	public String getMyProfile(@AuthenticationPrincipal CurrentMember currentMember) {
-		return "redirect:/" + currentMember.getUsername();
+		return "redirect:/" + currentMember.getId();
 	}
 
 
 
 	@RequestMapping(value="/edit/hobbies", method=RequestMethod.GET)
-	public String getEditHobbies(){
+	public String getEditHobbies(Model model){
 		LOGGER.debug("hobbies");
-		return "edit/hobbies";
+		model.addAttribute("hobbyForm", new HobbyForm(editMemberService.listHobby(SecurityUtil.getCurrentIdMember())));
+		return gotoHobbiesJSP(model);
 	}
 	@RequestMapping(value="/edit/hobbies", method=RequestMethod.POST)
-	public String saveEditHobbies(){
+	public String saveEditHobbies(@Valid @ModelAttribute("hobbyForm") HobbyForm form, BindingResult bindingResult, Model model) {
 		LOGGER.debug("save hobbies");
+		if (bindingResult.hasErrors()){
+			return gotoHobbiesJSP(model);
+		}
+		editMemberService.updateHobbies(SecurityUtil.getCurrentIdMember(),form.getItems());
+		return "redirect:/";
+	}
+	private String gotoHobbiesJSP(Model model){
+		model.addAttribute("hobbyItem", editMemberService.listHobbyItem());
+		return "edit/hobbies";
+	}
+
+
+
+	@RequestMapping(value="/edit/password", method=RequestMethod.GET)
+	public String getEditPassword(Model model){
+		LOGGER.debug("password");
+		model.addAttribute("changePasswordForm", new ChangePasswordForm());
+		return "edit/password";
+	}
+	@RequestMapping(value="/edit/password", method=RequestMethod.POST)
+	public String saveEditPassword(@Valid @ModelAttribute("changePasswordForm") ChangePasswordForm form, BindingResult bindingResult, Model model) {
+		LOGGER.debug("save password");
+		if (bindingResult.hasErrors()){
+			return "edit/password";
+		}
+		editMemberService.changePassword(SecurityUtil.getCurrentIdMember(),form.getPassword());
 		return "redirect:/";
 	}
 
 	@RequestMapping(value="/edit/info", method=RequestMethod.GET)
-	public String getEditInfo(){
-		LOGGER.debug("info");
-		return "edit/info";
-	}
-	@RequestMapping(value="/edit/info", method=RequestMethod.POST)
-	public String saveEditInfo(){
-		LOGGER.debug("save info");
-		return "redirect:/";
-	}
-
-	@RequestMapping(value="/edit/password", method=RequestMethod.GET)
-	public String getEditPassword(){
-		LOGGER.debug("password");
-		return "edit/password";
-	}
-	@RequestMapping(value="/edit/password", method=RequestMethod.POST)
-	public String saveEditPassword(){
-		LOGGER.debug("save password");
-		return "redirect:/";
-	}
-
-	@RequestMapping(value="/edit/add-info", method=RequestMethod.GET)
 	public String getEditAddInfo(Model model) {
 		LOGGER.debug("add-info");
 
@@ -97,7 +129,7 @@ public class EditMemberController {
 	}
 
 
-	@RequestMapping(value = "/edit/add-info", method = RequestMethod.POST)
+	@RequestMapping(value = "/edit/info", method = RequestMethod.POST)
 	public String saveEditAddInfo(@Valid @ModelAttribute("addInfoForm") AddInfoForm form, BindingResult bindingResult, Model model) {
 		LOGGER.debug("saveEditAddInfo");
 		if (bindingResult.hasErrors()) {

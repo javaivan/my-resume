@@ -9,6 +9,10 @@ public interface EditMemberService {
 
     Member createNewMember(SignUpForm signUpForm);
 
+    void changePassword(long idMember, String password);
+
+    void addMemberPhoto(long idMember, String photo);
+
     List<Skill> listSkills(long idMember);
 
     List<SkillCategory> listSkillCategories();
@@ -18,6 +22,8 @@ public interface EditMemberService {
     void deleteSkill(long idSkill, long idMember);
 
 
+    List<HobbyItem> listHobbyItem();
+    List<Hobby> listHobby(long idMember);
     void updateHobbies(long idMember, List<Hobby> hobbies);
 
 
@@ -26,6 +32,8 @@ public interface EditMemberService {
     void updateAddInfo(long idMember, String  addInfo);
 
     MemberContact memberContact(long idMember);
+
+    void updateMemberContact(long idMember,MemberContact memberContact);
 
     void updateMemberContactSocial(long idMember, MemberContactSocial memberContactSocial);
 

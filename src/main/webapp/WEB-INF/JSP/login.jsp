@@ -10,7 +10,7 @@
         </h3>
     </div>
     <div class="panel-body">
-        <form action="/sign-in-handler" method="post">
+        <form action="/login-handler" method="post">
             <c:if test="${sessionScope.SPRING_SECURITY_LAST_EXCEPTION != null}">
                 <div class="alert alert-danger" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -20,9 +20,9 @@
                     <c:remove var="SPRING_SECURITY_LAST_EXCEPTION" scope="session" />
                 </div>
             </c:if>
-            <div class="help-block">Вы можете использовать Ваши UID или Email или Phone в качестве логина</div>
+            <div class="help-block">Вы можете использовать Ваши Email или Phone в качестве логина</div>
             <div class="form-group">
-                <label for="email">Логин</label> <input id="email" value="osvenh8@gmail.com" name="email" class="form-control" placeholder="UID или Email или Phone" required autofocus>
+                <label for="email">Логин</label> <input id="email" value="osvenh8@gmail.com" name="email" class="form-control" placeholder="Email или Phone" required autofocus>
             </div>
             <div class="form-group">
                 <label for="password">Пароль</label> <input value="password" id="password" type="password" name="password" class="form-control" placeholder="Password" required>

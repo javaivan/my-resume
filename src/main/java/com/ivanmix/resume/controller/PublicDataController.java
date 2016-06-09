@@ -16,6 +16,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,6 +27,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -58,34 +63,54 @@ public class PublicDataController {
 		return "error";
 	}
 
-	@RequestMapping(value = "/sign-in")
-	public String signIn() {
+	@RequestMapping(value = "/login")
+	public String login() {
 		CurrentMember currentMember = SecurityUtil.getCurrentMember();
 		if(currentMember != null) {
-				return "redirect:/" + currentMember.getUsername();
+				return "redirect:/" + currentMember.getId();
 		}else{
-				return "sign-in";
+				return "login";
 		}
 	}
 
-	@RequestMapping(value = "/sign-in-failed", method = RequestMethod.GET)
-	public String signInFailed(HttpSession session) {
+	@RequestMapping(value = "/login-failed", method = RequestMethod.GET)
+	public String loginFailed(HttpSession session) {
 		if (session.getAttribute("SPRING_SECURITY_LAST_EXCEPTION") == null) {
-				return "redirect:/sign-in";
+				return "redirect:/login";
 			}
-		return "sign-in";
+		return "login";
 	}
 
 	@RequestMapping(value = "/registration", method = RequestMethod.GET)
 	public String getRegistration(Model model){
 		CurrentMember currentMember = SecurityUtil.getCurrentMember();
 		if(currentMember != null) {
-			return "redirect:/" + currentMember.getUsername();
+			return "redirect:/" + currentMember.getId();
 		}else{
 			model.addAttribute("member", new SignUpForm());
 			return "registration";
 		}
 	}
+
+
+/*
+
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public String getSignOut(Model model){
+		return "redirect:/";
+	}
+*/
+
+	@RequestMapping(value="/logout", method = RequestMethod.GET)
+	public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (auth != null){
+			new SecurityContextLogoutHandler().logout(request, response, auth);
+		}
+		return "redirect:/login?logout";
+	}
+
+
 
 	@RequestMapping(value = "/registration", method = RequestMethod.POST)
 	public String setRegistration(@Valid @ModelAttribute("member") SignUpForm form, BindingResult bindingResult, Model model){
@@ -99,14 +124,6 @@ public class PublicDataController {
 
 		editMemberService.createNewMember(form);
 		return "redirect:/";
-/*
 
-		CurrentMember currentMember = SecurityUtil.getCurrentMember();
-		if(currentMember != null) {
-			return "redirect:/" + currentMember.getUsername();
-		}else{
-			model.addAttribute("member", new RegistrationForm());
-			return "registration";
-		}*/
 	}
 }

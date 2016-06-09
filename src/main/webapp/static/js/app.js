@@ -36,8 +36,6 @@ var resume = {
         });
     }
 };
-
-
 function detiteEntity(id) {
     var body = "";
 
@@ -96,4 +94,10 @@ $(document).ready(function() {
         $('.panel-body .box_detite_bg').remove();
     });
 
+
+    if($('#ui-block-container.hobby_box').length){
+        jQuery.each( checkboxChecked, function( i, val ) {
+            $('#ui-block-container input:checkbox[value='+val+']').attr("checked", true);
+        });
+    }
 });

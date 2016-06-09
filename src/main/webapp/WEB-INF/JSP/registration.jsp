@@ -4,20 +4,19 @@
 <%@ taglib prefix="resume" tagdir="/WEB-INF/tags"%>
 
 registration
-
+<br>
 <form action="/registration" method="post" commandName="member">
-
+    firstName<br>
     <input type="text" name="firstName" value="${member.firstName }" />
-    <span span:if="${fields.hasErrors('firstName')}" span:errors="*{firstName}">firstName Error</span>
-
+    <br>
+    lastName <br>
     <input type="text" name="lastName" value="${member.lastName }" />
-    <span span:if="${fields.hasErrors('lastName')}" span:errors="*{lastName}">lastName Error</span>
-
+    <br>
+    email<br>
     <input type="text" name="email" value="${member.email }" />
-    <span span:if="${fields.hasErrors('email')}" span:errors="*{email}">email Error</span>
-
+    <br>
+    password<br>
     <input type="text" name="password" value="${member.password }" />
-    <span span:if="${fields.hasErrors('password')}" span:errors="*{password}">password Error</span>
-
+    <br>
     <input type="submit" class="btn btn-primary" value="Сохранить">
 </form>

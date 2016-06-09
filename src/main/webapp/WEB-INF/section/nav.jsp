@@ -10,7 +10,7 @@
         <li><a href="/edit/courses">Сourses</a></li>
         <li><a href="/edit/university">University</a></li>
         <li><a href="/edit/languages">Languages</a></li>
-        <li><a href="/edit/hobby">Hobby</a></li>
-        <li><a href="/edit/add-info">Additional Information</a></li>
+        <li><a href="/edit/hobbies">Hobby</a></li>
+        <li><a href="/edit/info">Additional Information</a></li>
     </ul>
 </nav>

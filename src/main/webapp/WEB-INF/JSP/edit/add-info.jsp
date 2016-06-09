@@ -10,7 +10,7 @@
         <div class="row" style="margin-bottom: 20px;">
             <div class="col-xs-12 col-sm-12 col-md-12 text-center"><strong>Несколько слов о себе, которые предоставят Вам преимущества перед другими кандидатами</strong></div>
         </div>
-        <form:form action="/edit/add-info" method="post" commandName="addInfoForm">
+        <form:form action="/edit/info" method="post" commandName="addInfoForm">
             <div id="ui-block-container">
                 <textarea name="description" class="form-control pull-right" required="required" rows="2">${description}</textarea>
             </div>

@@ -51,14 +51,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/my-profile", "/edit", "/edit/**", "/remove").hasAuthority(Constants.USER)
                 .anyRequest().permitAll();
         http.formLogin()
-                .loginPage("/sign-in")
-                .loginProcessingUrl("/sign-in-handler")
+                .loginPage("/login")
+                .loginProcessingUrl("/login-handler")
                 .usernameParameter("email")
                 .passwordParameter("password")
                 .defaultSuccessUrl("/my-profile")
-                .failureUrl("/sign-in-failed");
+                .failureUrl("/login-failed");
         http.logout()
-                .logoutUrl("/sign-out")
+                .logoutUrl("/logout")
                 .logoutSuccessUrl("/welcome")
                 .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID");

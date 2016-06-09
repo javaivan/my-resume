@@ -12,13 +12,13 @@
 <div id="ui-item-${university.id}" class="row ui-item university-item">
     <input type="hidden" name="universities[${index}].id" value="${university.id}" />
     <div class="col-xs-12 col-sm-12 col-md-12 value-container">
-        <button type="button" class="close" onclick="detiteEntity(${university.id });">
-            <span aria-hidden="true">&times;</span>
-        </button>
-        <strong>Развернутая специалицация</strong>
-        <textarea name="universities[${index}].description" class="form-control pull-right" required="required" rows="2">${university.description}</textarea>
-        <form:errors path="universities[${index}].description" cssClass="alert alert-danger" element="div" />
-    </div>
+    <button type="button" class="close" onclick="detiteEntity(${university.id });">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <strong>Развернутая специалицация</strong>
+    <textarea name="universities[${index}].description" class="form-control pull-right" required="required" rows="2">${university.description}</textarea>
+    <form:errors path="universities[${index}].description" cssClass="alert alert-danger" element="div" />
+</div>
     <div class="row" ><div class="col-xs-offset-5 col-sm-offset-4 col-md-offset-2 col-xs-7 col-sm-8 col-md-10" style="padding-left:0px;"></div></div>
     <div class="col-xs-6 col-sm-6 col-md-6 form-group">
         <strong>Год поступления</strong>

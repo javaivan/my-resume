@@ -112,7 +112,7 @@ public class Member extends AbstractEntity<Long> implements Serializable {
 
     public void setHobbies(List<Hobby> hobbies) {
         this.hobbies = hobbies;
-        updateListSetMember(this.skills);
+        updateListSetMember(this.hobbies);
     }
 
     public List<Certificate> getCertificates() {    return certificates;}
@@ -194,15 +194,6 @@ public class Member extends AbstractEntity<Long> implements Serializable {
         this.practics = practics;
         updateListSetMember(this.practics);
     }
-
-/*
-    public List<University> getEducations() {
-        return educations;
-    }
-
-    public void setEducations(List<Education> educations) {
-        this.educations = educations;
-    }*/
 
     public List<University> getUniversities() {
         return universities;

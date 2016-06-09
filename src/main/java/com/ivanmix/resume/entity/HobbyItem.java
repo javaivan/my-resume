@@ -13,11 +13,21 @@ import java.io.Serializable;
 @Table(name="hobby_item")
 public class HobbyItem  implements Serializable {
 
+    @Id
+    @Column
+    private Long id;
 
     @Column(nullable=false, length=250)
-    @Size(min = 20)
     @EnglishLanguage
     private String name;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
