@@ -81,11 +81,11 @@ public class EditMemberController {
 	}
 
 
-
+/*
 	@RequestMapping(value="/edit/hobbies", method=RequestMethod.GET)
 	public String getEditHobbies(Model model){
-		LOGGER.debug("hobbies");
-		model.addAttribute("hobbyForm", new HobbyForm(editMemberService.listHobby(SecurityUtil.getCurrentIdMember())));
+		model.addAttribute("hobbies", editMemberService.listHobbiesWithProfileSelected(SecurityUtil.getCurrentIdMember()));
+	//	model.addAttribute("hobbyForm", new HobbyForm(editMemberService.listHobby(SecurityUtil.getCurrentIdMember())));
 		return gotoHobbiesJSP(model);
 	}
 	@RequestMapping(value="/edit/hobbies", method=RequestMethod.POST)
@@ -102,7 +102,7 @@ public class EditMemberController {
 		return "edit/hobbies";
 	}
 
-
+*/
 
 	@RequestMapping(value="/edit/password", method=RequestMethod.GET)
 	public String getEditPassword(Model model){

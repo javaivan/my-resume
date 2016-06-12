@@ -21,12 +21,13 @@ public interface EditMemberService {
 
     void deleteSkill(long idSkill, long idMember);
 
-
+/*
     List<HobbyItem> listHobbyItem();
     List<Hobby> listHobby(long idMember);
+    List<HobbyItem> listHobbiesWithProfileSelected(long memberId);
     void updateHobbies(long idMember, List<Hobby> hobbies);
 
-
+*/
     String addInfo(long idMember);
 
     void updateAddInfo(long idMember, String  addInfo);

@@ -1,9 +1,6 @@
 package com.ivanmix.resume.service.impl;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 import com.ivanmix.resume.configuration.SecurityConfig;
 import com.ivanmix.resume.entity.*;
@@ -71,6 +68,10 @@ public class EditMemberServiceImpl implements EditMemberService{
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+
+    protected Member getMember(long memberId){
+        return memberRepository.findById(memberId);
+    }
 
 /*
     @Value("${generate.uid.suffix.length}")
@@ -157,7 +158,7 @@ public class EditMemberServiceImpl implements EditMemberService{
         skillRepository.deleteByIdAndMemberId(idSkill, idMember);
     }
 
-
+/*
     @Override
     public List<HobbyItem> listHobbyItem(){
         return hobbyItemRepository.findAll(new Sort("name"));
@@ -166,6 +167,18 @@ public class EditMemberServiceImpl implements EditMemberService{
     @Override
     public List<Hobby> listHobby(long idMember){
         return memberRepository.findById(idMember).getHobbies();
+    }
+
+    @Override
+    public List<HobbyItem> listHobbiesWithProfileSelected(long memberId) {
+        List<Hobby> memberHobbies = getMember(memberId).getHobbies();
+        List<HobbyItem> hobbies = new ArrayList<>();
+        List<HobbyItem> allHobbies = hobbyItemRepository.findAll(new Sort("name"));
+        for (HobbyItem h: allHobbies){
+            boolean selected = memberHobbies.contains(new Hobby(h.getName()));
+            hobbies.add(new HobbyItem(h.getName(),selected));
+        }
+        return hobbies;
     }
 
     @Override
@@ -180,14 +193,12 @@ public class EditMemberServiceImpl implements EditMemberService{
         } else {
             /*member.getHobbies().removeAll(member.getHobbies());
             memberRepository.save(member);
-            member.getHobbies().clear();*/
+            member.getHobbies().clear();
             member.setHobbies(hobbies);
             memberRepository.save(member);
         }
     }
-
-
-
+*/
 
 
     @Override
