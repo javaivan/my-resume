@@ -3,7 +3,9 @@ package com.ivanmix.resume.controller.edit;
 import com.ivanmix.resume.form.CertificateForm;
 import com.ivanmix.resume.form.CourseForm;
 import com.ivanmix.resume.form.UploadFileForm;
+import com.ivanmix.resume.model.UploadCertificateResult;
 import com.ivanmix.resume.service.EditMemberService;
+import com.ivanmix.resume.service.ImageProcessorService;
 import com.ivanmix.resume.util.SecurityUtil;
 import com.sun.glass.ui.Application;
 import org.slf4j.Logger;
@@ -32,6 +34,9 @@ public class CertificateController {
 
     @Autowired
     private EditMemberService editMemberService;
+
+    @Autowired
+    private ImageProcessorService imageService;
 
     @RequestMapping(value="/edit/certificates", method=RequestMethod.GET)
     public String getEditCertificates(Model model){
@@ -71,6 +76,12 @@ public class CertificateController {
         return "redirect:/";
     }
 
+/*
+    @RequestMapping(value = "/edit/certificates/upload", headers = "content-type=multipart/*", method = RequestMethod.POST)
+    @ResponseBody
+    public String uploadCertificate(@RequestParam("certificateFile") MultipartFile certificateFile) {
+        return imageService.processNewCertificateImage(certificateFile);
+    }
 
-
+*/
 }

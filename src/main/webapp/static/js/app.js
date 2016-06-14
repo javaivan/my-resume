@@ -34,7 +34,37 @@ var resume = {
                 resume.alert('Error! Try again later...');
             }
         });
-    }
+    },
+    certificates : {
+        showUploadDialog : function() {
+            $('#certificateUploader').modal({
+                show : true
+            });
+        },
+
+        add : function (){
+            var certificateName = $('#certificateName').val();
+            //https://www.tjvantoll.com/2012/08/05/html5-form-validation-showing-all-error-messages/
+            if(certificateName.trim() == '') {
+                alert('certificateName is null')
+                return;
+            }
+            var template = resume.ui.getTemplate();
+            var container = $('#ui-block-container');
+            var blockIndex = container.find('.ui-item').length;
+            var context = {
+                blockIndex : blockIndex,
+                name : $('#certificateName').val(),
+                smallUrl : $('#certificateUploader').attr('data-small-url'),
+                largeUrl : $('#certificateUploader').attr('data-large-url')
+            };
+            container.append(template(context));
+            $('#certificateUploader').modal('hide');
+            $('#certificateName').val('');
+            $('#certificateFile').fileinput('clear');
+        }
+    },
+
 };
 function detiteEntity(id) {
     var body = "";

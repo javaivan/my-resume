@@ -1,7 +1,6 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" trimDirectiveWhitespaces="true"%>
 
-<nav>
-    <ul>
+    <ul class="nav nav-tabs" role="tablist">
         <li><a href="/edit">Основное</a></li>
         <li><a href="/edit/contact-social">Contacts</a></li>
         <li><a href="/edit/skills">Skills</a></li>
@@ -13,4 +12,3 @@
         <li><a href="/edit/hobbies">Hobby</a></li>
         <li><a href="/edit/info">Additional Information</a></li>
     </ul>
-</nav>
