@@ -56,6 +56,8 @@ public class LanguageController {
     @RequestMapping(value = "/fragment/edit/languages/{id}", method = RequestMethod.GET)
     public String getAddlanguage(@PathVariable("id") Long id,Model model) {
         model.addAttribute("index", id);
+        model.addAttribute("languageType", LanguageType.values());
+        model.addAttribute("languageLevel", LanguageLevel.values());
         return "fragment/edit/languages";
     }
 

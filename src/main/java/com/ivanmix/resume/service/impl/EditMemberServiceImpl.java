@@ -158,49 +158,6 @@ public class EditMemberServiceImpl implements EditMemberService{
         skillRepository.deleteByIdAndMemberId(idSkill, idMember);
     }
 
-/*
-    @Override
-    public List<HobbyItem> listHobbyItem(){
-        return hobbyItemRepository.findAll(new Sort("name"));
-    }
-
-    @Override
-    public List<Hobby> listHobby(long idMember){
-        return memberRepository.findById(idMember).getHobbies();
-    }
-
-    @Override
-    public List<HobbyItem> listHobbiesWithProfileSelected(long memberId) {
-        List<Hobby> memberHobbies = getMember(memberId).getHobbies();
-        List<HobbyItem> hobbies = new ArrayList<>();
-        List<HobbyItem> allHobbies = hobbyItemRepository.findAll(new Sort("name"));
-        for (HobbyItem h: allHobbies){
-            boolean selected = memberHobbies.contains(new Hobby(h.getName()));
-            hobbies.add(new HobbyItem(h.getName(),selected));
-        }
-        return hobbies;
-    }
-
-    @Override
-    @Transactional
-    public void updateHobbies(long idMember, List<Hobby> hobbies) {
-        hobbiesRepository.deleteByMemberId(idMember);
-        Member member = memberRepository.findOne(idMember);
-        hobbies.removeAll(Collections.singleton(new Hobby()));
-        if (CollectionUtils.isEqualCollection(hobbies, member.getHobbies())) {
-            LOGGER.debug("Member skills: nothing to update");
-            return;
-        } else {
-            /*member.getHobbies().removeAll(member.getHobbies());
-            memberRepository.save(member);
-            member.getHobbies().clear();
-            member.setHobbies(hobbies);
-            memberRepository.save(member);
-        }
-    }
-*/
-
-
     @Override
     public String addInfo(long idMember) {
         return memberRepository.findById(idMember).getMemberAddInfo().getDescription();

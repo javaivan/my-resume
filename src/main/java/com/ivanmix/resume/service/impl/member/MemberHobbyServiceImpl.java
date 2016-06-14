@@ -60,6 +60,7 @@ public class MemberHobbyServiceImpl implements MemberHobbyService {
     @Override
     @Transactional
     public void updateHobbies(long idMember, List<Hobby> hobbies) {
+        /*MAKE BETTER*/
         hobbiesRepository.deleteByMemberId(idMember);
         Member member = memberRepository.findOne(idMember);
         hobbies.removeAll(Collections.singleton(new Hobby()));

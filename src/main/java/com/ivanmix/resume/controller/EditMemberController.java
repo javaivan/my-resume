@@ -81,29 +81,6 @@ public class EditMemberController {
 	}
 
 
-/*
-	@RequestMapping(value="/edit/hobbies", method=RequestMethod.GET)
-	public String getEditHobbies(Model model){
-		model.addAttribute("hobbies", editMemberService.listHobbiesWithProfileSelected(SecurityUtil.getCurrentIdMember()));
-	//	model.addAttribute("hobbyForm", new HobbyForm(editMemberService.listHobby(SecurityUtil.getCurrentIdMember())));
-		return gotoHobbiesJSP(model);
-	}
-	@RequestMapping(value="/edit/hobbies", method=RequestMethod.POST)
-	public String saveEditHobbies(@Valid @ModelAttribute("hobbyForm") HobbyForm form, BindingResult bindingResult, Model model) {
-		LOGGER.debug("save hobbies");
-		if (bindingResult.hasErrors()){
-			return gotoHobbiesJSP(model);
-		}
-		editMemberService.updateHobbies(SecurityUtil.getCurrentIdMember(),form.getItems());
-		return "redirect:/";
-	}
-	private String gotoHobbiesJSP(Model model){
-		model.addAttribute("hobbyItem", editMemberService.listHobbyItem());
-		return "edit/hobbies";
-	}
-
-*/
-
 	@RequestMapping(value="/edit/password", method=RequestMethod.GET)
 	public String getEditPassword(Model model){
 		LOGGER.debug("password");

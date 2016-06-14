@@ -18,9 +18,6 @@ import javax.validation.Valid;
 public class HobbiesController {
 
     @Autowired
-    private EditMemberService editMemberService;
-
-    @Autowired
     private MemberHobbyService memberHobbyService;
 
     @RequestMapping(value="/edit/hobbies", method= RequestMethod.GET)
