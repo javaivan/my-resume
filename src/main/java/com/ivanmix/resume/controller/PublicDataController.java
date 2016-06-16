@@ -1,5 +1,8 @@
 package com.ivanmix.resume.controller;
 
+import java.io.UnsupportedEncodingException;
+
+import com.ivanmix.resume.Constants;
 import com.ivanmix.resume.entity.Member;
 import com.ivanmix.resume.form.RegistrationForm;
 import com.ivanmix.resume.form.SignUpForm;
@@ -15,7 +18,12 @@ import com.sun.tracing.dtrace.ModuleAttributes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.SortDefault;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -61,6 +69,24 @@ public class PublicDataController {
 	public String getError(){
 		LOGGER.debug("getError");
 		return "error";
+	}
+
+
+	@RequestMapping(value = { "/welcome" })
+	public String listAll(Model model) {
+		Page<Member> members = findMemberService.findAll(new PageRequest(0, 2, new Sort("id")));
+		//Page<Member> members = findMemberService.findAll();
+
+		model.addAttribute("profiles", members.getContent());
+		model.addAttribute("page", members);
+		return "profiles";
+	}
+
+	@RequestMapping(value = "/fragment/more", method = RequestMethod.GET)
+	public String moreProfiles(Model model, @PageableDefault(size=2) @SortDefault(sort="id") Pageable pageable) throws UnsupportedEncodingException {
+		Page<Member> members = findMemberService.findAll(pageable);
+		model.addAttribute("profiles", members.getContent());
+		return "fragment/profile-items";
 	}
 
 	@RequestMapping(value = "/login")

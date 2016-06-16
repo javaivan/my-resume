@@ -5,17 +5,17 @@
     <div class="panel panel-default profile-item">
         <div class="media panel-body">
             <div class="media-left media-top">
-                <a href="/${profile.uid }"><img alt="${profile.fullName }" src="${profile.smallPhoto }" class="photo"></a>
+                <a href="/${profile.id }">${profile.id }</a>
             </div>
             <div class="media-body search-result-item">
-                <a href="/${profile.uid }" class="btn btn-primary pull-right">Детали</a>
+                <a href="/${profile.id }" class="btn btn-primary pull-right">Детали</a>
                 <h4 class="media-heading">
-                    <a href="/${profile.uid }">${profile.id}) ${profile.fullName }, ${profile.age }</a>
+                    <a href="/${profile.id }">${profile.id}) ${profile.fullName }</a>
                 </h4>
-                <strong>${profile.objective }</strong>
-                <p>${profile.city },${profile.country }</p>
+                <strong>${profile.id }</strong>
+                <p>${profile.id },${profile.id }</p>
                 <blockquote>
-                    <small>${profile.summary }</small>
+                    <small>${profile.id }</small>
                 </blockquote>
             </div>
         </div>

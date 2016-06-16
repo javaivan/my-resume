@@ -4,7 +4,7 @@
 
 <div class="row profiles">
     <div id="profileContainer" class="col-xs-12" data-profile-total="${page.totalPages }" data-profile-number="${page.number }">
-        <%--<jsp:include page="fragment/profile-items.jsp" />--%>
+        <jsp:include page="fragment/profile-items.jsp" />
     </div>
     <c:if test="${page.number < page.totalPages - 1}">
         <div id="loadMoreContainer" class="col-xs-12 text-center">
