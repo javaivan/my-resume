@@ -20,6 +20,7 @@ public class MemberAddInfo  implements Serializable, MemberEntity {
 
     @OneToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="member_id", nullable=false)
+    @JsonIgnore
     private Member member;
 
     @Size(min=1)

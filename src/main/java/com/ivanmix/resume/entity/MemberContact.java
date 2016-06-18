@@ -1,5 +1,7 @@
 package com.ivanmix.resume.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
@@ -17,6 +19,7 @@ public class MemberContact implements Serializable, MemberEntity {
 
     @OneToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="member_id", nullable=false)
+    @JsonIgnore
     private Member member;
 
     @Column

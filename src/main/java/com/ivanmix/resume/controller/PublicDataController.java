@@ -1,6 +1,7 @@
 package com.ivanmix.resume.controller;
 
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 
 import com.ivanmix.resume.Constants;
 import com.ivanmix.resume.entity.Member;
@@ -15,6 +16,7 @@ import com.ivanmix.resume.model.CurrentMember;
 import com.ivanmix.resume.util.SecurityUtil;
 
 import com.sun.tracing.dtrace.ModuleAttributes;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,10 +32,7 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -80,6 +79,21 @@ public class PublicDataController {
 		model.addAttribute("profiles", members.getContent());
 		model.addAttribute("page", members);
 		return "profiles";
+	}
+
+
+	@RequestMapping(value = "/search", method = RequestMethod.GET)
+	public String searchProfiles(@RequestParam(value="query", required=false) String query, Model model,
+								 @PageableDefault(size=2) @SortDefault(sort="id") Pageable pageable) throws UnsupportedEncodingException {
+		if(StringUtils.isBlank(query)){
+			return "redirect:/welcome";
+		} else {
+			Page<Member> members = findMemberService.findBySearchQuery( Long.parseLong(query), pageable);
+			/*model.addAttribute("profiles", members.getContent());*/
+			model.addAttribute("page", members);
+			/*model.addAttribute("query", URLDecoder.decode(query, "UTF-8"));*/
+			return "search-results";
+		}
 	}
 
 	@RequestMapping(value = "/fragment/more", method = RequestMethod.GET)

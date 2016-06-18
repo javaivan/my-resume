@@ -10,10 +10,12 @@ import javax.persistence.*;
 import org.hibernate.annotations.Cascade;
 import org.joda.time.LocalDate;
 import org.joda.time.Years;
+import org.springframework.data.elasticsearch.annotations.Document;
 
 
 @Entity
 @Table(name = "member")
+@Document(indexName="profile")
 public class Member extends AbstractEntity<Long> implements Serializable {
     private static final long serialVersionUID = 1L;
 

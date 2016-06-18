@@ -13,10 +13,10 @@ import org.slf4j.LoggerFactory;
 
 import com.ivanmix.resume.service.NameService;
 
-@WebServlet("/search")
+//@WebServlet("/search")
 public class SearchController extends HttpServlet{
 	private static final Logger LOGGER = LoggerFactory.getLogger(SearchController.class);
-	
+	/*
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		LOGGER.debug("doGet search");
@@ -26,7 +26,7 @@ public class SearchController extends HttpServlet{
 	private boolean isValid(String name) {
 		return name != null && name.trim().length() != 0;
 	}
-	
+
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		LOGGER.debug("doPost search: {}", req.getParameterMap());
@@ -39,5 +39,5 @@ public class SearchController extends HttpServlet{
 		//String result = NameService.getInstance().convertName(name);
 		//req.setAttribute("name", result);
 		req.getRequestDispatcher("/WEB-INF/JSP/search-result.jsp").forward(req, resp);
-	}
+	}*/
 }

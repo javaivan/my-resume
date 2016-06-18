@@ -1,5 +1,6 @@
 package com.ivanmix.resume.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ivanmix.resume.model.LanguageLevel;
 import com.ivanmix.resume.model.LanguageType;
 
@@ -21,6 +22,7 @@ public class Language extends AbstractEntity<Long> implements Serializable, Memb
 
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="member_id", nullable=false)
+    @JsonIgnore
     private Member member;
 
     @Column

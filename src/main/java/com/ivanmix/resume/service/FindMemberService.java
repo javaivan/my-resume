@@ -10,4 +10,8 @@ public interface FindMemberService {
     Member findById(Long id);
 
     Page<Member> findAll(Pageable pageable);
+
+    Iterable<Member> findAllForIndexing();
+
+    Page<Member> findBySearchQuery(Long query, Pageable pageable);
 }

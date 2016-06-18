@@ -1,6 +1,7 @@
 package com.ivanmix.resume.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ivanmix.resume.annotation.constraints.EnglishLanguage;
 
 import java.io.Serializable;
@@ -41,6 +42,7 @@ public class Skill extends AbstractEntity<Long> implements Serializable, MemberE
 
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="member_id", nullable=false)
+    @JsonIgnore
     private Member member;
 
     public Skill() {

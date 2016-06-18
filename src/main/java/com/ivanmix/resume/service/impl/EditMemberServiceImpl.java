@@ -2,33 +2,24 @@ package com.ivanmix.resume.service.impl;
 
 import java.util.*;
 
-import com.ivanmix.resume.configuration.SecurityConfig;
 import com.ivanmix.resume.entity.*;
 import com.ivanmix.resume.repository.storage.*;
+import com.ivanmix.resume.repository.search.MemberSearchRepository;
 import com.ivanmix.resume.service.EditMemberService;
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.data.domain.Sort;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-
-import com.ivanmix.resume.model.CurrentMember;
-import com.ivanmix.resume.exception.CantCompleteClientRequestException;
 import com.ivanmix.resume.form.SignUpForm;
-import com.ivanmix.resume.service.EditMemberService;
 import com.ivanmix.resume.util.DataUtil;
+import org.springframework.transaction.support.TransactionSynchronizationAdapter;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 @Service
 @SuppressWarnings("unchecked")
@@ -69,6 +60,11 @@ public class EditMemberServiceImpl implements EditMemberService{
     private PasswordEncoder passwordEncoder;
 
 
+
+    @Autowired
+    private MemberSearchRepository memberSearchRepository;
+
+
     protected Member getMember(long memberId){
         return memberRepository.findById(memberId);
     }
@@ -96,8 +92,26 @@ public class EditMemberServiceImpl implements EditMemberService{
 
         member.setPassword(encodedPassword);
         memberRepository.save(member);
+        registerCreateIndexProfileIfTrancationSuccess(member);
         return member;
     }
+
+    private void registerCreateIndexProfileIfTrancationSuccess(final Member member) {
+        TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronizationAdapter() {
+            @Override
+            public void afterCommit() {
+                LOGGER.info("New profile created: {}", member.getId());
+               /* member.setCertificates(Collections.EMPTY_LIST);
+                member.setPractics(Collections.EMPTY_LIST);
+                member.setLanguages(Collections.EMPTY_LIST);
+                member.setSkills(Collections.EMPTY_LIST);
+                member.setCourses(Collections.EMPTY_LIST);*/
+                memberSearchRepository.save(member);
+                LOGGER.info("New profile index created: {}", member.getId());
+            }
+        });
+    }
+
 
     @Override
     @Transactional
@@ -148,9 +162,27 @@ public class EditMemberServiceImpl implements EditMemberService{
             member.getSkills().clear();
             member.setSkills(updatedData);
             memberRepository.save(member);
+          /*  registerUpdateIndexProfileSkillsIfTransactionSuccess(idMember, updatedData);*/
         }
     }
+/*
+    private void registerUpdateIndexProfileSkillsIfTransactionSuccess(final long idMember, final List<Skill> updatedData) {
+        TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronizationAdapter() {
+            @Override
+            public void afterCommit() {
+                LOGGER.info("Profile skills updated");
+                updateIndexProfileSkills(idMember, updatedData);
+            }
+        });
+    }
 
+    private void updateIndexProfileSkills(long idMember, List<Skill> updatedData) {
+        Member member = profileSearchRepository.findOne(idMember);
+        member.setSkills(updatedData);
+        profileSearchRepository.save(member);
+        LOGGER.info("Profile skills index updated");
+    }
+*/
     @Override
     @Transactional
     public void deleteSkill(long idSkill,long idMember){

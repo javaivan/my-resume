@@ -1,6 +1,7 @@
 package com.ivanmix.resume.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ivanmix.resume.annotation.constraints.EnglishLanguage;
 
 import javax.persistence.*;
@@ -29,6 +30,7 @@ public class Certificate extends AbstractEntity<Long> implements Serializable, M
     //bi-directional many-to-one association to Profile
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="member_id", nullable=false)
+    @JsonIgnore
     private Member member;
 
     public Certificate() {
