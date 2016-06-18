@@ -121,6 +121,7 @@ public class PublicDataController {
 
 /*
 
+
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String getSignOut(Model model){
 		return "redirect:/";
