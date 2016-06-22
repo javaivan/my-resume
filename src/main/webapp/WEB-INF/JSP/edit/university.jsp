@@ -1,13 +1,15 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" 		uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="form"   	uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="form" 	uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="sec" 	uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="resume" 	tagdir="/WEB-INF/tags"%>
 
 <div class="panel panel-default">
     <div class="panel-body">
-        <h4 class="data-header">Образование</h4>
+        <h4 class="data-header text-center">Образование</h4>
         <hr />
-        <form:form action="/edit/university" method="post" commandName="universityForm" detiteEntityName="university">
+        <form:form action="/edit/education" method="post" commandName="educationForm">
+            <sec:csrfInput/>
             <div id="ui-block-container">
                 <c:forEach var="university" items="${universityForm.universities}" varStatus="status">
                     <resume:edit-university-block index="${status.index}" university="${university}" />

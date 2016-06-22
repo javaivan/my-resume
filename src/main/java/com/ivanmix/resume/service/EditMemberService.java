@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.ivanmix.resume.entity.*;
 import com.ivanmix.resume.form.SignUpForm;
+import com.ivanmix.resume.model.UploadCertificate;
 
 public interface EditMemberService {
 
@@ -35,6 +36,8 @@ public interface EditMemberService {
     List<Certificate> listCertificates(long idMember);
 
     void addCertificate(long idMember, Certificate certificate);
+
+    void addCertificate(long idMember, String name, UploadCertificate uploadCertificate);
 
     void deleteCertificate(long id, long idMember);
 

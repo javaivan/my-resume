@@ -4,6 +4,7 @@ import java.util.*;
 
 import com.ivanmix.resume.configuration.SecurityConfig;
 import com.ivanmix.resume.entity.*;
+import com.ivanmix.resume.model.UploadCertificate;
 import com.ivanmix.resume.repository.storage.*;
 import com.ivanmix.resume.service.EditMemberService;
 import org.apache.commons.collections.CollectionUtils;
@@ -215,6 +216,25 @@ public class EditMemberServiceImpl implements EditMemberService{
         member.setCertificates(certificates);
         memberRepository.save(member);
     }
+
+    @Override
+    @Transactional
+    public void addCertificate(long idMember, String name, UploadCertificate uploadCertificate){
+        Member member = memberRepository.findOne(idMember);
+        List<Certificate> certificates = member.getCertificates();
+        Certificate c = new Certificate();
+        c.setImages(uploadCertificate.getBigImage());
+        c.setName(name);
+        certificates.add(c);
+        member.setCertificates(certificates);
+        memberRepository.save(member);
+    }
+
+
+
+
+
+
 
     @Override
     @Transactional

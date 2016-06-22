@@ -1,8 +1,10 @@
 package com.ivanmix.resume.controller.edit;
 
+import com.ivanmix.resume.entity.MemberAddInfo;
 import com.ivanmix.resume.form.CertificateForm;
 import com.ivanmix.resume.form.CourseForm;
 import com.ivanmix.resume.form.UploadFileForm;
+import com.ivanmix.resume.model.UploadCertificate;
 import com.ivanmix.resume.model.UploadCertificateResult;
 import com.ivanmix.resume.service.EditMemberService;
 import com.ivanmix.resume.service.ImageProcessorService;
@@ -75,13 +77,36 @@ public class CertificateController {
         System.out.println(form.getImages());
         return "redirect:/";
     }
+    @RequestMapping(value = "/edit/certificates/upload", method = RequestMethod.POST)
+    @ResponseBody
+    public UploadCertificate uploadCertificate(@RequestParam("certificateFile") MultipartFile certificateFile,@RequestParam("certificateName") String certificateName) {
+        System.out.println(certificateName);
+        UploadCertificate uploadCertificate =  imageService.newCertificateImage(certificateFile);
+        editMemberService.addCertificate(SecurityUtil.getCurrentIdMember(),certificateName, uploadCertificate);
+        return imageService.newCertificateImage(certificateFile);
+    }
+
+
+    @RequestMapping(value = "/fragment/edit/certificates/{id}", method = RequestMethod.GET)
+    public String getAddCourses(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("index", id);
+        return "fragment/edit/certificates";
+    }
 
 /*
+    @RequestMapping(value = "/edit/certificates/upload", method = RequestMethod.POST)
+    @ResponseBody
+    public UploadCertificate uploadCertificate(@RequestParam("certificateFile") MultipartFile certificateFile,@RequestParam("certificateName") String certificateName) {
+
+    System.out.println(certificateName);
+    return imageService.newCertificateImage(certificateFile);
+}
+
+
     @RequestMapping(value = "/edit/certificates/upload", headers = "content-type=multipart/*", method = RequestMethod.POST)
     @ResponseBody
     public String uploadCertificate(@RequestParam("certificateFile") MultipartFile certificateFile) {
         return imageService.processNewCertificateImage(certificateFile);
     }
-
 */
 }

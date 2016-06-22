@@ -14,7 +14,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-xs-12 col-md-3 form-group">
+            <div class="col-xs-12 col-md-8 form-group">
                 <div class="row">
                     <div class="col-xs-6 form-group" style="padding-right:0px;">
                         <input type="hidden" name="items[${index }].id" value="${language.id }" />
@@ -33,7 +33,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xs-12 col-md-9">
+            <div class="col-xs-12 col-md-4">
                 <strong>Уровень</strong><br>
                 <select name="items[${index}].level" class="form-control">
                     <c:forEach var="level" items="${languageLevel }">

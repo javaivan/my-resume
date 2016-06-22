@@ -9,7 +9,7 @@
 <div id="hobbyContainer" class="panel panel-default">
     <div class="panel-body">
         <h4 class="data-header">Некоторые работодатели уделяют внимание на хобби кандидата</h4>
-        <h6 class="text-center help-block">Выберите не более <%--${maxHobbies}--%> пунктов!</h6>
+     <%--   <h6 class="text-center help-block">Выберите не более &lt;%&ndash;${maxHobbies}&ndash;%&gt; пунктов!</h6>--%>
         <hr />
         <form:form action="/edit/hobbies" method="post" commandName="hobbies">
             <div id="ui-block-container" class="row"  <%--data-max-hobbies="${maxHobbies}"--%>>

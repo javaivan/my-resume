@@ -7,7 +7,7 @@
     <div class="panel-body">
         <h4 class="data-header">Сертификаты</h4>
         <hr />
-        <form:form action="/edit/certificates" method="post" commandName="certificateForm" detiteEntityName="certificate">
+        <form:form action="/edit/certificates" method="post" commandName="certificateForm" detiteEntityName="certificate" >
             <div id="ui-block-container">
                 <c:forEach var="certificate" items="${certificateForm.items}" varStatus="status">
                     <resume:edit-certificat-block
@@ -15,22 +15,14 @@
                             certificate="${certificate}" />
                 </c:forEach>
             </div>
-        </form:form>
-        <br>
-        <hr>
-
-
-        <form:form action="/edit/certificates" method="post" commandName="uploadFileForm" enctype="multipart/form-data">
-            <input type="text" name="name" value="${uploadFileForm.name}" />
-            <form:errors path="name" cssClass="alert alert-danger" element="div" />
-            <input type="file" name="images" value="${uploadFileForm.images}" />
-            <form:errors path="images" cssClass="alert alert-danger" element="div" />
-            <input type="submit" class="btn btn-primary" value="Сохранить">
+<%--            <div class="col-xs-12 text-center">
+                <input type="submit" class="btn btn-primary" value="Сохранить">
+            </div>--%>
         </form:form>
     </div>
-</div><%--
+</div>
 <a href="javascript:resume.certificates.showUploadDialog();">+ Добавить сертификат</a>
-<form:form action="/edit/certificates/upload" method="post" commandName="certificateForm" detiteEntityName="certificate">
+<form:form action="/edit/certificates/upload" method="POST" commandName="certificateForm" enctype="multipart/form-data">
     <div id="certificateUploader" class="modal fade" role="dialog" >
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -47,15 +39,11 @@
                             <input id="certificateName" name="certificateName" class="form-control" placeholder="Название сертификата" required="required">
                         </div>
                         <div class="col-xs-12 text-center">
-                            <a href="javascript:resume.certificates.add()" class="btn btn-primary" >Добавить сертификат</a>
+                            <a href="javascript:resume.certificates.uploadCertificate()" class="btn btn-primary" >Добавить сертификат</a>
                         </div>
-
-                        <input type="submit" class="btn btn-primary" value="Сохранить">
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <input type="submit" class="btn btn-primary" value="Сохранить">
 </form:form>
---%>
