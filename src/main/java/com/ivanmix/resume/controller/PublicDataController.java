@@ -3,6 +3,7 @@ package com.ivanmix.resume.controller;
 import java.io.UnsupportedEncodingException;
 
 import com.ivanmix.resume.Constants;
+import com.ivanmix.resume.annotation.constraints.FieldMatch;
 import com.ivanmix.resume.entity.Member;
 import com.ivanmix.resume.form.RegistrationForm;
 import com.ivanmix.resume.form.SignUpForm;
@@ -30,6 +31,7 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -107,17 +109,6 @@ public class PublicDataController {
 		return "login";
 	}
 
-	@RequestMapping(value = "/registration", method = RequestMethod.GET)
-	public String getRegistration(Model model){
-		CurrentMember currentMember = SecurityUtil.getCurrentMember();
-		if(currentMember != null) {
-			return "redirect:/" + currentMember.getId();
-		}else{
-			model.addAttribute("member", new SignUpForm());
-			return "registration";
-		}
-	}
-
 
 /*
 
@@ -139,18 +130,37 @@ public class PublicDataController {
 
 
 
+
+	@RequestMapping(value = "/registration", method = RequestMethod.GET)
+	public String registration(Model model){
+		CurrentMember currentMember = SecurityUtil.getCurrentMember();
+		if(currentMember != null) {
+			return "redirect:/" + currentMember.getId();
+		}else{
+			model.addAttribute("registrationForm", new RegistrationForm());
+			return "registration";
+		}
+	}
+
+
 	@RequestMapping(value = "/registration", method = RequestMethod.POST)
-	public String setRegistration(@Valid @ModelAttribute("member") SignUpForm form, BindingResult bindingResult, Model model){
-		LOGGER.debug("setRegistration");
-		System.out.println("setRegistration 1 " + form);
+	public String setRegistration(@Valid @ModelAttribute("registrationForm") RegistrationForm form, BindingResult bindingResult, Model model){
+		System.out.println(form);
 		if(bindingResult.hasErrors()){
-			System.out.println("setRegistration hasErrors " + bindingResult);
-			model.addAttribute("member", new SignUpForm());
+			return "registration";
+		}
+		if(editMemberService.createNewMember(form)){
+			return "redirect:/";
+		} else {
+			ObjectError error = new ObjectError("dataRepetition","Nickname or email is already taken, try other");
+			bindingResult.addError(error);
 			return "registration";
 		}
 
-		editMemberService.createNewMember(form);
-		return "redirect:/";
+		/*
+		System.out.println(form);
+		/*editMemberService.createNewMember(form);
+		return "redirect:/";*/
 
 	}
 }

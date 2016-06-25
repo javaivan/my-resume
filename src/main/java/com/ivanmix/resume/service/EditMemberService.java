@@ -3,12 +3,13 @@ package com.ivanmix.resume.service;
 import java.util.List;
 
 import com.ivanmix.resume.entity.*;
+import com.ivanmix.resume.form.RegistrationForm;
 import com.ivanmix.resume.form.SignUpForm;
 import com.ivanmix.resume.model.UploadCertificate;
 
 public interface EditMemberService {
 
-    Member createNewMember(SignUpForm signUpForm);
+    boolean createNewMember(RegistrationForm registrationForm);
 
     void changePassword(long idMember, String password);
 

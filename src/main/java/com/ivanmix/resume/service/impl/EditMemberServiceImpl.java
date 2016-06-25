@@ -4,6 +4,7 @@ import java.util.*;
 
 import com.ivanmix.resume.configuration.SecurityConfig;
 import com.ivanmix.resume.entity.*;
+import com.ivanmix.resume.form.RegistrationForm;
 import com.ivanmix.resume.model.UploadCertificate;
 import com.ivanmix.resume.repository.storage.*;
 import com.ivanmix.resume.service.EditMemberService;
@@ -86,18 +87,24 @@ public class EditMemberServiceImpl implements EditMemberService{
 */
     @Override
     @Transactional
-    public Member createNewMember(SignUpForm signUpForm) {
-        Member member = new Member();
-        member.setFirstName(DataUtil.capitalizeName(signUpForm.getFirstName()));
-        member.setLastName(DataUtil.capitalizeName(signUpForm.getLastName()));
-        member.setEmail(DataUtil.capitalizeName(signUpForm.getEmail()));
+    public boolean createNewMember(RegistrationForm form) {
 
-        /*PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();*/
-        String encodedPassword = passwordEncoder.encode(signUpForm.getPassword());
+        if(memberRepository.existsByEmailOrNickname(form.getEmail(),form.getNickname())){
+            return false;
+        } else {
+            Member member = new Member();
+            member.setFirstName(form.getFirstName());
+            member.setLastName(form.getLastName());
+            member.setNickname(form.getNickname());
+            member.setEmail(form.getEmail());
 
-        member.setPassword(encodedPassword);
-        memberRepository.save(member);
-        return member;
+            String encodedPassword = passwordEncoder.encode(form.getPassword());
+
+            member.setPassword(encodedPassword);
+            memberRepository.save(member);
+
+            return true;
+        }
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.ivanmix.resume.annotation.constraints;
 
+import com.ivanmix.resume.validator.FieldMatchConstraintValidator;
+
 import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
@@ -28,7 +30,7 @@ import javax.validation.Payload;
  */
 @Target({ TYPE, ANNOTATION_TYPE })
 @Retention(RUNTIME)
-@Constraint(validatedBy = {})
+@Constraint(validatedBy = FieldMatchConstraintValidator.class)
 @Documented
 public @interface FieldMatch {
     String message() default "FieldMatch";

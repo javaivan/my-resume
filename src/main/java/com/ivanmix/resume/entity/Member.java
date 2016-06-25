@@ -23,16 +23,21 @@ public class Member extends AbstractEntity<Long> implements Serializable {
     @Column(unique = true, nullable = false)
     private Long id;
 
-    @Column(name = "first_name", nullable = false, length = 50)
+    @Column(name = "first_name", nullable = false, length = 255)
     private String firstName;
 
-    @Column(name = "last_name", nullable = false, length = 50)
+    @Column(name = "last_name", nullable = false, length = 255)
     private String lastName;
 
-    @Column(length = 100)
+
+    @Column(name = "nick_name", length = 255)
+    private String nickname;
+
+
+    @Column(length = 255)
     private String email;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, length = 255)
     private String password;
 
     @Column(insertable=false)
@@ -131,6 +136,15 @@ public class Member extends AbstractEntity<Long> implements Serializable {
 
     public void setMemberAddInfo(MemberAddInfo memberAddInfo) {
         this.memberAddInfo = memberAddInfo;
+    }
+
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
     public String getEmail() {
