@@ -11,4 +11,6 @@ public interface ImageProcessorService {
 
     String processNewCertificateImage(MultipartFile uploadCertificateImage);
 
+    String newPhotoImage(MultipartFile file);
+
 }

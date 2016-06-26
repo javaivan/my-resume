@@ -60,6 +60,47 @@ public class ImageProcessorServiceImpl implements ImageProcessorService {
         return new UploadCertificate(fileName, fileName, fileName);
     }
 
+
+
+    public String newPhotoImage(MultipartFile images){
+        String fileName;
+        if (!images.isEmpty()) {
+            if((!images.getContentType().equals("image/png"))&&
+                    (!images.getContentType().equals("image/x-png"))&&
+                    (!images.getContentType().equals("image/jpeg"))&&
+                    (!images.getContentType().equals("image/pjpeg"))&&
+                    (!images.getContentType().equals("image/jpg"))&&
+                    (!images.getContentType().equals("image/gif"))) {
+                fileName = "";
+                System.out.println("not format");
+            } else {
+                try {
+
+                    Date date = new Date();
+                    fileName = "D:/my-resume/src/main/webapp/media/" + date.getTime() + "_" + images.getName().replaceAll(" ", "_") + ".jpg";
+                    BufferedOutputStream stream = new BufferedOutputStream(
+                            new FileOutputStream(new File(fileName)));
+                    FileCopyUtils.copy(images.getInputStream(), stream);
+                    stream.close();
+                    System.out.println("newPhotoImage yes");
+                }
+                catch (Exception e) {
+                    fileName = "";
+                    System.out.println("e" + e);
+                }
+            }
+        } else {
+            fileName = "";
+            System.out.println("not");
+        }
+
+        return fileName;
+    }
+
+
+
+
+
     @Override
     public String processNewCertificateImage(MultipartFile images) {
         String fileName;
@@ -81,7 +122,7 @@ public class ImageProcessorServiceImpl implements ImageProcessorService {
                             new FileOutputStream(new File(fileName)));
                     FileCopyUtils.copy(images.getInputStream(), stream);
                     stream.close();
-                    System.out.println("yes");
+                    System.out.println("processNewCertificateImage yes");
                 }
                 catch (Exception e) {
                     fileName = "";

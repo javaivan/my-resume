@@ -55,7 +55,7 @@ public class UploadPhotoForm implements Serializable {
 							new FileOutputStream(new File(fileName)));
 					FileCopyUtils.copy(images.getInputStream(), stream);
 					stream.close();
-					System.out.println("yes");
+					System.out.println("setImages yes");
 				}
 				catch (Exception e) {
 					fileName = "";

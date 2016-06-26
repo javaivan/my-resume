@@ -22,7 +22,6 @@ public class MemberAddInfo  implements Serializable, MemberEntity {
     @JoinColumn(name="member_id", nullable=false)
     private Member member;
 
-    @Size(min=1)
     private String description;
 
 

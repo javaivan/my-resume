@@ -5,10 +5,8 @@ import org.hibernate.validator.constraints.Email;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.io.Serializable;
 
-@FieldMatch(first = "password", second = "confirmPassword", message = "The password fields must match")
-public class RegistrationForm implements Serializable {
+public class RegistrationForm extends PasswordForm {
 
 
 	@NotNull
@@ -28,28 +26,6 @@ public class RegistrationForm implements Serializable {
 	@Size(max=255, min = 2)
 	private String lastName;
 
-	@NotNull
-	@Size(max=255, min = 5)
-	private String password;
-
-	@NotNull
-	@Size(max=255, min = 5)
-	private String confirmPassword;
-
-
-	public RegistrationForm() {
-		super();
-	}
-
-	public RegistrationForm(String nickname, String email, String firstName, String lastName, String password, String confirmPassword) {
-		super();
-		this.nickname = nickname;
-		this.email = email;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.password = password;
-		this.confirmPassword = confirmPassword;
-	}
 
 	public String getNickname() {
 		return nickname;
@@ -83,19 +59,4 @@ public class RegistrationForm implements Serializable {
 		this.lastName = lastName;
 	}
 
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getConfirmPassword() {
-		return confirmPassword;
-	}
-
-	public void setConfirmPassword(String confirmPassword) {
-		this.confirmPassword = confirmPassword;
-	}
 }

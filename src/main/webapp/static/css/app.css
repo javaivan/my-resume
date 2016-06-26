@@ -4,7 +4,9 @@
 	background-color: #eae8e7;
 	color: #222;
 }
-
+.clear{
+	clear: both;
+}
 .resume .contacts {
 	margin-top: 30px;
 }
@@ -158,6 +160,12 @@
 	height: 20px;
 	background: #f00;
 }
+
+
+
+
+
+
 input[type="checkbox"]{
 	display: none;
 }

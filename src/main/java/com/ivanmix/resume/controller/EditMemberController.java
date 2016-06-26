@@ -1,8 +1,10 @@
 package com.ivanmix.resume.controller;
 
 import com.fasterxml.jackson.databind.Module;
+import com.ivanmix.resume.entity.Member;
 import com.ivanmix.resume.form.*;
 import com.ivanmix.resume.service.EditMemberService;
+import com.ivanmix.resume.service.ImageProcessorService;
 import com.ivanmix.resume.util.SecurityUtil;
 import com.ivanmix.resume.model.CurrentMember;
 
@@ -14,10 +16,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class EditMemberController {
@@ -25,6 +25,9 @@ public class EditMemberController {
 
 	@Autowired
 	private EditMemberService editMemberService;
+
+	@Autowired
+	private ImageProcessorService imageService;
 
 	@RequestMapping(value="/edit", method=RequestMethod.GET)
 	public String getEditProfile(Model model){
@@ -40,17 +43,28 @@ public class EditMemberController {
 		editMemberService.updateMemberContact(SecurityUtil.getCurrentIdMember(), form.getItems());
 		return "redirect:/";
 	}
+/*
+    @RequestMapping(value = "/edit/certificates/upload", method = RequestMethod.POST)
+    @ResponseBody
+    public UploadCertificate uploadCertificate(@RequestParam("certificateFile") MultipartFile certificateFile,@RequestParam("certificateName") String certificateName) {
+        System.out.println(certificateName);
+        UploadCertificate uploadCertificate =  imageService.newCertificateImage(certificateFile);
+        editMemberService.addCertificate(SecurityUtil.getCurrentIdMember(),certificateName, uploadCertificate);
+        return imageService.newCertificateImage(certificateFile);
+    }
 
+
+*
+*
+* */
 
 	@RequestMapping(value="/edit/photo", method=RequestMethod.POST)
-	public String savePhoto(@Valid @ModelAttribute("uploadFileForm") UploadPhotoForm form, BindingResult bindingResult, Model model){
-		if(bindingResult.hasErrors()){
-			System.out.println("hasErrors");
-			return "edit";
-		}
-		editMemberService.addMemberPhoto(SecurityUtil.getCurrentIdMember(),form.getImages());
-		System.out.println(form.getImages());
-		return "redirect:/";
+	@ResponseBody
+	public Member savePhoto(@RequestParam("photoFile") MultipartFile file){
+		String f = imageService.newPhotoImage(file);
+		System.out.println(f);
+		editMemberService.addMemberPhoto(SecurityUtil.getCurrentIdMember(),f);
+		return new Member();
 	}
 
 
@@ -75,11 +89,11 @@ public class EditMemberController {
 
 	@RequestMapping(value="/edit/password", method=RequestMethod.GET)
 	public String getEditPassword(Model model){
-		model.addAttribute("changePasswordForm", new ChangePasswordForm());
+		model.addAttribute("PasswordForm", new PasswordForm());
 		return "edit/password";
 	}
 	@RequestMapping(value="/edit/password", method=RequestMethod.POST)
-	public String saveEditPassword(@Valid @ModelAttribute("changePasswordForm") ChangePasswordForm form, BindingResult bindingResult, Model model) {
+	public String saveEditPassword(@Valid @ModelAttribute("passwordForm") PasswordForm form, BindingResult bindingResult, Model model) {
 		if (bindingResult.hasErrors()){
 			return "edit/password";
 		}
@@ -108,6 +122,7 @@ public class EditMemberController {
 
 	@RequestMapping(value="/edit/contact-social", method=RequestMethod.GET)
 	public String getEditContactSocial(Model model) {
+		System.out.println(editMemberService.memberContact(SecurityUtil.getCurrentIdMember()).getMemberContactSocial());
 		model.addAttribute("contactSocial", editMemberService.memberContact(SecurityUtil.getCurrentIdMember()).getMemberContactSocial());
 		return "edit/contact-social";
 	}

@@ -8,7 +8,7 @@
     <div class="panel-body">
         <h4 class="data-header text-center">Образование</h4>
         <hr />
-        <form:form action="/edit/education" method="post" commandName="educationForm">
+        <form:form action="/edit/university" method="post" commandName="universityForm"  detiteEntityName="university">
             <sec:csrfInput/>
             <div id="ui-block-container">
                 <c:forEach var="university" items="${universityForm.universities}" varStatus="status">

@@ -70,6 +70,12 @@ public class EditMemberServiceImpl implements EditMemberService{
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private ContactRepository contactRepository;
+
+    @Autowired
+    private MemberInfoRepository memberInfoRepository;
+
 
     protected Member getMember(long memberId){
         return memberRepository.findById(memberId);
@@ -97,12 +103,40 @@ public class EditMemberServiceImpl implements EditMemberService{
             member.setLastName(form.getLastName());
             member.setNickname(form.getNickname());
             member.setEmail(form.getEmail());
-
             String encodedPassword = passwordEncoder.encode(form.getPassword());
-
             member.setPassword(encodedPassword);
+
+
+
+/*
+            MemberContact memberContact = memberRepository.findById(idMember).getMemberContact();
+            if(memberContact==null){
+                memberContact = new MemberContact();
+            }*/
+
             memberRepository.save(member);
 
+
+
+
+            MemberAddInfo info = new MemberAddInfo();
+            info.setMember(member);
+            memberInfoRepository.save(info);
+
+
+            MemberContact contact = new MemberContact();
+            contact.setMember(member);
+            contactRepository.save(contact);
+
+            /*
+            System.out.println(memberRepository.save(member));
+*
+
+            member.setMemberAddInfo(info);
+            member.setMemberContact(contact);
+
+            memberRepository.save(member);
+*/
             return true;
         }
     }
@@ -127,8 +161,13 @@ public class EditMemberServiceImpl implements EditMemberService{
     public void addMemberPhoto(long idMember, String photo){
         Member member = memberRepository.findOne(idMember);
         //String memberPhoto = member.getMemberContact().getPhoto();
-        member.getMemberContact().setPhoto(photo);
+        MemberContact memberContact = member.getMemberContact();
+        memberContact.setPhoto(photo);
+        member.setMemberContact(memberContact);
         memberRepository.save(member);
+/*
+        member = memberRepository.findOne(idMember);
+        System.out.println("170 " + member.getMemberContact().getPhoto());
         /*
         updatedData.removeAll(Collections.singleton(new Skill()));*/
     }
@@ -168,7 +207,11 @@ public class EditMemberServiceImpl implements EditMemberService{
 
     @Override
     public String addInfo(long idMember) {
-        return memberRepository.findById(idMember).getMemberAddInfo().getDescription();
+        String info = memberRepository.findById(idMember).getMemberAddInfo().getDescription();
+        if(info == null){
+            info = "";
+        }
+        return info;
     }
 
     @Override
@@ -180,7 +223,11 @@ public class EditMemberServiceImpl implements EditMemberService{
 
     @Override
     public MemberContact memberContact(long idMember) {
-        return memberRepository.findById(idMember).getMemberContact();
+        MemberContact memberContact = memberRepository.findById(idMember).getMemberContact();
+        if(memberContact==null){
+            memberContact = new MemberContact();
+        }
+        return memberContact;
     }
 
     @Override
