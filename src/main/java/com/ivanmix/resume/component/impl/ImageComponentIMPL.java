@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.UUID;
 
 @Component
@@ -35,6 +36,11 @@ public class ImageComponentImpl implements ImageComponent{
     @Override
     public String getSmallImageName(String bigImage) {
         return bigImage.replace(".jpg", "-sm.jpg");
+    }
+
+    @Override
+    public Path getUploadPath(String bigImageUrl) {
+        return Paths.get("D:\\my-resume\\src\\main\\webapp\\media\\" + bigImageUrl);
     }
 
 

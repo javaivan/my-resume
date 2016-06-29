@@ -6,8 +6,10 @@ import com.ivanmix.resume.form.CourseForm;
 import com.ivanmix.resume.form.UploadFileForm;
 import com.ivanmix.resume.model.UploadCertificate;
 import com.ivanmix.resume.model.UploadCertificateResult;
+import com.ivanmix.resume.model.UploadImage;
 import com.ivanmix.resume.service.EditMemberService;
 import com.ivanmix.resume.service.ImageProcessorService;
+import com.ivanmix.resume.service.ImageUploadService;
 import com.ivanmix.resume.util.SecurityUtil;
 import com.sun.glass.ui.Application;
 import org.slf4j.Logger;
@@ -39,6 +41,10 @@ public class CertificateController {
 
     @Autowired
     private ImageProcessorService imageService;
+
+
+    @Autowired
+    private ImageUploadService imageUploadService;
 
     @RequestMapping(value="/edit/certificates", method=RequestMethod.GET)
     public String getEditCertificates(Model model){
@@ -79,11 +85,10 @@ public class CertificateController {
     }
     @RequestMapping(value = "/edit/certificates/upload", method = RequestMethod.POST)
     @ResponseBody
-    public UploadCertificate uploadCertificate(@RequestParam("certificateFile") MultipartFile certificateFile,@RequestParam("certificateName") String certificateName) {
-        System.out.println(certificateName);
-        UploadCertificate uploadCertificate =  imageService.newCertificateImage(certificateFile);
-        editMemberService.addCertificate(SecurityUtil.getCurrentIdMember(),certificateName, uploadCertificate);
-        return imageService.newCertificateImage(certificateFile);
+    public String uploadCertificate(@RequestParam("certificateFile") MultipartFile file,@RequestParam("certificateName") String certificateName) {
+        UploadImage image = imageUploadService.uploadNewImage(file);
+        editMemberService.addCertificate(SecurityUtil.getCurrentIdMember(),certificateName, image);
+        return "success";
     }
 
 

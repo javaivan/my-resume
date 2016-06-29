@@ -19,8 +19,11 @@ public class MemberContact implements Serializable, MemberEntity {
     @JoinColumn(name="member_id", nullable=false)
     private Member member;
 
-    @Column
-    private String photo;
+    @Column(name = "big_image", length=250)
+    private String bigImage;
+
+    @Column(name = "small_image", length=250)
+    private String smallImage;
 
     @Column(length = 255)
     private String country;
@@ -58,12 +61,20 @@ public class MemberContact implements Serializable, MemberEntity {
     }
 
 
-    public String getPhoto() {
-        return photo;
+    public String getBigImage() {
+        return bigImage;
     }
 
-    public void setPhoto(String photo) {
-        this.photo = photo;
+    public void setBigImage(String bigImage) {
+        this.bigImage = bigImage;
+    }
+
+    public String getSmallImage() {
+        return smallImage;
+    }
+
+    public void setSmallImage(String smallImage) {
+        this.smallImage = smallImage;
     }
 
     public String getCountry() {

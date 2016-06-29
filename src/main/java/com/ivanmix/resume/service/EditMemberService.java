@@ -6,6 +6,7 @@ import com.ivanmix.resume.entity.*;
 import com.ivanmix.resume.form.RegistrationForm;
 import com.ivanmix.resume.form.SignUpForm;
 import com.ivanmix.resume.model.UploadCertificate;
+import com.ivanmix.resume.model.UploadImage;
 
 public interface EditMemberService {
 
@@ -13,7 +14,7 @@ public interface EditMemberService {
 
     void changePassword(long idMember, String password);
 
-    void addMemberPhoto(long idMember, String photo);
+    void addMemberPhoto(long idMember, UploadImage image);
 
     List<Skill> listSkills(long idMember);
 
@@ -38,7 +39,7 @@ public interface EditMemberService {
 
     void addCertificate(long idMember, Certificate certificate);
 
-    void addCertificate(long idMember, String name, UploadCertificate uploadCertificate);
+    void addCertificate(long idMember, String name, UploadImage image);
 
     void deleteCertificate(long id, long idMember);
 

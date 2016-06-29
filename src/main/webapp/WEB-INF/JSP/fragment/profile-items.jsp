@@ -5,7 +5,7 @@
     <div class="panel panel-default profile-item">
         <div class="media panel-body">
             <div class="media-left media-top">
-                <a href="/${profile.id }"><img src="${profile.memberContact.photo}"></a>
+                <a href="/${profile.id }"><img src="${profile.memberContact.smallImage}"></a>
             </div>
             <div class="media-body search-result-item">
                 <a href="/${profile.id }" class="btn btn-primary pull-right">Детали</a>

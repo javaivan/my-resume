@@ -6,6 +6,7 @@ import com.ivanmix.resume.configuration.SecurityConfig;
 import com.ivanmix.resume.entity.*;
 import com.ivanmix.resume.form.RegistrationForm;
 import com.ivanmix.resume.model.UploadCertificate;
+import com.ivanmix.resume.model.UploadImage;
 import com.ivanmix.resume.repository.storage.*;
 import com.ivanmix.resume.service.EditMemberService;
 import org.apache.commons.collections.CollectionUtils;
@@ -158,11 +159,12 @@ public class EditMemberServiceImpl implements EditMemberService{
 
     @Override
     @Transactional
-    public void addMemberPhoto(long idMember, String photo){
+    public void addMemberPhoto(long idMember, UploadImage image){
         Member member = memberRepository.findOne(idMember);
         //String memberPhoto = member.getMemberContact().getPhoto();
         MemberContact memberContact = member.getMemberContact();
-        memberContact.setPhoto(photo);
+        memberContact.setBigImage(image.getBigImage());
+        memberContact.setSmallImage(image.getSmallImage());
         member.setMemberContact(memberContact);
         memberRepository.save(member);
 /*
@@ -273,12 +275,12 @@ public class EditMemberServiceImpl implements EditMemberService{
 
     @Override
     @Transactional
-    public void addCertificate(long idMember, String name, UploadCertificate uploadCertificate){
+    public void addCertificate(long idMember, String name, UploadImage image){
         Member member = memberRepository.findOne(idMember);
         List<Certificate> certificates = member.getCertificates();
         Certificate c = new Certificate();
-        c.setBigImage(uploadCertificate.getBigImage());
-        c.setSmallImage(uploadCertificate.getSmallImage());
+        c.setBigImage(image.getBigImage());
+        c.setSmallImage(image.getSmallImage());
         c.setName(name);
         certificates.add(c);
         member.setCertificates(certificates);

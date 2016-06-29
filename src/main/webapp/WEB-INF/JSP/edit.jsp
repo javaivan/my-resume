@@ -39,7 +39,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Фото*</label>
                     <div class="col-sm-5">
-                        <img id="currentPhoto" src="${contactForm.photo}" class="edit-photo" /><br />
+                        <img id="currentPhoto" src="${contactForm.smallImage}" class="edit-photo" /><br />
                         <a class="btn btn-primary"id=""  href="javascript:resume.edit.showUploadDialog();">Upload Imagas</a>
                     </div>
                     <div class="col-sm-5 help-block">

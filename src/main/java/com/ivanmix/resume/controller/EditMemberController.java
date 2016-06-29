@@ -3,8 +3,10 @@ package com.ivanmix.resume.controller;
 import com.fasterxml.jackson.databind.Module;
 import com.ivanmix.resume.entity.Member;
 import com.ivanmix.resume.form.*;
+import com.ivanmix.resume.model.UploadImage;
 import com.ivanmix.resume.service.EditMemberService;
 import com.ivanmix.resume.service.ImageProcessorService;
+import com.ivanmix.resume.service.ImageUploadService;
 import com.ivanmix.resume.util.SecurityUtil;
 import com.ivanmix.resume.model.CurrentMember;
 
@@ -28,6 +30,9 @@ public class EditMemberController {
 
 	@Autowired
 	private ImageProcessorService imageService;
+
+	@Autowired
+	private ImageUploadService imageUploadService;
 
 	@RequestMapping(value="/edit", method=RequestMethod.GET)
 	public String getEditProfile(Model model){
@@ -60,11 +65,12 @@ public class EditMemberController {
 
 	@RequestMapping(value="/edit/photo", method=RequestMethod.POST)
 	@ResponseBody
-	public Member savePhoto(@RequestParam("photoFile") MultipartFile file){
-		String f = imageService.newPhotoImage(file);
-		System.out.println(f);
-		editMemberService.addMemberPhoto(SecurityUtil.getCurrentIdMember(),f);
-		return new Member();
+	public String savePhoto(@RequestParam("photoFile") MultipartFile file){
+
+		UploadImage image = imageUploadService.uploadNewImage(file);
+
+		editMemberService.addMemberPhoto(SecurityUtil.getCurrentIdMember(), image);
+		return "success";
 	}
 
 

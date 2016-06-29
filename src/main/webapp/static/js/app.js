@@ -57,13 +57,16 @@ var resume = {
 
             $.ajax({
                 url: '/edit/certificates/upload', // point to server-side PHP script
-                dataType: 'json',  // what to expect back from the PHP script, if anything
+                //dataType: 'json',  // what to expect back from the PHP script, if anything
                 cache: false,
                 contentType: false,
                 processData: false,
                 data: form_data,
                 type: 'post',
                 success: function(response){
+
+                    alert(response);
+
                     location.reload();
 
                     /*
@@ -152,13 +155,14 @@ var resume = {
             form_data.append('photoFile', file_data);
             $.ajax({
                 url: '/edit/photo', // point to server-side PHP script
-                dataType: 'json',  // what to expect back from the PHP script, if anything
+                //dataType: 'json',  // what to expect back from the PHP script, if anything
                 cache: false,
                 contentType: false,
                 processData: false,
                 data: form_data,
                 type: 'post',
                 success: function(response){
+                    alert(response);
                     location.reload();
 
                 },

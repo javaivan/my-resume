@@ -9,12 +9,12 @@
 	<c:choose>
 		<c:when test="${showEdit }">
 			<a href="/edit">
-				<img alt="photo" src="${member.memberContact.photo}" class="img-responsive photo">
+				<img alt="photo" src="${member.memberContact.smallImage}" class="img-responsive photo">
 			</a>
 			<h1 class="text-center"><a href="/edit" style="color:black;">${member.fullName}</a></h1>
 		</c:when>
 		<c:otherwise>
-			<img alt="photo" src="${member.memberContact.photo}" class="img-responsive photo">
+			<img alt="photo" src="${member.memberContact.smallImage}" class="img-responsive photo">
 			<h1 class="text-center">${member.fullName}</h1>
 		</c:otherwise>
 	</c:choose>

@@ -13,6 +13,7 @@ import org.springframework.core.io.Resource;
 
 @Configuration
 @ComponentScan({ "com.ivanmix.resume.service.impl",
+        "com.ivanmix.resume.component.impl",
         "com.ivanmix.resume.controller",
         "com.ivanmix.resume.filter",
         "com.ivanmix.resume.listener"})
