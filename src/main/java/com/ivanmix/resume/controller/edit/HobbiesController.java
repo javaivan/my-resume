@@ -1,8 +1,7 @@
 package com.ivanmix.resume.controller.edit;
 
 import com.ivanmix.resume.form.HobbyForm;
-import com.ivanmix.resume.service.EditMemberService;
-import com.ivanmix.resume.service.member.MemberHobbyService;
+import com.ivanmix.resume.service.EditMemberHobbyService;
 import com.ivanmix.resume.util.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,11 +17,11 @@ import javax.validation.Valid;
 public class HobbiesController {
 
     @Autowired
-    private MemberHobbyService memberHobbyService;
+    private EditMemberHobbyService hobbyService;
 
     @RequestMapping(value="/edit/hobbies", method= RequestMethod.GET)
     public String getEditHobbies(Model model){
-        model.addAttribute("hobbies", memberHobbyService.listHobbiesWithProfileSelected(SecurityUtil.getCurrentIdMember()));
+        model.addAttribute("hobbies", hobbyService.listHobbiesWithProfileSelected(SecurityUtil.getCurrentIdMember()));
         return "edit/hobbies";
 }
     @RequestMapping(value="/edit/hobbies", method=RequestMethod.POST)
@@ -30,9 +29,7 @@ public class HobbiesController {
         if (bindingResult.hasErrors()) {
             return "edit/hobbies";
         }
-        memberHobbyService.updateHobbies(SecurityUtil.getCurrentIdMember(), form.getItems());
+        hobbyService.updateHobbies(SecurityUtil.getCurrentIdMember(), form.getItems());
         return "redirect:/";
     }
-
-
 }

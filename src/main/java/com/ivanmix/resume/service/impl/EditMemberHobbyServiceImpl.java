@@ -1,4 +1,4 @@
-package com.ivanmix.resume.service.impl.member;
+package com.ivanmix.resume.service.impl;
 
 import com.ivanmix.resume.entity.Hobby;
 import com.ivanmix.resume.entity.HobbyItem;
@@ -6,11 +6,8 @@ import com.ivanmix.resume.entity.Member;
 import com.ivanmix.resume.repository.storage.HobbiesRepository;
 import com.ivanmix.resume.repository.storage.HobbyItemRepository;
 import com.ivanmix.resume.repository.storage.MemberRepository;
-import com.ivanmix.resume.service.impl.EditMemberServiceImpl;
-import com.ivanmix.resume.service.member.MemberHobbyService;
+import com.ivanmix.resume.service.EditMemberHobbyService;
 import org.apache.commons.collections.CollectionUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -22,9 +19,7 @@ import java.util.List;
 
 @Service
 @SuppressWarnings("unchecked")
-public class MemberHobbyServiceImpl implements MemberHobbyService {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(MemberHobbyService.class);
+public class EditMemberHobbyServiceImpl implements EditMemberHobbyService {
 
     @Autowired
     private MemberRepository memberRepository;
@@ -60,17 +55,12 @@ public class MemberHobbyServiceImpl implements MemberHobbyService {
     @Override
     @Transactional
     public void updateHobbies(long idMember, List<Hobby> hobbies) {
-        /*MAKE BETTER*/
         hobbiesRepository.deleteByMemberId(idMember);
         Member member = memberRepository.findOne(idMember);
         hobbies.removeAll(Collections.singleton(new Hobby()));
         if (CollectionUtils.isEqualCollection(hobbies, member.getHobbies())) {
-            LOGGER.debug("Member skills: nothing to update");
             return;
         }
-        /*member.getHobbies().removeAll(member.getHobbies());
-        memberRepository.save(member);
-        member.getHobbies().clear();*/
         member.setHobbies(hobbies);
         memberRepository.save(member);
     }

@@ -61,10 +61,10 @@ public class EditMemberServiceImpl implements EditMemberService{
 
     @Autowired
     private LanguageRepository languageRepository;
-
+/*
     @Autowired
     private CertificateRepository certificateRepository;
-
+*/
     @Autowired
     private HobbiesRepository hobbiesRepository;
 
@@ -175,39 +175,6 @@ public class EditMemberServiceImpl implements EditMemberService{
     }
 
     @Override
-    public List<Skill> listSkills(long idMember) {
-        return memberRepository.findOne(idMember).getSkills();
-    }
-
-    @Override
-    public List<SkillCategory> listSkillCategories() {
-        return skillCategoryRepository.findAll(new Sort("id"));
-    }
-
-    @Override
-    @Transactional
-    public void updateSkills(long idMember, List<Skill> updatedData) {
-        Member member = memberRepository.findOne(idMember);
-        updatedData.removeAll(Collections.singleton(new Skill()));
-
-        if (CollectionUtils.isEqualCollection(updatedData, member.getSkills())) {
-            LOGGER.debug("Member skills: nothing to update");
-            return;
-        } else {
-            member.getSkills().clear();
-            member.setSkills(updatedData);
-            memberRepository.save(member);
-        }
-    }
-
-    @Override
-    @Transactional
-    public void deleteSkill(long idSkill,long idMember){
-
-        skillRepository.deleteByIdAndMemberId(idSkill, idMember);
-    }
-
-    @Override
     public String addInfo(long idMember) {
         String info = memberRepository.findById(idMember).getMemberAddInfo().getDescription();
         if(info == null){
@@ -257,6 +224,7 @@ public class EditMemberServiceImpl implements EditMemberService{
         memberRepository.save(member);
     }
 
+/*
     @Override
     public List<Certificate> listCertificates(long idMember) {
         return memberRepository.findOne(idMember).getCertificates();
@@ -265,7 +233,6 @@ public class EditMemberServiceImpl implements EditMemberService{
     @Override
     @Transactional
     public void addCertificate(long idMember, Certificate certificate) {
-        /*????*/
         Member member = memberRepository.findOne(idMember);
         List<Certificate> certificates = member.getCertificates();
         certificates.add(certificate);
@@ -287,12 +254,6 @@ public class EditMemberServiceImpl implements EditMemberService{
         memberRepository.save(member);
     }
 
-
-
-
-
-
-
     @Override
     @Transactional
     public void deleteCertificate(long id, long idMember){
@@ -313,7 +274,7 @@ public class EditMemberServiceImpl implements EditMemberService{
             LOGGER.debug("Member courses: nothing to update");
             return;
         } else {
-           /* member.getCourses().clear();*/
+
             member.setCourses(courses);
             memberRepository.save(member);
         }
@@ -325,7 +286,8 @@ public class EditMemberServiceImpl implements EditMemberService{
         courseRepository.deleteByIdAndMemberId(id,idMember);
     }
 
-
+*/
+    /*
     @Override
     public List<University> listUniversities(long idMember) {
         return memberRepository.findById(idMember).getUniversities();
@@ -349,60 +311,6 @@ public class EditMemberServiceImpl implements EditMemberService{
     public void deleteUniversity(long id, long idMember){
         universityRepository.deleteByIdAndMemberId(id,idMember);
     }
-
-
-    @Override
-    public List<Language> listLanguages(long idMember) {
-        return memberRepository.findById(idMember).getLanguages();
-    }
-
-    @Override
-    @Transactional
-    public void updateLanguages(long idMember, List<Language> languages) {
-        Member member = memberRepository.findOne(idMember);
-        if(CollectionUtils.isEqualCollection(languages,member.getUniversities())){
-            LOGGER.debug("Member languages: nothing to update");
-            return;
-        } else {
-            member.setLanguages(languages);
-            memberRepository.save(member);
-        }
-    }
-
-
-    @Transactional
-    public void deleteLanguage(long id, long idMember){
-        languageRepository.deleteByIdAndMemberId(id,idMember);
-    }
-
-
-    @Override
-    public List<Practic> listPractics(long idMember) {
-        return memberRepository.findById(idMember).getPractics();
-    }
-
-
-
-    @Override
-    @Transactional
-    public void updatePractics(long idMember, List<Practic> practics) {
-        Member member = memberRepository.findOne(idMember);
-        practics.removeAll(Collections.singleton(new Practic()));
-        if(CollectionUtils.isEqualCollection(practics, member.getPractics())){
-            LOGGER.debug("Member practic: nothing to update");
-            return;
-        } else {
-            //member.getPractics().clear();
-            member.setPractics(practics);
-            memberRepository.save(member);
-        }
-    }
-
-    @Transactional
-    public void deletePractics(long id, long idMember){
-        practicRepository.deleteByIdAndMemberId(id,idMember);
-    }
-
-
+*/
 
 }
