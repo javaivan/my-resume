@@ -3,7 +3,7 @@
 <%@ taglib prefix="form"    uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="resume"  tagdir="/WEB-INF/tags"%>
 
-
+<resume:edit-tab-header selected="contact-social" />
 
 
 <div class="panel panel-default">

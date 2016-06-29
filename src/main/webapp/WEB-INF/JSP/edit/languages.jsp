@@ -4,6 +4,7 @@
 <%@ taglib prefix="sec" 	uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="resume" 	tagdir="/WEB-INF/tags"%>
 
+<resume:edit-tab-header selected="languages" />
 
 <div class="panel panel-default">
     <div class="panel-body">

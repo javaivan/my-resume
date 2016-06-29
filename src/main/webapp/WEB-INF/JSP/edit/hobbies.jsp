@@ -4,7 +4,7 @@
 <%@ taglib prefix="resume" 	tagdir="/WEB-INF/tags"%>
 
 
-
+<resume:edit-tab-header selected="hobbies" />
 
 <div id="hobbyContainer" class="panel panel-default">
     <div class="panel-body">

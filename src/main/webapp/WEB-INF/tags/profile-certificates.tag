@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" 		uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ attribute name="showEdit"  required="false" type="java.lang.Boolean" %>
 <%@ attribute name="member" required="false" type="com.ivanmix.resume.entity.Member"%>
+<%@ attribute name="certificates" required="true" type="java.util.List" %>
 
 <div class="panel panel-primary certificates">
 	<div class="panel-heading">
@@ -11,8 +12,12 @@
 		</h3>
 	</div>
 	<div class="panel-body">
-		<a data-url="/media/certificates/10e5b86b-fd5b-490a-9090-6e71270ed40f.jpg" data-title="Jee certificate" href="#" class="thumbnail certificate-link">
-			<img alt="Jee certificate" src="/media/certificates/10e5b86b-fd5b-490a-9090-6e71270ed40f-sm.jpg" class="img-responsive"> <span>Jee certificate</span>
-		</a>
+		<c:forEach var="certificat" items="${certificates }">
+			<a data-url="${certificat.bigImage }" data-title="${certificat.name }" href="#" class="thumbnail certificate-link">
+				<img alt="${certificat.name }" src="${certificat.smallImage }" class="img-responsive">
+				<span>${certificat.name }</span>
+			</a>
+			<div class="clear"></div>
+		</c:forEach>
 	</div>
 </div>

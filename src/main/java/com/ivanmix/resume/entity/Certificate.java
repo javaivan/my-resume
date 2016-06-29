@@ -10,7 +10,6 @@ import java.io.Serializable;
 @Entity
 @Table(name="certificate")
 public class Certificate extends AbstractEntity<Long> implements Serializable, MemberEntity {
-    private static final long serialVersionUID = 1L;
 
     @Id
     @SequenceGenerator(name="CERTIFICATE_ID_GENERATOR", sequenceName="CERTIFICATE_SEQ", allocationSize=1)
@@ -22,9 +21,14 @@ public class Certificate extends AbstractEntity<Long> implements Serializable, M
     @Size(min=1)
     private String name;
 
-    @Column(nullable=false, length=250)
-    @Size(min=1)
-    private String images;
+    @Column(name = "big_image", length=250)
+    private String bigImage;
+
+    @Column(name = "small_image", length=250)
+    private String smallImage;
+
+
+
 
     //bi-directional many-to-one association to Profile
     @ManyToOne(fetch=FetchType.LAZY)
@@ -51,12 +55,20 @@ public class Certificate extends AbstractEntity<Long> implements Serializable, M
     }
 
 
-    public String getImages() {
-        return images;
+    public String getBigImage() {
+        return bigImage;
     }
 
-    public void setImages(String images) {
-        this.images = images;
+    public void setBigImage(String bigImage) {
+        this.bigImage = bigImage;
+    }
+
+    public String getSmallImage() {
+        return smallImage;
+    }
+
+    public void setSmallImage(String smallImage) {
+        this.smallImage = smallImage;
     }
 
     public Member getMember() {
@@ -69,48 +81,39 @@ public class Certificate extends AbstractEntity<Long> implements Serializable, M
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        Certificate that = (Certificate) o;
+
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        if (bigImage != null ? !bigImage.equals(that.bigImage) : that.bigImage != null) return false;
+        if (smallImage != null ? !smallImage.equals(that.smallImage) : that.smallImage != null) return false;
+        return member != null ? member.equals(that.member) : that.member == null;
+
+    }
+
+    @Override
     public int hashCode() {
-        final int prime = 31;
         int result = super.hashCode();
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + ((images == null) ? 0 : images.hashCode());
+        result = 31 * result + (id != null ? id.hashCode() : 0);
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (bigImage != null ? bigImage.hashCode() : 0);
+        result = 31 * result + (smallImage != null ? smallImage.hashCode() : 0);
+        result = 31 * result + (member != null ? member.hashCode() : 0);
         return result;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (!super.equals(obj))
-            return false;
-        if (!(obj instanceof Certificate))
-            return false;
-        Certificate other = (Certificate) obj;
-        if (name == null) {
-            if (other.name != null)
-                return false;
-        } else if (!name.equals(other.name))
-            return false;
-        if (id == null) {
-            if (other.id != null)
-                return false;
-        } else if (!id.equals(other.id))
-            return false;
-        if (images == null) {
-            if (other.images != null)
-                return false;
-        } else if (!images.equals(other.images))
-            return false;
-        return true;
-    }
-
-    @Override
     public String toString() {
-        return "Certificate: {" +
+        return "Certificate{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", images='" + images + '\'' +
+                ", bigImage='" + bigImage + '\'' +
+                ", smallImage='" + smallImage + '\'' +
                 ", member=" + member +
                 '}';
     }

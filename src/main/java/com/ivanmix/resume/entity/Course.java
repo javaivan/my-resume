@@ -11,7 +11,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "course")
-public class Course implements Serializable, MemberEntity{
+public class Course extends  AbstractFinishDateEntity<Long>  implements Serializable, MemberEntity{
 
 
     @Id
@@ -73,7 +73,7 @@ public class Course implements Serializable, MemberEntity{
     public int hashCode() {
         final int prime = 31;
         int result = super.hashCode();
-        //result = prime * result + ((getFinishDate() == null) ? 0 : getFinishDate().hashCode());
+        result = prime * result + ((getFinishDate() == null) ? 0 : getFinishDate().hashCode());
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         result = prime * result + ((name == null) ? 0 : name.hashCode());
         result = prime * result + ((school == null) ? 0 : school.hashCode());
@@ -89,11 +89,11 @@ public class Course implements Serializable, MemberEntity{
         if (!(obj instanceof Course))
             return false;
         Course other = (Course) obj;
-        /*if (getFinishDate() == null) {
+        if (getFinishDate() == null) {
             if (other.getFinishDate() != null)
                 return false;
         } else if (!getFinishDate().equals(other.getFinishDate()))
-            return false;*/
+            return false;
         if (id == null) {
             if (other.id != null)
                 return false;

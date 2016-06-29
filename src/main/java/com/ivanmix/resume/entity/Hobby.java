@@ -65,9 +65,9 @@ public class Hobby extends AbstractEntity<Long> implements Serializable, MemberE
         this.name = name;
     }
 
-/*    public String getCssClassName(){
+    public String getCssClassName(){
         return name.replace(" ", "-").toLowerCase();
-    }*/
+    }
 
 
     @Override

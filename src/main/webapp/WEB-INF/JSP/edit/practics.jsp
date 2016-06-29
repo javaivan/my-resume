@@ -3,13 +3,15 @@
 <%@ taglib prefix="form"   	uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="resume" 	tagdir="/WEB-INF/tags"%>
 
+<resume:edit-tab-header selected="practics" />
+
 <div class="panel panel-default">
     <div class="panel-body">
         <h4 class="data-header">Практический опыт</h4>
         <hr />
         <form:form action="/edit/practics" method="post" commandName="practicForm" detiteEntityName="practic">
             <div id="ui-block-container">
-                <c:forEach var="practic" items="${practicForm.practics}" varStatus="status">
+                <c:forEach var="practic" items="${practicForm.items}" varStatus="status">
                     <resume:edit-practic-block index="${status.index}" practic="${practic}" />
                 </c:forEach>
             </div>

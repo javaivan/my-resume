@@ -4,7 +4,7 @@
 <%@ taglib prefix="resume" 	tagdir="/WEB-INF/tags"%>
 
 
-<div class="row ui-item skill-item">
+<div class="row skill-item">
     <div class="col-xs-5 col-sm-4 col-md-2 form-group">
         <input type="hidden" name="items[${id}].id" value="" />
         <select name="items[${id}].name" class="form-control">

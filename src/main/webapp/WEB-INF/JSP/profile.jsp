@@ -15,9 +15,9 @@
 					showEdit="${showEdit}" />
 			<div class="hidden-xs">
 				<resume:profile-languages
-						showEdit="${showEdit}" />
+						showEdit="${showEdit}" languages="${member.languages}" />
 				<resume:profile-hobbies
-						showEdit="${showEdit}" />
+						showEdit="${showEdit}"  hobbies="${member.hobbies}" />
 				<resume:profile-info
 						showEdit="${showEdit}" />
 			</div>
@@ -26,23 +26,23 @@
 			<resume:profile-objective
 					showEdit="${showEdit}" />
 			<resume:profile-skills
-					showEdit="${showEdit}" />
+					showEdit="${showEdit}"  skills="${member.skills}" />
 			<resume:profile-practics
-					showEdit="${showEdit }" />
+					showEdit="${showEdit }" practics="${member.practics}" />
 			<resume:profile-certificates
-					showEdit="${showEdit}"/>
+					showEdit="${showEdit}" certificates="${member.certificates}"/>
 			<resume:profile-cources
-					showEdit="${showEdit}" />
+					showEdit="${showEdit}" courses="${member.courses}" />
 			<resume:profile-university
-					showEdit="${showEdit}" />
+					showEdit="${showEdit}" universities="${member.universities}" />
 		</div>
 		<div class="col-xs-12 visible-xs-block">
 			<resume:profile-languages
-					showEdit="${showEdit}" />
+					showEdit="${showEdit}" languages="${member.languages}" />
 			<resume:profile-hobbies
-					showEdit="${showEdit}" />
+					showEdit="${showEdit}" hobbies="${member.hobbies}" />
 			<resume:profile-info
-					showEdit="${showEdit}" />
+					showEdit="${showEdit}"  />
 		</div>
 	</div>
 </div>

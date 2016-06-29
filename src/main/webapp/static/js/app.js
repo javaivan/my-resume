@@ -189,7 +189,8 @@ function detiteEntity(id) {
     body += '<strong class="btn_not">not</strong>';
     body += '</div>';
     body += '<div class="box_detite_bg"></div>';
-    $(".panel-body").append(body);
+//    $(".panel-body").append(body);
+    $("#ui-block-container").append(body);
     return false;
 }
 function addNewEntity() {

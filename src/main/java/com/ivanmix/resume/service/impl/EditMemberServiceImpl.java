@@ -277,7 +277,8 @@ public class EditMemberServiceImpl implements EditMemberService{
         Member member = memberRepository.findOne(idMember);
         List<Certificate> certificates = member.getCertificates();
         Certificate c = new Certificate();
-        c.setImages(uploadCertificate.getBigImage());
+        c.setBigImage(uploadCertificate.getBigImage());
+        c.setSmallImage(uploadCertificate.getSmallImage());
         c.setName(name);
         certificates.add(c);
         member.setCertificates(certificates);
@@ -310,7 +311,7 @@ public class EditMemberServiceImpl implements EditMemberService{
             LOGGER.debug("Member courses: nothing to update");
             return;
         } else {
-            member.getCourses().clear();
+           /* member.getCourses().clear();*/
             member.setCourses(courses);
             memberRepository.save(member);
         }

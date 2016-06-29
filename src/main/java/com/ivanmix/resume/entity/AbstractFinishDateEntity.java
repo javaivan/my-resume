@@ -14,7 +14,6 @@ import org.joda.time.DateTime;
  */
 @MappedSuperclass
 public abstract class AbstractFinishDateEntity<T> extends AbstractEntity<T> {
-    private static final long serialVersionUID = -3388293457711051284L;
 
     @Column(name = "finish_date")
     private Date finishDate;

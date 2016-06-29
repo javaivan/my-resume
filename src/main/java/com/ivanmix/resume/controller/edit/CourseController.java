@@ -35,13 +35,13 @@ public class CourseController {
         if (bindingResult.hasErrors()) {
             return "edit/course";
         }
-        editMemberService.updateCourses(SecurityUtil.getCurrentIdMember(),form.getCourses());
+        editMemberService.updateCourses(SecurityUtil.getCurrentIdMember(),form.getItems());
         return "redirect:/";
     }
 
     @RequestMapping(value = "/fragment/edit/courses/{id}", method = RequestMethod.GET)
     public String getAddCourses(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("id", id);
+        model.addAttribute("index", id);
         return "fragment/edit/course";
     }
 

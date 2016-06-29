@@ -5,6 +5,7 @@
 <%@ taglib prefix="sec" 	uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="resume" 	tagdir="/WEB-INF/tags"%>
 
+<resume:edit-tab-header selected="info" />
 
 <div class="panel panel-default edit-profile">
     <div class="panel-body">

@@ -14,6 +14,11 @@ public enum  LanguageType {
 
     WRITING;
 
+
+    public String getCaption() {
+        return name();
+    }
+
     public String getDbValue() {
         return name().toLowerCase();
     }

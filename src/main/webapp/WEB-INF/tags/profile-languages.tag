@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" 		uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ attribute name="showEdit"  required="false" type="java.lang.Boolean" %>
 <%@ attribute name="member" required="false" type="com.ivanmix.resume.entity.Member"%>
+<%@ attribute name="languages" required="true" type="java.util.List" %>
 
 <div class="panel panel-primary">
     <div class="panel-heading">
@@ -11,6 +12,8 @@
         </h3>
     </div>
     <div class="panel-body">
-        <strong>English:</strong> Intermediate<br>
+        <c:forEach var="language" items="${languages }">
+            <strong>${language.name }:</strong> ${language.level.caption } (${language.type.caption })<br/>
+        </c:forEach>
     </div>
 </div>

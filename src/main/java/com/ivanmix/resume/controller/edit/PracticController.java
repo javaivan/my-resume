@@ -36,7 +36,7 @@ public class PracticController {
         if (bindingResult.hasErrors()) {
             return "edit/practics";
         }
-        editMemberService.updatePractics(SecurityUtil.getCurrentIdMember(),form.getPractics());
+        editMemberService.updatePractics(SecurityUtil.getCurrentIdMember(),form.getItems());
         return "redirect:/";
     }
 

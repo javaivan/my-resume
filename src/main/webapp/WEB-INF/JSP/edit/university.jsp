@@ -4,6 +4,8 @@
 <%@ taglib prefix="sec" 	uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="resume" 	tagdir="/WEB-INF/tags"%>
 
+<resume:edit-tab-header selected="university" />
+
 <div class="panel panel-default">
     <div class="panel-body">
         <h4 class="data-header text-center">Образование</h4>

@@ -4,7 +4,6 @@
 
 <sec:authentication property="principal" var="CURRENT_PROFILE"/>
 
-
 <nav class="navbar navbar-default resume-nav">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -21,7 +20,7 @@
                 </sec:authorize>
                 <sec:authorize access="hasAuthority('USER')">
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${CURRENT_PROFILE.id } <span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${CURRENT_PROFILE.username}<span class="caret"></span></a>
                         <ul class="dropdown-menu profile-menu">
                             <li><a href="/${CURRENT_PROFILE.id }"><i class="fa fa-eye"></i>Мой профиль</a></li>
                             <li><a href="/edit"><i class="fa fa-pencil"></i>Изменить</a></li>

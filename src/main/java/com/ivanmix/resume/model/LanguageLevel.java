@@ -22,6 +22,10 @@ public enum LanguageLevel {
 
     PROFICIENCY;
 
+    public String getCaption(){
+        return name();
+    }
+
     public int getSliderIntValue(){
         return ordinal();
     }

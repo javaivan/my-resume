@@ -12,22 +12,22 @@ import java.util.List;
 public class PracticForm implements Serializable {
 
 	@Valid
-	private List<Practic> practics = new ArrayList<>();
+	private List<Practic> items = new ArrayList<>();
 
     public PracticForm() {
 		super();
 	}
 
-    public PracticForm(List<Practic> practics) {
+    public PracticForm(List<Practic> items) {
 		super();
-		this.practics = practics;
+		this.items = items;
 	}
 
-	public List<Practic> getPractics() {
-		return practics;
+	public List<Practic> getItems() {
+		return items;
 	}
 
-	public void setPractics(List<Practic> practics) {
-		this.practics = practics;
+	public void setItems(List<Practic> items) {
+		this.items = items;
 	}
 }

@@ -7,9 +7,9 @@
 <jsp:useBean id="now" class="java.util.Date" />
 <fmt:formatDate var="year" value="${now}" pattern="yyyy" />
 
-<div  class="row ui-item university-item">
-    <input type="hidden" name="universities[${index}].id" value="" />
+<div  class="row university-item">
     <div class="panel-body ui-item">
+        <input type="hidden" name="universities[${index}].id" value="" />
         <div class="row">
             <div class="col-xs-12 col-md-12">
                 <strong>Развернутая специалицация</strong>

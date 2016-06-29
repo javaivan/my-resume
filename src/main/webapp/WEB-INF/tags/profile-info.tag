@@ -10,5 +10,5 @@
             <c:if test="${showEdit }"><a href="/edit/info" class="edit-block">Edit</a></c:if>
         </h3>
     </div>
-    <div class="panel-body text-justify">Married, Two children</div>
+    <div class="panel-body text-justify">${member.memberAddInfo.description}</div>
 </div>

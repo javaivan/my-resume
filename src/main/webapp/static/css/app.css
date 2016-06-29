@@ -148,9 +148,11 @@
 }
 .box_detite_entity .btn_yes{
 	float:left;
+	cursor: pointer;
 }
 .box_detite_entity .btn_not{
 	float:right;
+	cursor: pointer;
 }
 .box_detite_entity .close{
 	position: absolute;
@@ -159,6 +161,8 @@
 	width: 20px;
 	height: 20px;
 	background: #f00;
+	text-indent: -9999px;
+	opacity: 1;
 }
 
 
@@ -171,6 +175,10 @@ input[type="checkbox"]{
 }
 input[type="checkbox"] + label{
 	background: #f00;
+	cursor: pointer;
+	color: #fff;
+	border-radius: 10px;
+	padding: 5px 8px;
 }
 
 input[type="checkbox"]:checked + label {

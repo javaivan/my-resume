@@ -12,22 +12,22 @@ import java.util.List;
 public class CourseForm implements Serializable {
 
 	@Valid
-	private List<Course> courses = new ArrayList<>();
+	private List<Course> items = new ArrayList<>();
 
     public CourseForm() {
 		super();
 	}
 
-    public CourseForm(List<Course> courses) {
+    public CourseForm(List<Course> items) {
 		super();
-		this.courses = courses;
+		this.items = items;
 	}
 
-    public List<Course> getCourses() {
-		return courses;
+    public List<Course> getItems() {
+		return items;
 	}
 
-    public void setCourses(List<Course> courses) {
-		this.courses = courses;
+    public void setItems(List<Course> items) {
+		this.items = items;
 	}
 }

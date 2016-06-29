@@ -9,13 +9,13 @@
 
 <div id="ui-item-${certificate.id}" class="thumbnail ui-item certificates-item">
     <input type="hidden" name="items[${index }].id" 	value="${certificate.id}" />
-    <input type="hidden" name="items[${index }].smallUrl" 	value="${certificate.images}" />
-    <input type="hidden" name="items[${index }].largeUrl" 	value="${certificate.images}" />
+    <input type="hidden" name="items[${index }].bigImage" 	value="${certificate.bigImage}" />
+    <input type="hidden" name="items[${index }].smallImage" 	value="${certificate.smallImage}" />
     <input type="hidden" name="items[${index }].name" 		value="${name}" />
 
 
-    <a class="certificate-link" href="#" data-title="${certificate.name}" data-url="${certificate.images}">
-        <img class="img-responsive" src="${certificate.images}" alt="${certificate.name}">
+    <a class="certificate-link" href="#" data-title="${certificate.name}" data-url="${certificate.bigImage}">
+        <img class="img-responsive" src="${certificate.smallImage}" alt="${certificate.name}">
         <span>${certificate.name}</span>
     </a>
 

@@ -4,38 +4,38 @@
 <%@ taglib prefix="resume" 	tagdir="/WEB-INF/tags"%>
 
 
-<div class="row ui-item сourse-item">
+<div class="row course-item">
     <div class="panel-body ui-item">
         <div class="row">
             <div class="col-xs-12 col-md-6 form-group">
                 <strong>Должность</strong>
                 <br>
-                <input type="hidden" name="practics[${index }].id" value="" />
-                <input class="form-control" type="text" name="practics[${index}].position" value="" />
+                <input type="hidden" name="items[${index }].id" value="" />
+                <input class="form-control" type="text" name="items[${index}].position" value="" />
             </div>
             <div class="col-xs-12 col-md-6 form-group ">
                 <strong>Компания или организация</strong>
                 <br>
-                <input class="form-control" type="text" name="practics[${index }].company" value="" />
+                <input class="form-control" type="text" name="items[${index }].company" value="" />
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <strong>Обязаности/Достижения</strong>
                 <br>
-                <textarea class="form-control" name="practics[${index}].responsibilities"></textarea>
+                <textarea class="form-control" name="items[${index}].responsibilities"></textarea>
             </div>
 
             <div class="col-xs-12 col-md-6 form-group">
                 <strong>Дата начала</strong>
                 <br>
                 <div class="col-xs-6 col-sm-6 col-md-6">
-                    <select name="practics[${index }].beginDateMonth" class="form-control">
+                    <select name="items[${index }].beginDateMonth" class="form-control">
                         <c:forEach begin="1" end="12" var="i">
                             <option value="${i}">${i}</option>
                         </c:forEach>
                     </select>
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-6">
-                    <select name="practics[${index }].beginDateYear" class="form-control">
+                    <select name="items[${index }].beginDateYear" class="form-control">
                         <c:forEach begin="1990" end="2016" var="i">
                             <option value="${i}">${i}</option>
                         </c:forEach>
@@ -46,14 +46,14 @@
                 <strong>Дата завершения</strong>
                 <br>
                 <div class="col-xs-6 col-sm-6 col-md-6">
-                    <select name="practics[${index }].finishDateMonth" class="form-control">
+                    <select name="items[${index }].finishDateMonth" class="form-control">
                         <c:forEach begin="1" end="12" var="i">
                             <option value="${i}">${i}</option>
                         </c:forEach>
                     </select>
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-6">
-                    <select name="practics[${index }].finishDateYear" class="form-control">
+                    <select name="items[${index }].finishDateYear" class="form-control">
                         <c:forEach begin="1990" end="2016" var="i">
                             <option value="${i}"}>${i}</option>
                         </c:forEach>
@@ -63,12 +63,12 @@
             <div class="col-xs-12 col-md-6 form-group">
                 <strong>Ссылка на Демо</strong>
                 <br>
-                <input class="form-control" type="text" name="practics[${index}].demo" value="" />
+                <input class="form-control" type="text" name="items[${index}].demo" value="" />
             </div>
             <div class="col-xs-12 col-md-6 form-group">
                 <strong>Исходный код</strong>
                 <br>
-                <input class="form-control" type="text" name="practics[${index }].src" value="" />
+                <input class="form-control" type="text" name="items[${index }].src" value="" />
             </div>
         </div>
     </div>

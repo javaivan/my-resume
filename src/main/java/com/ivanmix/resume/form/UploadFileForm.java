@@ -83,7 +83,6 @@ public class UploadFileForm  implements Serializable {
 					FileCopyUtils.copy(images.getInputStream(), stream);
 					stream.close();
 					System.out.println("yes");
-					certificate.setImages(fileName);
 				}
 				catch (Exception e) {
 					fileName = "";

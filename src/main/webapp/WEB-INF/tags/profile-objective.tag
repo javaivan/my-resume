@@ -7,7 +7,6 @@
     <div class="panel-heading">
         <h3 class="panel-title">
             <i class="fa fa-bullseye"></i> Objective
-
             <c:if test="${showEdit }"><a href="/edit" class="edit-block">Edit</a></c:if>
         </h3>
     </div>
